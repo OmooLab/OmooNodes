@@ -1,0 +1,7 @@
+@import url("https://fontsapi.zeoseven.com/292/main/result.css");
+@import url("https://fontsapi.zeoseven.com/293/main/result.css");
+
+:root {
+  --md-text-font: "LXGW WenKai";
+  --md-code-font: "LXGW WenKai Mono";
+}
