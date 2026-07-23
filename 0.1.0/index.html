@@ -31,7 +31,7 @@
     
     
       
-        <title>OmooNodes - OmooNodes Docs</title>
+        <title>偶魔节点 - OmooNodes Docs</title>
       
     
     
@@ -84,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#omoonodes" class="md-skip">
+        <a href="#_1" class="md-skip">
           跳转至
         </a>
       
@@ -123,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              OmooNodes
+              偶魔节点
             
           </span>
         </div>
@@ -557,32 +557,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        安装方式
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        获取本地资产包
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#blender-52-remote-asset-library" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Blender 5.2 Remote Asset Library
+        功能与特色
       
     </span>
   </a>
@@ -593,10 +571,38 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        资产内容
+        安装
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本地资产库
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        远程资产库（5.2）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -617,59 +623,79 @@
 
 
 
-<h1 id="omoonodes">OmooNodes</h1>
-<p>OmooNodes 是 OmooLab 为 Blender 提供的节点资产库套装，包含可复用的 Geometry Nodes、
-Shader Nodes、Compositing Nodes 和额外效果，可直接从 Blender Asset Browser 使用。</p>
-<h2 id="_1">安装方式</h2>
-<p>OmooNodes 提供两种安装方式：</p>
-<ul>
-<li><strong>本地资产库</strong>：从 Gumroad 下载资产包，解压后按 Blender 的传统方式添加本地 Asset
-  Library，适用于 Blender 4.5 及以上版本。</li>
-<li><strong>Remote Asset Library</strong>：Blender 5.2 及以上版本可以直接添加 OmooLab 的在线资产库，
-  无需安装 add-on。</li>
-</ul>
-<p>详细步骤见 <a href="asset-libraries/">资产库</a>。</p>
-<h2 id="_2">获取本地资产包</h2>
-<p>在 Gumroad 获取 OmooNodes：</p>
-<p><a href="https://icrdr.gumroad.com/l/omoonodes">https://icrdr.gumroad.com/l/omoonodes</a></p>
-<h2 id="blender-52-remote-asset-library">Blender 5.2 Remote Asset Library</h2>
+<h1 id="_1">偶魔节点</h1>
+<p><img alt="cover" src="assets/cover.png" /></p>
+<p>偶魔节点（Omoo Nodes）是 OmooLab 为 Blender 打造的一套实用节点资产库。它把工作中频繁
+使用的流程封装成可复用的节点组，减少从头搭建常用功能的时间，也让复杂节点树更清晰、更易维护。</p>
+<p>它部分借鉴了 Houdini 的程序化工作流，面向程序化建模、粒子特效、三渲二风格化、科学可视化和标识标注等真实制作场景；</p>
+<h2 id="_2">功能与特色</h2>
+<p>整套资产按用途划分为多个资产库：</p>
 <table>
 <thead>
 <tr>
 <th>资产库</th>
-<th>地址</th>
+<th>用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>O Essentials</code></td>
-<td><a href="https://assets.omoolab.xyz/b52/o_essentials">https://assets.omoolab.xyz/b52/o_essentials</a></td>
+<td>基础功能节点与其他资产库的共享依赖</td>
 </tr>
 <tr>
 <td><code>O Extra</code></td>
-<td><a href="https://assets.omoolab.xyz/b52/o_extra">https://assets.omoolab.xyz/b52/o_extra</a></td>
+<td>程序化资产与特定艺术效果</td>
+</tr>
+<tr>
+<td><code>O Granules</code></td>
+<td>粒子特效、模拟与预设</td>
+</tr>
+<tr>
+<td><code>O Growth</code></td>
+<td>有机生长与生命模拟效果</td>
+</tr>
+<tr>
+<td><code>O Annotation</code></td>
+<td>科学数据可视化、标签与标识标注</td>
 </tr>
 </tbody>
 </table>
-<h2 id="_3">资产内容</h2>
+<p>所有节点都使用 Blender 原生资产库，无需安装插件</p>
+<h2 id="_3">安装</h2>
+<p>根据 Blender 版本和使用方式选择安装方案：</p>
+<h3 id="_4">本地资产库</h3>
+<ol>
+<li>从 <a href="https://icrdr.gumroad.com/l/omoonodes">Gumroad</a> 获取偶魔节点</li>
+<li>完整解压到固定目录</li>
+<li>打开 <code>编辑 &gt; 偏好设置 &gt; 资产库</code></li>
+<li>点击列表右侧 <code>+</code>，选择资产库文件夹，比如 <code>O Essentials</code></li>
+</ol>
+<p>部分资产库依赖 <code>O Essentials</code>，解压后请保持相关资产库文件夹的相对位置不变。</p>
+<h3 id="52">远程资产库（5.2）</h3>
+<ol>
+<li>打开 <code>编辑 &gt; 偏好设置 &gt; 资产库</code></li>
+<li>点击列表右侧 <code>+</code>，选择<code>添加远程资产库</code>，输入需要的资产库的URL</li>
+</ol>
 <table>
 <thead>
 <tr>
 <th>资产库</th>
-<th>内容</th>
+<th>URL</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>O Essentials</code></td>
-<td>Attribute、Curve、Debug、Deform、Filter、Generate、Read、Texture、Utilities 等基础节点</td>
+<td><code>https://assets.omoolab.xyz/b52/o-essentials</code></td>
 </tr>
 <tr>
 <td><code>O Extra</code></td>
-<td>Effect、Misc、Scene 等额外效果与场景节点</td>
+<td><code>https://assets.omoolab.xyz/b52/o-extra</code></td>
 </tr>
 </tbody>
 </table>
+<p>如果 Blender 请求网络权限，请允许 Online Access。Blender 会先读取资源列表和缩略图，
+并在使用具体资产时按需下载和缓存文件。</p>
 
 
 

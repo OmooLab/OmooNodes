@@ -816,7 +816,8 @@ overlay 中的同名 Node Group 覆盖基础实现。</p>
 <li><code>-P build_assets.py</code>：执行构筑脚本。</li>
 <li><code>--</code>：分隔 Blender 参数与构筑脚本参数。</li>
 <li><code>SOURCE</code>：单个 Asset Library 源目录。</li>
-<li><code>-o/--out</code>：输出父目录；产物目录名沿用 <code>SOURCE</code> 的目录名。</li>
+<li><code>-o/--out</code>：输出父目录。本地产物保留源目录名；Remote 产物转换为小写
+  kebab-case，例如 <code>O_Essentials → o-essentials</code>。</li>
 </ul>
 <p>构筑会在临时目录中完成组合、清理与校验，全部成功后才替换目标目录。Blender 备份文件、
 旧 Remote listing 和临时文件不会进入产物。</p>
@@ -836,11 +837,15 @@ overlay 中的同名 Node Group 覆盖基础实现。</p>
 <h2 id="_7">构筑远程资产库</h2>
 <p>Remote 模式会将 linked datablock 本地化，清理外部引用，生成 listing、metadata 和缩略图，
 并校验资产文件与 SHA-256：</p>
+<p>本地化会在源文件的相对路径仍然有效时完成，因此 Remote 输出目录改为 kebab-case
+不会影响已有的跨资产库引用，也不需要修改源文件中的引用路径。依赖 datablock 会保留
+节点内容，但不会继承来源资产库的 Asset 标记。</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span>subspaces/O_Essentials<span class="w"> </span>--remote<span class="w"> </span>-o<span class="w"> </span>dist
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span>subspaces/O_Extra<span class="w"> </span>--remote<span class="w"> </span>-o<span class="w"> </span>dist
 </span></code></pre></div>
+<p>结果分别位于 <code>dist/o-essentials</code> 和 <code>dist/o-extra</code>，可直接映射到同名网络路径。</p>
 <p>Remote 构筑会验证资产数量、文件数量、缩略图和 SHA-256。<code>--remote</code> 已经生成无外部引用
 的产物，因此不能与 <code>--self-contained</code> 同时使用。</p>
 

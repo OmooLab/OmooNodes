@@ -31,7 +31,7 @@
     
     
       
-        <title>OmooNodes - OmooNodes Docs</title>
+        <title>Omoo Nodes - OmooNodes Docs</title>
       
     
     
@@ -84,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#omoonodes" class="md-skip">
+        <a href="#omoo-nodes" class="md-skip">
           Skip to content
         </a>
       
@@ -123,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              OmooNodes
+              Omoo Nodes
             
           </span>
         </div>
@@ -557,10 +557,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation-options" class="md-nav__link">
+  <a href="#features" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation Options
+        Features
       
     </span>
   </a>
@@ -568,35 +568,41 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-the-local-asset-package" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Get the Local Asset Package
+        Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-asset-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Asset Libraries
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#blender-52-remote-asset-libraries" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#remote-asset-libraries-52" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Blender 5.2 Remote Asset Libraries
+        Remote Asset Libraries (5.2)
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#included-assets" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Included Assets
-      
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -617,61 +623,86 @@
 
 
 
-<h1 id="omoonodes">OmooNodes</h1>
-<p>OmooNodes is a collection of Blender node asset libraries from OmooLab. It provides
-reusable Geometry Nodes, Shader Nodes, Compositing Nodes, and extra effects directly
-through Blender's Asset Browser.</p>
-<h2 id="installation-options">Installation Options</h2>
-<p>OmooNodes can be installed in two ways:</p>
-<ul>
-<li><strong>Local Asset Libraries</strong>: download the asset package from Gumroad, extract it, and
-  add the folders through Blender's standard local Asset Library workflow. This works
-  with Blender 4.5 and newer.</li>
-<li><strong>Remote Asset Libraries</strong>: Blender 5.2 and newer can connect directly to OmooLab's
-  hosted libraries without installing an add-on.</li>
-</ul>
-<p>See <a href="asset-libraries/">Asset Libraries</a> for detailed steps.</p>
-<h2 id="get-the-local-asset-package">Get the Local Asset Package</h2>
-<p>Get OmooNodes on Gumroad:</p>
-<p><a href="https://icrdr.gumroad.com/l/omoonodes">https://icrdr.gumroad.com/l/omoonodes</a></p>
-<h2 id="blender-52-remote-asset-libraries">Blender 5.2 Remote Asset Libraries</h2>
+<h1 id="omoo-nodes">Omoo Nodes</h1>
+<p><img alt="cover" src="../assets/cover.png" /></p>
+<p>Omoo Nodes is a suite of practical node asset libraries created by OmooLab for
+Blender. It turns frequently used workflows into reusable node groups, reducing the
+time spent rebuilding common functionality while making complex node trees clearer
+and easier to maintain.</p>
+<p>Inspired in part by Houdini's procedural workflow, it is designed for real production
+scenarios such as procedural modeling, particle effects, stylized non-photorealistic
+rendering, scientific visualization, and annotation.</p>
+<h2 id="features">Features</h2>
+<p>The assets are organized into libraries by purpose:</p>
 <table>
 <thead>
 <tr>
-<th>Library</th>
+<th>Asset Library</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>O Essentials</code></td>
+<td>Core utility nodes and shared dependencies for other asset libraries</td>
+</tr>
+<tr>
+<td><code>O Extra</code></td>
+<td>Procedural assets and specific artistic effects</td>
+</tr>
+<tr>
+<td><code>O Granules</code></td>
+<td>Particle effects, simulations, and presets</td>
+</tr>
+<tr>
+<td><code>O Growth</code></td>
+<td>Organic growth and life-simulation effects</td>
+</tr>
+<tr>
+<td><code>O Annotation</code></td>
+<td>Scientific data visualization, labels, and annotations</td>
+</tr>
+</tbody>
+</table>
+<p>All nodes use Blender's native Asset Library system, with no add-on required.</p>
+<h2 id="installation">Installation</h2>
+<p>Choose an installation method based on your Blender version and preferred workflow:</p>
+<h3 id="local-asset-libraries">Local Asset Libraries</h3>
+<ol>
+<li>Get Omoo Nodes from <a href="https://icrdr.gumroad.com/l/omoonodes">Gumroad</a>.</li>
+<li>Extract the complete package to a permanent directory.</li>
+<li>Open <code>Edit &gt; Preferences &gt; Asset Libraries</code>.</li>
+<li>Click <code>+</code> on the right side of the list and select an asset library folder, such
+   as <code>O Essentials</code>.</li>
+</ol>
+<p>Some asset libraries depend on <code>O Essentials</code>. Keep the relative locations of the
+asset library folders unchanged after extraction.</p>
+<h3 id="remote-asset-libraries-52">Remote Asset Libraries (5.2)</h3>
+<ol>
+<li>Open <code>Edit &gt; Preferences &gt; Asset Libraries</code>.</li>
+<li>Click <code>+</code> on the right side of the list, select <code>Add Remote Asset Library</code>, and
+   enter the URL of the asset library you need.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Asset Library</th>
 <th>URL</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>O Essentials</code></td>
-<td><a href="https://assets.omoolab.xyz/b52/o_essentials">https://assets.omoolab.xyz/b52/o_essentials</a></td>
+<td><code>https://assets.omoolab.xyz/b52/o-essentials</code></td>
 </tr>
 <tr>
 <td><code>O Extra</code></td>
-<td><a href="https://assets.omoolab.xyz/b52/o_extra">https://assets.omoolab.xyz/b52/o_extra</a></td>
+<td><code>https://assets.omoolab.xyz/b52/o-extra</code></td>
 </tr>
 </tbody>
 </table>
-<h2 id="included-assets">Included Assets</h2>
-<table>
-<thead>
-<tr>
-<th>Library</th>
-<th>Content</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>O Essentials</code></td>
-<td>Core nodes in Attribute, Curve, Debug, Deform, Filter, Generate, Read, Texture, Utilities, and other catalogs</td>
-</tr>
-<tr>
-<td><code>O Extra</code></td>
-<td>Additional effects and scene nodes in Effect, Misc, and Scene catalogs</td>
-</tr>
-</tbody>
-</table>
+<p>If Blender requests network permission, allow Online Access. Blender first loads the
+asset listings and thumbnails, then downloads and caches individual assets on demand.</p>
 
 
 
