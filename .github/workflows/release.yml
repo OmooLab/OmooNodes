@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    name: Package addon
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Fetch LFS files
+        run: git lfs pull
+
+      - name: Package src/omoonodes
+        id: package
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          tag_name="${GITHUB_REF_NAME}"
+          asset_tag_name="${tag_name//\//-}"
+          asset_name="omoonodes-${asset_tag_name}.zip"
+          dist_dir="${RUNNER_TEMP}/release"
+          zip_path="${dist_dir}/${asset_name}"
+
+          mkdir -p "${dist_dir}"
+          cd src
+          zip -r "${zip_path}" omoonodes \
+            -x "*/__pycache__/*" \
+            -x "*.pyc" \
+            -x "*.pyo" \
+            -x "*.blend1"
+
+          echo "asset_name=${asset_name}" >> "${GITHUB_OUTPUT}"
+          echo "zip_path=${zip_path}" >> "${GITHUB_OUTPUT}"
+
+      - name: Publish release
+        uses: akkuman/gitea-release-action@v1
+        with:
+          server_url: ${{ github.server_url }}
+          token: ${{ github.token }}
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body: Automatically package src/omoonodes for ${{ github.ref_name }} tag.
+          files: ${{ steps.package.outputs.zip_path }}

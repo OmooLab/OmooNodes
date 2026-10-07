@@ -1,0 +1,92 @@
+site_name: OmooNodes Docs
+site_url: https://docs.omoolab.xyz/omoonodes/
+site_author: OmooLab
+site_description: OmooNodes provides reusable node assets as local and remote Blender Asset Libraries.
+
+nav:
+  - OmooNodes:
+      - index.md
+      - asset-libraries.md
+  - 节点:
+      - O Essentials: nodes/o-essentials.md
+      - O Extra: nodes/o-extra.md
+  - 开发者:
+      - develop.md
+
+theme:
+  name: material
+  favicon: assets/favicon.png
+  logo: assets/logo.png
+  language: zh
+  font:
+    text: Open Sans
+    code: Cascadia Code
+  palette:
+    - media: "(prefers-color-scheme)"
+      primary: black
+      toggle:
+        icon: fontawesome/solid/circle-half-stroke
+        name: Switch to light mode
+
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      toggle:
+        icon: fontawesome/regular/moon
+        name: Switch to dark mode
+
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      toggle:
+        icon: fontawesome/solid/moon
+        name: Switch to system preference
+
+  features:
+    - header.autohide
+    - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - content.code.copy
+    - content.code.select
+
+extra:
+  version:
+    provider: mike
+
+extra_css:
+  - stylesheets/extra.css
+
+copyright: Copyright &copy; 2025 OmooLab
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix
+      languages:
+        - locale: zh
+          name: 中文
+          default: true
+        - locale: en
+          name: English
+          nav_translations:
+            开发者: Develop
+            节点: Nodes
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+  - pymdownx.tabbed:
+      alternate_style: true

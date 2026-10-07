@@ -1,0 +1,12 @@
+[mcp_servers.blender]
+enabled = true
+required = false
+command = "uvx"
+args = [
+  "--from",
+  "git+https://projects.blender.org/lab/blender_mcp.git@v1.0.0#subdirectory=mcp",
+  "blender-mcp",
+]
+env = { BLENDER_MCP_HOST = "localhost", BLENDER_MCP_PORT = "9876" }
+startup_timeout_sec = 120
+tool_timeout_sec = 300

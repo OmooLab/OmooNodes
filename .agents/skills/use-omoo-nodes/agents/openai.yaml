@@ -1,0 +1,11 @@
+interface:
+  display_name: "Use Omoo Nodes"
+  short_description: "专注实现动态与清晰、原生、可继续编辑的 Blender 节点树"
+  default_prompt: "使用 $use-omoo-nodes 只实现这个节点效果，保留原生节点名称并整理清楚连线。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "blender"
+      description: "Blender MCP server with bpy execution, scene inspection, screenshots, and rendering"
+      transport: "stdio"
