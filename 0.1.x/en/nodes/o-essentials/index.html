@@ -1,0 +1,9215 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="OmooNodes provides reusable node assets as local and remote Blender Asset Libraries.">
+      
+      
+        <meta name="author" content="OmooLab">
+      
+      
+        <link rel="canonical" href="https://docs.omoolab.xyz/omoonodes/0.1.x/en/nodes/o-essentials/">
+      
+      
+        <link rel="prev" href="../../asset-libraries/">
+      
+      
+        <link rel="next" href="../o-extra/">
+      
+      
+        
+          <link rel="alternate" href="../../../nodes/o-essentials/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>O Essentials - OmooNodes Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i%7CCascadia+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Open Sans";--md-code-font:"Cascadia Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#o-essentials" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="OmooNodes Docs" class="md-header__button md-logo" aria-label="OmooNodes Docs" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OmooNodes Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              O Essentials
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M448 256c0-106-86-192-192-192v384c106 0 192-86 192-192M0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M239.3 48.7C132.2 57.2 48 146.8 48 256c0 114.9 93.1 208 208 208 33.3 0 64.7-7.8 92.6-21.7C245.2 418.9 168 326.5 168 216c0-65.8 27.4-125.1 71.3-167.3M0 256C0 114.6 114.6 0 256 0c19.4 0 38.4 2.2 56.7 6.3 9.9 2.2 17.3 10.5 18.5 20.5s-4 19.8-13.1 24.4C257.5 81.4 216 143.9 216 216c0 101.6 82.4 184 184 184 5 0 9.9-.2 14.8-.6 10.1-.8 19.6 4.8 23.8 14.1s2 20.1-5.3 27.1C387.3 484.8 324.8 512 256 512 114.6 512 0 397.4 0 256"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256c68.8 0 131.3-27.2 177.3-71.4 7.3-7 9.4-17.9 5.3-27.1s-13.7-14.9-23.8-14.1c-4.9.4-9.8.6-14.8.6-101.6 0-184-82.4-184-184 0-72.1 41.5-134.6 102.1-164.8 9.1-4.5 14.3-14.3 13.1-24.4s-8.6-18.3-18.5-20.5C294.4 2.2 275.4 0 256 0"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../nodes/o-essentials/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  OmooNodes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Nodes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../develop/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Develop
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="OmooNodes Docs" class="md-nav__button md-logo" aria-label="OmooNodes Docs" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    OmooNodes Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OmooNodes
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OmooNodes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asset-libraries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asset Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nodes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Nodes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    O Essentials
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    O Essentials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        快速索引
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        合成节点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="合成节点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#o-image-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Image Info
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Image Info">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-relight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Relight
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Relight">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-stroke" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Stroke
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Stroke">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        几何节点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="几何节点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#o-align-edge-ends" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Align Edge Ends
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Align Edge Ends">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-blend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Blend
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Blend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-capsule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Capsule
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Capsule">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-center" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Center
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Center">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-center-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Center Line
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Center Line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-connect-adjacent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Connect Adjacent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Connect Adjacent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-curve-deform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Curve Deform
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Curve Deform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-curve-distance-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Curve Distance Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Curve Distance Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-curve-flow-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Curve Flow Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Curve Flow Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-curve-to-edge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Curve to Edge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Curve to Edge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-debug-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Debug Direction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Debug Direction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-debug-direction-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Debug Direction Field
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Debug Direction Field">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-debug-edge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Debug Edge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Debug Edge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-debug-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Debug Field
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Debug Field">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-debug-integer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Debug Integer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Debug Integer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-debug-uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Debug UV
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Debug UV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-delete-small-parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Delete Small Parts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Delete Small Parts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-displace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Displace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Displace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-edge-to-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Edge to Curve
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Edge to Curve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-exploded-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Exploded View
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Exploded View">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-fast-remesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Fast Remesh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Fast Remesh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-geometry-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Geometry Info
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Geometry Info">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_58" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-grid-distribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Grid Distribute
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Grid Distribute">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_59" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-helix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Helix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Helix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-id-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O ID Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O ID Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-index-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Index Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Index Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-is-edge-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Is Edge Boundary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Is Edge Boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_68" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-is-uv-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Is UV Split
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Is UV Split">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_69" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_70" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-mask-by-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Mask by Distance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Mask by Distance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-mask-by-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Mask by Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Mask by Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-match-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Match Size
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Match Size">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_76" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-mesh-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Mesh Boolean
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Mesh Boolean">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_77" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_78" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_79" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-mesh-distance-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Mesh Distance Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Mesh Distance Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_80" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-mesh-flow-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Mesh Flow Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Mesh Flow Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-mix-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Mix Color
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Mix Color">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_84" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_85" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-nearby-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Nearby Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Nearby Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_86" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_87" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-noise-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Noise Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Noise Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_88" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_89" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_90" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-normalize-attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Normalize Attribute
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Normalize Attribute">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-object-to-tangent-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Object to Tangent Space
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Object to Tangent Space">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-pick-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Pick Instance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Pick Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_95" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_96" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-point-deform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Point Deform
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Point Deform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_97" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_98" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_99" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-point-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Point Grid
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Point Grid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_100" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-points-distance-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Points Distance Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Points Distance Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_103" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-points-flow-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Points Flow Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Points Flow Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_104" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_105" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-position-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Position Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Position Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_107" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_108" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_109" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_110" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-quad-sphere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Quad Sphere
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Quad Sphere">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-random-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Random Direction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Random Direction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_114" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-random-instance-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Random Instance Index
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Random Instance Index">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_115" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_116" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-random-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Random Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Random Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_117" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_118" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-region-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Region Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Region Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_119" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_120" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-relax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Relax
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Relax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-resample-edge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Resample Edge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Resample Edge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-rest-position" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Rest Position
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Rest Position">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_125" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_126" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-scene-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Scene Time
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Scene Time">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_127" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_128" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-screw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Screw
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Screw">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_129" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_130" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-set-edge-radius" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Set Edge Radius
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Set Edge Radius">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-shortest-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Shortest Paths
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Shortest Paths">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_136" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-smooth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Smooth
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Smooth">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_137" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_138" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-smooth-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Smooth Attributes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Smooth Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_139" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_140" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-solidfy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Solidfy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Solidfy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-store-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Store Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Store Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_143" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_144" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-symmetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Symmetry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Symmetry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_145" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_146" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-tension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Tension
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Tension">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_147" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_148" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Timing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Timing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_149" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_150" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-torus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Torus
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Torus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_151" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_152" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-transfer-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Transfer Attributes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Transfer Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_153" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_154" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_155" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-transfer-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Transfer Material
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Transfer Material">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_156" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_157" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-transfer-uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Transfer UV
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Transfer UV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_158" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_159" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Transform
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Transform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_160" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_161" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-tube" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Tube
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Tube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_162" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_163" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-uv-island" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O UV Island
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O UV Island">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_164" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_165" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-uv-tangent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O UV Tangent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O UV Tangent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_166" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_167" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-voxel-remesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Voxel Remesh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Voxel Remesh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_168" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_169" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_170" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-wireframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Wireframe
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Wireframe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_171" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_172" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_173" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        着色器节点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="着色器节点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#o-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Background
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_174" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_175" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-circle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Circle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Circle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_176" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_177" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-ensure-uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Ensure UV
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Ensure UV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_178" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_179" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Grid
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Grid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_180" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_181" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Linear
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Linear">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_182" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_183" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-pixelate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Pixelate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Pixelate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_184" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_185" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-square" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Square
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Square">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_186" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_187" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../o-extra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    O Extra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Develop
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Develop
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../develop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        快速索引
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        合成节点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="合成节点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#o-image-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Image Info
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Image Info">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-relight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Relight
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Relight">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-stroke" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Stroke
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Stroke">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        几何节点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="几何节点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#o-align-edge-ends" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Align Edge Ends
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Align Edge Ends">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-blend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Blend
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Blend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-capsule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Capsule
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Capsule">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-center" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Center
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Center">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-center-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Center Line
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Center Line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-connect-adjacent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Connect Adjacent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Connect Adjacent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-curve-deform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Curve Deform
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Curve Deform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-curve-distance-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Curve Distance Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Curve Distance Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-curve-flow-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Curve Flow Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Curve Flow Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-curve-to-edge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Curve to Edge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Curve to Edge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-debug-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Debug Direction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Debug Direction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-debug-direction-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Debug Direction Field
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Debug Direction Field">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-debug-edge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Debug Edge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Debug Edge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-debug-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Debug Field
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Debug Field">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-debug-integer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Debug Integer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Debug Integer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-debug-uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Debug UV
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Debug UV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-delete-small-parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Delete Small Parts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Delete Small Parts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-displace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Displace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Displace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-edge-to-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Edge to Curve
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Edge to Curve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-exploded-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Exploded View
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Exploded View">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-fast-remesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Fast Remesh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Fast Remesh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-geometry-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Geometry Info
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Geometry Info">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_58" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-grid-distribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Grid Distribute
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Grid Distribute">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_59" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-helix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Helix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Helix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-id-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O ID Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O ID Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-index-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Index Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Index Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-is-edge-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Is Edge Boundary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Is Edge Boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_68" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-is-uv-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Is UV Split
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Is UV Split">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_69" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_70" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-mask-by-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Mask by Distance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Mask by Distance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-mask-by-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Mask by Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Mask by Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-match-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Match Size
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Match Size">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_76" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-mesh-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Mesh Boolean
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Mesh Boolean">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_77" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_78" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_79" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-mesh-distance-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Mesh Distance Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Mesh Distance Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_80" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-mesh-flow-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Mesh Flow Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Mesh Flow Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-mix-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Mix Color
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Mix Color">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_84" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_85" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-nearby-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Nearby Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Nearby Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_86" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_87" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-noise-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Noise Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Noise Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_88" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_89" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_90" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-normalize-attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Normalize Attribute
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Normalize Attribute">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-object-to-tangent-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Object to Tangent Space
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Object to Tangent Space">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-pick-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Pick Instance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Pick Instance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_95" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_96" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-point-deform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Point Deform
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Point Deform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_97" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_98" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_99" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-point-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Point Grid
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Point Grid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_100" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-points-distance-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Points Distance Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Points Distance Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_103" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-points-flow-texture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Points Flow Texture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Points Flow Texture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_104" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_105" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-position-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Position Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Position Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_107" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_108" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_109" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_110" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-quad-sphere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Quad Sphere
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Quad Sphere">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-random-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Random Direction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Random Direction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_114" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-random-instance-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Random Instance Index
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Random Instance Index">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_115" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_116" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-random-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Random Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Random Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_117" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_118" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-region-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Region Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Region Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_119" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_120" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-relax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Relax
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Relax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-resample-edge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Resample Edge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Resample Edge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-rest-position" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Rest Position
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Rest Position">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_125" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_126" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-scene-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Scene Time
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Scene Time">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_127" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_128" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-screw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Screw
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Screw">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_129" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_130" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-set-edge-radius" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Set Edge Radius
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Set Edge Radius">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-shortest-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Shortest Paths
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Shortest Paths">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_136" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-smooth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Smooth
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Smooth">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_137" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_138" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-smooth-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Smooth Attributes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Smooth Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_139" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_140" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-solidfy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Solidfy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Solidfy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-store-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Store Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Store Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_143" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_144" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-symmetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Symmetry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Symmetry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_145" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_146" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-tension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Tension
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Tension">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_147" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_148" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Timing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Timing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_149" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_150" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-torus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Torus
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Torus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_151" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_152" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-transfer-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Transfer Attributes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Transfer Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_153" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_154" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_155" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-transfer-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Transfer Material
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Transfer Material">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_156" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_157" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-transfer-uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Transfer UV
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Transfer UV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_158" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_159" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Transform
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Transform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_160" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_161" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-tube" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Tube
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Tube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_162" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_163" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-uv-island" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O UV Island
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O UV Island">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_164" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_165" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-uv-tangent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O UV Tangent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O UV Tangent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_166" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_167" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-voxel-remesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Voxel Remesh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Voxel Remesh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_168" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        妙用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_169" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_170" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-wireframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Wireframe
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Wireframe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_171" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_172" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_173" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        着色器节点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="着色器节点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#o-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Background
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_174" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_175" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-circle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Circle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Circle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_176" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_177" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-ensure-uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Ensure UV
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Ensure UV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_178" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_179" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Grid
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Grid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_180" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_181" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Linear
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Linear">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_182" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_183" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-pixelate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Pixelate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Pixelate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_184" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_185" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-square" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O Square
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O Square">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_186" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_187" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="o-essentials">O Essentials 节点参考</h1>
+<p>本页收录 86 个资产节点，重点说明节点能做什么、参数如何影响结果，以及值得尝试的用法。</p>
+<p>机器接口信息由 <code>node-catalog.json</code> 单独维护。同名输入属于不同模式时，会用「面板 / 参数」标明它所在的位置。</p>
+<h2 id="_1">快速索引</h2>
+<ul>
+<li>合成节点：<code>O Image Info</code>、<code>O Relight</code>、<code>O Stroke</code></li>
+<li>几何节点：<code>O Align Edge Ends</code>、<code>O Blend</code>、<code>O Capsule</code>、<code>O Center</code>、<code>O Center Line</code>、<code>O Connect Adjacent</code>、<code>O Curve Deform</code>、<code>O Curve Distance Texture</code>、<code>O Curve Flow Texture</code>、<code>O Curve to Edge</code>、<code>O Debug Direction</code>、<code>O Debug Direction Field</code>、<code>O Debug Edge</code>、<code>O Debug Field</code>、<code>O Debug Integer</code>、<code>O Debug UV</code>、<code>O Delete Small Parts</code>、<code>O Displace</code>、<code>O Edge to Curve</code>、<code>O Exploded View</code>、<code>O Fast Remesh</code>、<code>O Geometry Info</code>、<code>O Grid Distribute</code>、<code>O Helix</code>、<code>O ID Selection</code>、<code>O Index Selection</code>、<code>O Is Edge Boundary</code>、<code>O Is UV Split</code>、<code>O Mask by Distance</code>、<code>O Mask by Selection</code>、<code>O Match Size</code>、<code>O Mesh Boolean</code>、<code>O Mesh Distance Texture</code>、<code>O Mesh Flow Texture</code>、<code>O Mix Color</code>、<code>O Nearby Selection</code>、<code>O Noise Texture</code>、<code>O Normalize Attribute</code>、<code>O Object to Tangent Space</code>、<code>O Pick Instance</code>、<code>O Point Deform</code>、<code>O Point Grid</code>、<code>O Points Distance Texture</code>、<code>O Points Flow Texture</code>、<code>O Position Selection</code>、<code>O Project</code>、<code>O Quad Sphere</code>、<code>O Random Direction</code>、<code>O Random Instance Index</code>、<code>O Random Selection</code>、<code>O Region Selection</code>、<code>O Relax</code>、<code>O Resample Edge</code>、<code>O Rest Position</code>、<code>O Scene Time</code>、<code>O Screw</code>、<code>O Selection</code>、<code>O Set Edge Radius</code>、<code>O Shortest Paths</code>、<code>O Smooth</code>、<code>O Smooth Attributes</code>、<code>O Solidfy</code>、<code>O Store Selection</code>、<code>O Symmetry</code>、<code>O Tension</code>、<code>O Timing</code>、<code>O Torus</code>、<code>O Transfer Attributes</code>、<code>O Transfer Material</code>、<code>O Transfer UV</code>、<code>O Transform</code>、<code>O Tube</code>、<code>O UV Island</code>、<code>O UV Tangent</code>、<code>O Voxel Remesh</code>、<code>O Wireframe</code></li>
+<li>着色器节点：<code>O Background</code>、<code>O Circle</code>、<code>O Ensure UV</code>、<code>O Grid</code>、<code>O Linear</code>、<code>O Pixelate</code>、<code>O Square</code></li>
+</ul>
+<h2 id="_2">合成节点</h2>
+<h3 id="o-image-info">O Image Info</h3>
+<p>读取合成图像的尺寸关系，输出可用于分辨率无关运算的相对尺寸。</p>
+<h4 id="_3">输入</h4>
+<ul>
+<li><code>Image</code>：提供要分析或处理的图像。</li>
+</ul>
+<h4 id="_4">输出</h4>
+<ul>
+<li><code>Relative Size</code>：输出相对于参考分辨率的尺寸比例。</li>
+</ul>
+<h3 id="o-relight">O Relight</h3>
+<p>结合图像、法线与遮罩，按给定方向和颜色重新计算方向光，并同时输出光照分量。</p>
+<h4 id="_5">妙用</h4>
+<ul>
+<li>在合成阶段补一盏可控方向光，快速调整角色或产品的受光方向。</li>
+</ul>
+<h4 id="_6">输入</h4>
+<ul>
+<li><code>Image</code>：提供要分析或处理的图像。</li>
+<li><code>Normal</code>：提供表面朝向，用于光照、投射或方向计算。</li>
+<li><code>Mask</code>：限制效果的作用范围；黑白或数值可形成渐变过渡。</li>
+<li><code>Direction</code>：指定效果、投射或形变前进的方向。</li>
+<li><code>Color</code>：提供要使用、混合或处理的颜色。</li>
+</ul>
+<h4 id="_7">输出</h4>
+<ul>
+<li><code>Image</code>：输出处理后的图像。</li>
+<li><code>Light</code>：输出单独的光照分量。</li>
+</ul>
+<h3 id="o-stroke">O Stroke</h3>
+<p>综合 Matte、Depth 与 Normal 边缘生成可抖动、可调粗细的合成描边，并叠加到原图。</p>
+<h4 id="_8">输入</h4>
+<ul>
+<li><code>Image</code>：提供要分析或处理的图像。</li>
+<li><code>Matte</code>：提供前景遮罩或抠像结果。</li>
+<li><code>Depth</code>：提供深度信息或控制沿深度方向的距离。</li>
+<li><code>Normal</code>：提供表面朝向，用于光照、投射或方向计算。</li>
+<li><code>General / Thickness</code>：控制实体、描边或管壁的厚度。</li>
+<li><code>General / Color</code>：提供要使用、混合或处理的颜色。</li>
+<li><code>General / Light</code>：提供光照颜色或光照信息。</li>
+<li><code>Loose / Strength</code>：控制效果的整体强弱。</li>
+<li><code>Loose / Frequency</code>：控制变化出现得有多密集。</li>
+<li><code>Loose / Messy</code>：加入不规则变化，避免端点或排列显得过于整齐。</li>
+<li><code>Loose / Offset</code>：在原位置、时间或数值基础上增加偏移。</li>
+<li><code>Options / Exposure</code>：整体提亮或压暗结果。</li>
+<li><code>Options / Gamma</code>：调整明暗中间调。</li>
+<li><code>Options / Blur</code>：柔化结果，减弱过硬的边界或细节。</li>
+<li><code>Options / Matte Weight</code>：控制「Matte」对最终结果的影响强度。</li>
+<li><code>Options / Depth Weight</code>：控制「Depth」对最终结果的影响强度。</li>
+<li><code>Options / Normal Weight</code>：控制「Normal」对最终结果的影响强度。</li>
+<li><code>Options / Normal Threshold</code>：决定法线方向差异多大时才视为不同区域。</li>
+</ul>
+<h4 id="_9">输出</h4>
+<ul>
+<li><code>Image</code>：输出处理后的图像。</li>
+<li><code>Stroke</code>：输出单独的描边图像。</li>
+</ul>
+<h2 id="_10">几何节点</h2>
+<h3 id="o-align-edge-ends">O Align Edge Ends</h3>
+<p>迭代拉齐距离阈值内的开放边端点，适合清理后续连接或管线生成前的边。</p>
+<h4 id="_11">输入</h4>
+<ul>
+<li><code>Edge</code>：提供要处理、筛选或转换的边。</li>
+<li><code>Distance Threshold</code>：决定距离达到什么条件时才产生效果。</li>
+<li><code>Iterations</code>：控制重复计算次数；次数越多通常越充分，也会更慢。</li>
+</ul>
+<h4 id="_12">输出</h4>
+<ul>
+<li><code>Edge</code>：输出处理或筛选后的边。</li>
+</ul>
+<h3 id="o-blend">O Blend</h3>
+<p>在目标几何与 Source 的对应位置之间按 Factor 混合选中元素。</p>
+<h4 id="_13">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Source</code>：提供用于采样、匹配、投射或比较的参考几何。</li>
+<li><code>Factor</code>：控制两种状态之间的混合比例或效果强度。</li>
+</ul>
+<h4 id="_14">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-capsule">O Capsule</h3>
+<p>生成可独立控制顶部和底部封口的胶囊网格，并输出区域选择与 UV。</p>
+<h4 id="_15">输入</h4>
+<ul>
+<li><code>Segments</code>：控制生成结构沿主要方向的分段精细度。</li>
+<li><code>Rings</code>：控制环形结构沿长度方向的分段数量。</li>
+<li><code>Side Segments</code>：控制侧面沿长度方向的分段精细度。</li>
+<li><code>Radius</code>：控制影响范围、管线粗细或圆形尺寸。</li>
+<li><code>Height</code>：提供位移高度或形状起伏。</li>
+<li><code>Options / Top Cap</code>：决定顶部是否封口。</li>
+<li><code>Options / Bottom Cap</code>：决定底部是否封口。</li>
+</ul>
+<h4 id="_16">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+<li><code>Top</code>：输出顶部区域选择。</li>
+<li><code>Side</code>：输出侧面区域选择。</li>
+<li><code>Bottom</code>：输出底部区域选择。</li>
+<li><code>UV Map</code>：输出生成或转移后的 UV 坐标。</li>
+</ul>
+<h3 id="o-center">O Center</h3>
+<p>把几何包围盒中心移动到指定 Center。</p>
+<h4 id="_17">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Center</code>：指定操作围绕的中心位置或目标中心。</li>
+</ul>
+<h4 id="_18">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-center-line">O Center Line</h3>
+<p>从网格估算并平滑中心线，输出便于进一步曲线处理的边几何。</p>
+<h4 id="_19">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Resolution</code>：控制生成结果或采样网格的精细度。</li>
+<li><code>Iterations</code>：控制重复计算次数；次数越多通常越充分，也会更慢。</li>
+<li><code>Ray</code>：选择沿射线方向进行投射或查找。</li>
+<li><code>Options / Smooth Iterations</code>：控制平滑重复次数；次数越多，结果越柔和。</li>
+<li><code>Options / Smooth Weight</code>：控制每次平滑对原结果的影响强度。</li>
+</ul>
+<h4 id="_20">输出</h4>
+<ul>
+<li><code>Edge</code>：输出处理或筛选后的边。</li>
+</ul>
+<h3 id="o-connect-adjacent">O Connect Adjacent</h3>
+<p>按 Range 为相邻点建立连接，使用 Selection 限定参与范围。</p>
+<h4 id="_21">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Range</code>：控制搜索、选择或影响覆盖的范围。</li>
+</ul>
+<h4 id="_22">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-curve-deform">O Curve Deform</h3>
+<p>沿 Curve 弯曲或贴合几何，可控制轴向、偏移、倾斜、权重与中心策略。</p>
+<h4 id="_23">妙用</h4>
+<ul>
+<li>让文字、线缆、鳞片或重复结构沿一条曲线弯曲。</li>
+<li>先制作直线形态，再用曲线统一控制最终走势，方便反复改形。</li>
+</ul>
+<h4 id="_24">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Curve</code>：提供控制形状、走势或采样位置的曲线。</li>
+<li><code>Offset</code>：在原位置、时间或数值基础上增加偏移。</li>
+<li><code>Tilt</code>：控制曲线截面沿路径的扭转。</li>
+<li><code>Fit to Curve</code>：让变形长度适配控制曲线，避免只使用曲线的一部分或超出曲线。</li>
+<li><code>Orient / Primary Axis</code>：选择形变或对齐使用的主轴。</li>
+<li><code>Orient / Secondary Axis</code>：选择辅助轴，帮助确定完整朝向。</li>
+<li><code>Options / Weight</code>：控制每个元素受效果影响的程度。</li>
+<li><code>Options / Center</code>：指定操作围绕的中心位置或目标中心。</li>
+<li><code>Options / Offset</code>：在原位置、时间或数值基础上增加偏移。</li>
+<li><code>Options / Custom</code>：启用或提供自定义控制方式。</li>
+</ul>
+<h4 id="_25">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-curve-distance-texture">O Curve Distance Texture</h3>
+<p>计算采样位置到曲线或边的距离场，并用 Radius Offset 调整等值面。</p>
+<h4 id="_26">输入</h4>
+<ul>
+<li><code>Curve (Edge)</code>：提供以网格边表示的曲线。</li>
+<li><code>Radius Offset</code>：在现有半径基础上增加或减少距离。</li>
+</ul>
+<h4 id="_27">输出</h4>
+<ul>
+<li><code>Value</code>：输出计算后的数值。</li>
+</ul>
+<h3 id="o-curve-flow-texture">O Curve Flow Texture</h3>
+<p>从曲线切线、法线或扭转方向生成向量流场，可重采样和平滑。</p>
+<h4 id="_28">输入</h4>
+<ul>
+<li><code>Curve (Edge)</code>：提供以网格边表示的曲线。</li>
+<li><code>Strength</code>：控制效果的整体强弱。</li>
+<li><code>Reverse</code>：反转方向、顺序或判断结果。</li>
+<li><code>Normal/Twist/Tangent</code>：选择使用法线、扭转或切线来构建方向。</li>
+<li><code>Radius</code>：控制影响范围、管线粗细或圆形尺寸。</li>
+<li><code>Options / Resample Length</code>：控制重采样后相邻点或边的大致间距。</li>
+<li><code>Options / Smooth Iterations</code>：控制平滑重复次数；次数越多，结果越柔和。</li>
+<li><code>Options / Smooth</code>：柔化形状、属性或过渡。</li>
+</ul>
+<h4 id="_29">输出</h4>
+<ul>
+<li><code>Vector</code>：输出计算后的向量。</li>
+</ul>
+<h3 id="o-curve-to-edge">O Curve to Edge</h3>
+<p>把 Blender Curve 转成仅含边的 Mesh 表示。</p>
+<h4 id="_30">输入</h4>
+<ul>
+<li><code>Curve</code>：提供控制形状、走势或采样位置的曲线。</li>
+</ul>
+<h4 id="_31">输出</h4>
+<ul>
+<li><code>Edge</code>：输出处理或筛选后的边。</li>
+</ul>
+<h3 id="o-debug-direction">O Debug Direction</h3>
+<p>把几何上的方向向量可视化，并输出规范化后的方向。</p>
+<h4 id="_32">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Direction</code>：指定效果、投射或形变前进的方向。</li>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Normalize</code>：把结果整理到统一尺度，便于后续混合或比较。</li>
+<li><code>Size</code>：控制整体尺寸或目标包围盒大小。</li>
+</ul>
+<h4 id="_33">输出</h4>
+<ul>
+<li><code>Debug</code>：输出便于在视口中检查结果的调试几何。</li>
+<li><code>Direction</code>：输出计算后的方向。</li>
+</ul>
+<h3 id="o-debug-direction-field">O Debug Direction Field</h3>
+<p>在平面或体积采样网格上可视化向量场。</p>
+<h4 id="_34">输入</h4>
+<ul>
+<li><code>Container</code>：提供用于限定内部、外部或计算范围的容器几何。</li>
+<li><code>Direction</code>：指定效果、投射或形变前进的方向。</li>
+<li><code>Normalize</code>：把结果整理到统一尺度，便于后续混合或比较。</li>
+<li><code>Type</code>：选择节点要处理的数据或生成结果类型。</li>
+<li><code>Position</code>：提供要计算或采样的空间位置。</li>
+<li><code>Size</code>：控制整体尺寸或目标包围盒大小。</li>
+<li><code>Container / Space</code>：选择坐标或变换所处的空间。</li>
+<li><code>Container / Min</code>：设置映射、筛选或限制使用的下限。</li>
+<li><code>Container / Max</code>：设置映射、筛选或限制使用的上限。</li>
+</ul>
+<h4 id="_35">输出</h4>
+<ul>
+<li><code>Debug</code>：输出便于在视口中检查结果的调试几何。</li>
+</ul>
+<h3 id="o-debug-edge">O Debug Edge</h3>
+<p>把边转换为可见线框，并把给定属性同步到调试结果。</p>
+<h4 id="_36">输入</h4>
+<ul>
+<li><code>Edge</code>：提供要处理、筛选或转换的边。</li>
+<li><code>Attribute</code>：提供要读取、处理或写回的属性值。</li>
+</ul>
+<h4 id="_37">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+<li><code>Attribute</code>：输出处理或采样后的属性。</li>
+</ul>
+<h3 id="o-debug-field">O Debug Field</h3>
+<p>在规则采样网格上把向量或数值场转成可见颜色和调试几何。</p>
+<h4 id="_38">输入</h4>
+<ul>
+<li><code>Container</code>：提供用于限定内部、外部或计算范围的容器几何。</li>
+<li><code>Field</code>：提供需要采样或可视化的场数据。</li>
+<li><code>Normalize</code>：把结果整理到统一尺度，便于后续混合或比较。</li>
+<li><code>Type</code>：选择节点要处理的数据或生成结果类型。</li>
+<li><code>Position</code>：提供要计算或采样的空间位置。</li>
+<li><code>Container / Min</code>：设置映射、筛选或限制使用的下限。</li>
+<li><code>Container / Max</code>：设置映射、筛选或限制使用的上限。</li>
+<li><code>Container / Space</code>：选择坐标或变换所处的空间。</li>
+</ul>
+<h4 id="_39">输出</h4>
+<ul>
+<li><code>Debug</code>：输出便于在视口中检查结果的调试几何。</li>
+<li><code>Color</code>：输出计算后的颜色。</li>
+</ul>
+<h3 id="o-debug-integer">O Debug Integer</h3>
+<p>把整数或 ID 映射为颜色等可视表示，便于检查分组。</p>
+<h4 id="_40">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Integer</code>：提供要处理或传递的整数属性。</li>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Options / Seed</code>：更换随机结果，同时保持同一数值下结果稳定。</li>
+</ul>
+<h4 id="_41">输出</h4>
+<ul>
+<li><code>Debug</code>：输出便于在视口中检查结果的调试几何。</li>
+<li><code>Color</code>：输出计算后的颜色。</li>
+</ul>
+<h3 id="o-debug-uv">O Debug UV</h3>
+<p>展开或直接显示 UV，并突出 UV Seam、边界及岛屿差异。</p>
+<h4 id="_42">妙用</h4>
+<ul>
+<li>在不切换 UV 编辑器的情况下检查断缝、UV 岛和拉伸问题。</li>
+</ul>
+<h4 id="_43">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Flat</code>：决定是否使用平直、无平滑过渡的结果。</li>
+<li><code>UV Seam</code>：提供 UV 接缝选择。</li>
+<li><code>Transform / Translation</code>：指定平移量。</li>
+<li><code>Transform / Rotation</code>：指定旋转量或朝向。</li>
+<li><code>Transform / Scale</code>：整体放大或缩小形状、坐标或效果尺度。</li>
+<li><code>Options / UV</code>：提供纹理坐标，用于采样、转移或空间计算。</li>
+<li><code>Options / Seam</code>：提供接缝选择，用于切分或检查 UV。</li>
+<li><code>Options / Seed</code>：更换随机结果，同时保持同一数值下结果稳定。</li>
+</ul>
+<h4 id="_44">输出</h4>
+<ul>
+<li><code>Debug</code>：输出便于在视口中检查结果的调试几何。</li>
+</ul>
+<h3 id="o-delete-small-parts">O Delete Small Parts</h3>
+<p>按连通部分大小删除低于 Threshold 的碎片。</p>
+<h4 id="_45">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Threshold</code>：设置判断或筛选生效的分界值。</li>
+</ul>
+<h4 id="_46">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+</ul>
+<h3 id="o-displace">O Displace</h3>
+<p>沿法线、指定方向或向量场移动选中几何，支持 Strength、Height 与 Midlevel。</p>
+<h4 id="_47">妙用</h4>
+<ul>
+<li>把 <code>O Noise Texture</code> 接到 <code>Height</code>，制作水面起伏、地形细节或呼吸式形变。</li>
+<li>用顶点属性或绘制遮罩限制局部位移，避免整个模型一起变形。</li>
+</ul>
+<h4 id="_48">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Strength</code>：统一放大、缩小或反转位移幅度。</li>
+<li><code>Direction</code>：指定顶点移动方向；使用法线模式时通常无需单独连接。</li>
+<li><code>Height</code>：用明暗或数值决定每个位置移动多少，可接纹理、属性或动画信号。</li>
+<li><code>Vector</code>：直接提供每个位置的三维移动量，适合由方向场同时控制方向和距离。</li>
+<li><code>Options / Midlevel</code>：指定高度信号中的静止点；等于此值的位置不移动。</li>
+</ul>
+<h4 id="_49">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-edge-to-curve">O Edge to Curve</h3>
+<p>把仅含边的 Mesh 转成 Curve。</p>
+<h4 id="_50">输入</h4>
+<ul>
+<li><code>Edge</code>：提供要处理、筛选或转换的边。</li>
+</ul>
+<h4 id="_51">输出</h4>
+<ul>
+<li><code>Curve</code>：输出处理后的曲线。</li>
+</ul>
+<h3 id="o-exploded-view">O Exploded View</h3>
+<p>按连通块或 Group ID 从整体中心向外缩放各部分，形成爆炸视图。 概念命名可参照 <a href="https://www.sidefx.com/docs/houdini/nodes/sop/explodedview.html">Houdini 同名或近似节点</a>。</p>
+<h4 id="_52">妙用</h4>
+<ul>
+<li>制作产品拆解图、装配动画，或快速检查互相遮挡的零件。</li>
+</ul>
+<h4 id="_53">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Scale</code>：整体放大或缩小形状、坐标或效果尺度。</li>
+<li><code>Group ID</code>：用编号把元素分组，让每组独立计算。</li>
+</ul>
+<h4 id="_54">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-fast-remesh">O Fast Remesh</h3>
+<p>以较少步骤重建较均匀拓扑，并可松弛、平滑着色及尝试修复 UV。</p>
+<h4 id="_55">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Resolution</code>：控制生成结果或采样网格的精细度。</li>
+<li><code>Relax Iterations</code>：控制松弛计算重复次数；次数越多，分布越均匀。</li>
+<li><code>Options / Shade Smooth</code>：决定结果是否使用平滑着色。</li>
+<li><code>Options / Relax Weight</code>：控制松弛对当前位置的影响强度。</li>
+<li><code>Options / Fix Topo Steps</code>：控制拓扑修复过程尝试多少步。</li>
+<li><code>Options / Fix UV</code>：在拓扑变化后尝试修复和保留原有 UV。</li>
+<li><code>Options / Fix UV Range</code>：限制「Fix UV」相关处理的作用范围。</li>
+<li><code>Options / UV</code>：提供纹理坐标，用于采样、转移或空间计算。</li>
+</ul>
+<h4 id="_56">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+</ul>
+<h3 id="o-geometry-info">O Geometry Info</h3>
+<p>输出几何的包围盒尺寸、中心点与顶点中位位置。</p>
+<h4 id="_57">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+</ul>
+<h4 id="_58">输出</h4>
+<ul>
+<li><code>Size</code>：输出几何包围盒尺寸。</li>
+<li><code>Center Point</code>：输出包围盒中心位置。</li>
+<li><code>Median Point</code>：输出顶点位置的中位点。</li>
+</ul>
+<h3 id="o-grid-distribute">O Grid Distribute</h3>
+<p>在网格表面按间距分布点，支持随机筛选、半径约束和松弛。</p>
+<h4 id="_59">妙用</h4>
+<ul>
+<li>在曲面上生成规则但不过分机械的散布点，用于植被、铆钉或面板细节。</li>
+</ul>
+<h4 id="_60">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Spacing</code>：控制相邻点或实例之间的目标间距。</li>
+<li><code>Radius</code>：控制影响范围、管线粗细或圆形尺寸。</li>
+<li><code>Random</code>：加入随机变化，打破过于规则的结果。</li>
+<li><code>Options / Random Selection</code>：限制哪些随机选中的元素参与处理。</li>
+<li><code>Options / Relax Iterations</code>：控制松弛计算重复次数；次数越多，分布越均匀。</li>
+<li><code>Options / Seed</code>：更换随机结果，同时保持同一数值下结果稳定。</li>
+</ul>
+<h4 id="_61">输出</h4>
+<ul>
+<li><code>Points</code>：输出生成或处理后的点。</li>
+</ul>
+<h3 id="o-helix">O Helix</h3>
+<p>按角度、半径和高度生成螺旋边。</p>
+<h4 id="_62">输入</h4>
+<ul>
+<li><code>Segments</code>：控制生成结构沿主要方向的分段精细度。</li>
+<li><code>Angle</code>：控制旋转角度或方向角。</li>
+<li><code>Radius</code>：控制影响范围、管线粗细或圆形尺寸。</li>
+<li><code>Height</code>：提供位移高度或形状起伏。</li>
+</ul>
+<h4 id="_63">输出</h4>
+<ul>
+<li><code>Edge</code>：输出处理或筛选后的边。</li>
+</ul>
+<h3 id="o-id-selection">O ID Selection</h3>
+<p>按 ID 字段选择元素，并支持反选。</p>
+<h4 id="_64">输入</h4>
+<ul>
+<li><code>ID</code>：提供稳定编号，用于选择、分组或可重复随机。</li>
+<li><code>Invert</code>：反转当前选择、遮罩或判断结果。</li>
+</ul>
+<h4 id="_65">输出</h4>
+<ul>
+<li><code>Selection</code>：输出满足条件的元素选择。</li>
+</ul>
+<h3 id="o-index-selection">O Index Selection</h3>
+<p>按 Index 字段选择元素，并支持反选。</p>
+<h4 id="_66">输入</h4>
+<ul>
+<li><code>Index</code>：按元素序号控制选择或计算。</li>
+<li><code>Invert</code>：反转当前选择、遮罩或判断结果。</li>
+</ul>
+<h4 id="_67">输出</h4>
+<ul>
+<li><code>Selection</code>：输出满足条件的元素选择。</li>
+</ul>
+<h3 id="o-is-edge-boundary">O Is Edge Boundary</h3>
+<p>判断当前边是否位于网格边界。</p>
+<h4 id="_68">输出</h4>
+<ul>
+<li><code>Is Edge Boundary</code>：标记处于网格边界的边。</li>
+</ul>
+<h3 id="o-is-uv-split">O Is UV Split</h3>
+<p>判断边两侧 UV 是否断开，并区分同岛与异岛。</p>
+<h4 id="_69">输入</h4>
+<ul>
+<li><code>UV</code>：提供纹理坐标，用于采样、转移或空间计算。</li>
+</ul>
+<h4 id="_70">输出</h4>
+<ul>
+<li><code>Is UV Split</code>：标记 UV 在边两侧断开的位置。</li>
+<li><code>Same Island</code>：标记边两侧属于同一 UV 岛的位置。</li>
+<li><code>Different Island</code>：标记边两侧属于不同 UV 岛的位置。</li>
+</ul>
+<h3 id="o-mask-by-distance">O Mask by Distance</h3>
+<p>计算到 Source 的距离，输出距离、遮罩以及被遮罩的几何。</p>
+<h4 id="_71">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Source</code>：提供用于采样、匹配、投射或比较的参考几何。</li>
+<li><code>Max Distance</code>：限制搜索、投射或影响能够到达的最远距离。</li>
+</ul>
+<h4 id="_72">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+<li><code>Mask</code>：输出可继续用于限制其他效果的遮罩。</li>
+<li><code>Distance</code>：输出到参考目标的距离。</li>
+</ul>
+<h3 id="o-mask-by-selection">O Mask by Selection</h3>
+<p>把一个 Selection 扩展成基于距离或拓扑的平滑遮罩。</p>
+<h4 id="_73">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Method</code>：选择节点采用的计算方法。</li>
+<li><code>Max Distance</code>：限制搜索、投射或影响能够到达的最远距离。</li>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Solid</code>：决定结果是否保持或生成封闭实体。</li>
+<li><code>Smooth</code>：柔化形状、属性或过渡。</li>
+<li><code>Smooth Iterations</code>：控制平滑重复次数；次数越多，结果越柔和。</li>
+</ul>
+<h4 id="_74">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+<li><code>Mask</code>：输出可继续用于限制其他效果的遮罩。</li>
+</ul>
+<h3 id="o-match-size">O Match Size</h3>
+<p>按目标 Size 缩放几何并把中心对齐到指定 Center。 概念命名可参照 <a href="https://www.sidefx.com/docs/houdini/nodes/sop/matchsize.html">Houdini 同名或近似节点</a>。</p>
+<h4 id="_75">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Size</code>：控制整体尺寸或目标包围盒大小。</li>
+<li><code>Center</code>：指定操作围绕的中心位置或目标中心。</li>
+</ul>
+<h4 id="_76">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-mesh-boolean">O Mesh Boolean</h3>
+<p>提供 Union、Intersect、Difference 等布尔模式，并带属性平滑、体素预览和交线输出。</p>
+<h4 id="_77">妙用</h4>
+<ul>
+<li>制作可随输入模型更新的门窗开洞、拼接结构和交叠线。</li>
+</ul>
+<h4 id="_78">输入</h4>
+<ul>
+<li><code>A</code>：提供第一组参与比较、混合或计算的数据。</li>
+<li><code>B</code>：提供第二组参与比较、混合或计算的数据。</li>
+<li><code>Mode</code>：选择节点采用的工作方式。</li>
+<li><code>Method</code>：选择节点采用的计算方法。</li>
+<li><code>Surface Attribute / Float</code>：提供要处理或传递的小数属性。</li>
+<li><code>Surface Attribute / Integer</code>：提供要处理或传递的整数属性。</li>
+<li><code>Surface Attribute / Vector</code>：提供要处理、转换或可视化的向量。</li>
+<li><code>Surface Attribute / Color</code>：提供要使用、混合或处理的颜色。</li>
+<li><code>Smooth Intersecting</code>：柔化布尔运算产生的相交边，减弱生硬折线。</li>
+<li><code>Smooth Intersecting / Max Distance</code>：限制搜索、投射或影响能够到达的最远距离。</li>
+<li><code>Smooth Intersecting / Iterations</code>：控制重复计算次数；次数越多通常越充分，也会更慢。</li>
+<li><code>Preview</code>：启用便于观察过程的预览结果。</li>
+<li><code>Preview / Resolution</code>：控制生成结果或采样网格的精细度。</li>
+<li><code>Preview / Iterations</code>：控制重复计算次数；次数越多通常越充分，也会更慢。</li>
+</ul>
+<h4 id="_79">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+<li><code>Intersecting Edges</code>：标记布尔运算产生的相交边。</li>
+</ul>
+<h3 id="o-mesh-distance-texture">O Mesh Distance Texture</h3>
+<p>输出采样位置到网格表面的有符号或无符号距离。</p>
+<h4 id="_80">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Unsigned</code>：只保留距离大小，不区分表面内外。</li>
+<li><code>Offset</code>：在原位置、时间或数值基础上增加偏移。</li>
+</ul>
+<h4 id="_81">输出</h4>
+<ul>
+<li><code>Value</code>：输出计算后的数值。</li>
+</ul>
+<h3 id="o-mesh-flow-texture">O Mesh Flow Texture</h3>
+<p>从网格表面方向生成向量流场，可控制强度、反向与作用半径。</p>
+<h4 id="_82">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Strength</code>：控制效果的整体强弱。</li>
+<li><code>Reverse</code>：反转方向、顺序或判断结果。</li>
+<li><code>Radius</code>：控制影响范围、管线粗细或圆形尺寸。</li>
+</ul>
+<h4 id="_83">输出</h4>
+<ul>
+<li><code>Vector</code>：输出计算后的向量。</li>
+</ul>
+<h3 id="o-mix-color">O Mix Color</h3>
+<p>按 Factor 混合两种颜色。</p>
+<h4 id="_84">输入</h4>
+<ul>
+<li><code>Factor</code>：控制两种状态之间的混合比例或效果强度。</li>
+<li><code>A</code>：提供第一组参与比较、混合或计算的数据。</li>
+<li><code>B</code>：提供第二组参与比较、混合或计算的数据。</li>
+</ul>
+<h4 id="_85">输出</h4>
+<ul>
+<li><code>Color</code>：输出计算后的颜色。</li>
+</ul>
+<h3 id="o-nearby-selection">O Nearby Selection</h3>
+<p>选择 Point Index 周围 Range 内的点，可排除自身或反选。</p>
+<h4 id="_86">输入</h4>
+<ul>
+<li><code>Point Index</code>：指定作为中心或参考的点序号。</li>
+<li><code>Range</code>：控制搜索、选择或影响覆盖的范围。</li>
+<li><code>Exclude Self</code>：排除元素自身，避免把自己算作邻近目标。</li>
+<li><code>Invert</code>：反转当前选择、遮罩或判断结果。</li>
+</ul>
+<h4 id="_87">输出</h4>
+<ul>
+<li><code>Selection</code>：输出满足条件的元素选择。</li>
+</ul>
+<h3 id="o-noise-texture">O Noise Texture</h3>
+<p>生成可重映射范围和中点的噪声数值与向量，供位移或场运算使用。</p>
+<h4 id="_88">妙用</h4>
+<ul>
+<li>驱动位移、颜色、粗糙度或随机选择，让变化保持可重复且易于调节。</li>
+</ul>
+<h4 id="_89">输入</h4>
+<ul>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Strength</code>：控制效果的整体强弱。</li>
+<li><code>Midlevel</code>：指定高度信号中代表「不发生位移」的基准值。</li>
+<li><code>Min</code>：设置映射、筛选或限制使用的下限。</li>
+<li><code>Max</code>：设置映射、筛选或限制使用的上限。</li>
+<li><code>Options / W</code>：推动噪声随时间连续变化，适合制作不会跳帧的动态起伏。</li>
+<li><code>Options / Scale</code>：控制噪声纹理的空间尺寸；数值越大，纹理变化越密。</li>
+<li><code>Options / Detail</code>：增加更小尺度的噪声层次；提高后会更丰富，也更碎。</li>
+<li><code>Options / Roughness</code>：控制不同尺度噪声混合后的粗糙程度。</li>
+<li><code>Options / Lacunarity</code>：控制噪声不同尺度之间的频率增长速度。</li>
+<li><code>Options / Distortion</code>：控制形状或纹理被扰动的程度。</li>
+<li><code>Options / Sample Position</code>：指定噪声在空间中的采样位置；移动它可以让纹理流动。</li>
+</ul>
+<h4 id="_90">输出</h4>
+<ul>
+<li><code>Vector</code>：输出三方向噪声，可直接用作方向或位置扰动。</li>
+<li><code>Value</code>：输出经过范围与中点整理的噪声数值，可直接驱动位移或遮罩。</li>
+</ul>
+<h3 id="o-normalize-attribute">O Normalize Attribute</h3>
+<p>在选中域上把浮点 Attribute 归一化，输出标准化结果。</p>
+<h4 id="_91">输入</h4>
+<ul>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Attribute</code>：提供要读取、处理或写回的属性值。</li>
+</ul>
+<h4 id="_92">输出</h4>
+<ul>
+<li><code>Result</code>：输出节点最终计算结果。</li>
+</ul>
+<h3 id="o-object-to-tangent-space">O Object to Tangent Space</h3>
+<p>结合 UV Tangent 与 Normal，把对象空间方向转换到切线空间。</p>
+<h4 id="_93">输入</h4>
+<ul>
+<li><code>UV Tangent</code>：提供沿 UV 方向计算得到的表面切线。</li>
+<li><code>Normal</code>：提供表面朝向，用于光照、投射或方向计算。</li>
+</ul>
+<h4 id="_94">输出</h4>
+<ul>
+<li><code>Normal</code>：输出计算或处理后的表面法线。</li>
+</ul>
+<h3 id="o-pick-instance">O Pick Instance</h3>
+<p>按当前求值元素的 Index 从输入实例集合中挑选单个实例。</p>
+<h4 id="_95">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+</ul>
+<h4 id="_96">输出</h4>
+<ul>
+<li><code>Instance</code>：输出选中的实例。</li>
+</ul>
+<h3 id="o-point-deform">O Point Deform</h3>
+<p>根据 Source 点相对 Rest Position 的变化，把捕获到的变形传递给目标几何。 概念命名可参照 <a href="https://www.sidefx.com/docs/houdini/nodes/sop/pointdeform.html">Houdini 同名或近似节点</a>。</p>
+<h4 id="_97">妙用</h4>
+<ul>
+<li>用低模代理体驱动高模、毛发或附着细节，降低复杂形变的编辑成本。</li>
+</ul>
+<h4 id="_98">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Source</code>：提供用于采样、匹配、投射或比较的参考几何。</li>
+<li><code>Rest Positon</code>：提供未变形时的位置，作为形变比较基准。</li>
+<li><code>Options / Weight</code>：控制每个元素受效果影响的程度。</li>
+<li><code>Options / Smooth Iterations</code>：控制平滑重复次数；次数越多，结果越柔和。</li>
+<li><code>Options / Smooth Weight</code>：控制每次平滑对原结果的影响强度。</li>
+</ul>
+<h4 id="_99">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-point-grid">O Point Grid</h3>
+<p>在选定平面或体积范围内生成规则点阵，可限制内外区域。</p>
+<h4 id="_100">输入</h4>
+<ul>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Space</code>：选择坐标或变换所处的空间。</li>
+<li><code>Radius</code>：控制影响范围、管线粗细或圆形尺寸。</li>
+<li><code>Min</code>：设置映射、筛选或限制使用的下限。</li>
+<li><code>Max</code>：设置映射、筛选或限制使用的上限。</li>
+<li><code>Position</code>：提供要计算或采样的空间位置。</li>
+<li><code>Inside</code>：决定使用区域内部还是外部。</li>
+</ul>
+<h4 id="_101">输出</h4>
+<ul>
+<li><code>Points</code>：输出生成或处理后的点。</li>
+</ul>
+<h3 id="o-points-distance-texture">O Points Distance Texture</h3>
+<p>输出采样位置到点集的距离场，并支持半径偏移。</p>
+<h4 id="_102">输入</h4>
+<ul>
+<li><code>Points</code>：提供用于采样、变形或生成场的点。</li>
+<li><code>Radius Offset</code>：在现有半径基础上增加或减少距离。</li>
+</ul>
+<h4 id="_103">输出</h4>
+<ul>
+<li><code>Value</code>：输出计算后的数值。</li>
+</ul>
+<h3 id="o-points-flow-texture">O Points Flow Texture</h3>
+<p>根据点集生成向量流场，可控制方向、强度和作用半径。</p>
+<h4 id="_104">输入</h4>
+<ul>
+<li><code>Points</code>：提供用于采样、变形或生成场的点。</li>
+<li><code>Strength</code>：控制效果的整体强弱。</li>
+<li><code>Reverse</code>：反转方向、顺序或判断结果。</li>
+<li><code>Radius</code>：控制影响范围、管线粗细或圆形尺寸。</li>
+</ul>
+<h4 id="_105">输出</h4>
+<ul>
+<li><code>Vector</code>：输出计算后的向量。</li>
+</ul>
+<h3 id="o-position-selection">O Position Selection</h3>
+<p>按坐标轴、比较方式与 A/B 阈值选择位置范围。</p>
+<h4 id="_106">输入</h4>
+<ul>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Vector</code>：提供要处理、转换或可视化的向量。</li>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>N</code>：指定触发或采样使用的第几个时间步。</li>
+<li><code>A</code>：提供第一组参与比较、混合或计算的数据。</li>
+<li><code>B</code>：提供第二组参与比较、混合或计算的数据。</li>
+<li><code>Invert</code>：反转当前选择、遮罩或判断结果。</li>
+</ul>
+<h4 id="_107">输出</h4>
+<ul>
+<li><code>Selection</code>：输出满足条件的元素选择。</li>
+</ul>
+<h3 id="o-project">O Project</h3>
+<p>按最近距离或正负方向射线把选中几何投射到 Source，并支持自定义方向和权重。</p>
+<h4 id="_108">妙用</h4>
+<ul>
+<li>把道路、贴花、线条或散布点贴到起伏表面。</li>
+</ul>
+<h4 id="_109">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Source</code>：提供用于采样、匹配、投射或比较的参考几何。</li>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Positive Weight</code>：控制「Positive」对最终结果的影响强度。</li>
+<li><code>Negative Weight</code>：控制「Negative」对最终结果的影响强度。</li>
+<li><code>Max Distance</code>：限制搜索、投射或影响能够到达的最远距离。</li>
+<li><code>Options / Weight</code>：控制每个元素受效果影响的程度。</li>
+<li><code>Options / Radius Offset</code>：在现有半径基础上增加或减少距离。</li>
+<li><code>Options / Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Options / Custom</code>：启用或提供自定义控制方式。</li>
+<li><code>Options / Normal Smooth</code>：柔化用于计算的法线，减少方向场中的突变。</li>
+</ul>
+<h4 id="_110">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-quad-sphere">O Quad Sphere</h3>
+<p>生成以四边面为主的球体并输出 UV。</p>
+<h4 id="_111">输入</h4>
+<ul>
+<li><code>Segments</code>：控制生成结构沿主要方向的分段精细度。</li>
+<li><code>Radius</code>：控制影响范围、管线粗细或圆形尺寸。</li>
+</ul>
+<h4 id="_112">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+<li><code>UV Map</code>：输出生成或转移后的 UV 坐标。</li>
+</ul>
+<h3 id="o-random-direction">O Random Direction</h3>
+<p>在给定 Direction 周围生成随机方向与旋转，支持径向和轴向扩散。</p>
+<h4 id="_113">输入</h4>
+<ul>
+<li><code>Direction</code>：指定效果、投射或形变前进的方向。</li>
+<li><code>Spread</code>：控制随机方向或分布向外扩散的程度。</li>
+<li><code>Axial Spread</code>：控制随机方向沿主轴扩散的程度。</li>
+<li><code>ID</code>：提供稳定编号，用于选择、分组或可重复随机。</li>
+<li><code>Seed</code>：更换随机结果，同时保持同一数值下结果稳定。</li>
+</ul>
+<h4 id="_114">输出</h4>
+<ul>
+<li><code>Direction</code>：输出计算后的方向。</li>
+<li><code>Rotation</code>：输出计算后的旋转。</li>
+</ul>
+<h3 id="o-random-instance-index">O Random Instance Index</h3>
+<p>按 A–E 权重随机生成 Instance Index。</p>
+<h4 id="_115">输入</h4>
+<ul>
+<li><code>A</code>：提供第一组参与比较、混合或计算的数据。</li>
+<li><code>B</code>：提供第二组参与比较、混合或计算的数据。</li>
+<li><code>C</code>：提供当前模式下的第三组数据或权重。</li>
+<li><code>D</code>：提供当前模式下的第四组数据或权重。</li>
+<li><code>E</code>：提供当前模式下的第五组数据或权重。</li>
+<li><code>Options / Seed</code>：更换随机结果，同时保持同一数值下结果稳定。</li>
+</ul>
+<h4 id="_116">输出</h4>
+<ul>
+<li><code>Instance Index</code>：输出要从实例集合中选择的序号。</li>
+</ul>
+<h3 id="o-random-selection">O Random Selection</h3>
+<p>按 Factor、ID 与 Seed 生成稳定的随机选择。</p>
+<h4 id="_117">输入</h4>
+<ul>
+<li><code>Factor</code>：控制两种状态之间的混合比例或效果强度。</li>
+<li><code>ID</code>：提供稳定编号，用于选择、分组或可重复随机。</li>
+<li><code>Seed</code>：更换随机结果，同时保持同一数值下结果稳定。</li>
+</ul>
+<h4 id="_118">输出</h4>
+<ul>
+<li><code>Selection</code>：输出满足条件的元素选择。</li>
+</ul>
+<h3 id="o-region-selection">O Region Selection</h3>
+<p>判断元素是否位于 Region Mesh 内，并支持反选。</p>
+<h4 id="_119">输入</h4>
+<ul>
+<li><code>Region Mesh</code>：提供用于判断内外区域的网格。</li>
+<li><code>Invert</code>：反转当前选择、遮罩或判断结果。</li>
+</ul>
+<h4 id="_120">输出</h4>
+<ul>
+<li><code>Selection</code>：输出满足条件的元素选择。</li>
+</ul>
+<h3 id="o-relax">O Relax</h3>
+<p>迭代平滑点分布，可固定边界、投射回 Source 并按网格岛限制。 概念命名可参照 <a href="https://www.sidefx.com/docs/houdini/nodes/sop/relax.html">Houdini 同名或近似节点</a>。</p>
+<h4 id="_121">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Iterations</code>：控制重复计算次数；次数越多通常越充分，也会更慢。</li>
+<li><code>Options / Weight</code>：控制每个元素受效果影响的程度。</li>
+<li><code>Options / Positive Weight</code>：控制「Positive」对最终结果的影响强度。</li>
+<li><code>Options / Negative Weight</code>：控制「Negative」对最终结果的影响强度。</li>
+<li><code>Options / Max Distance</code>：限制搜索、投射或影响能够到达的最远距离。</li>
+<li><code>Options / Source</code>：提供用于采样、匹配、投射或比较的参考几何。</li>
+<li><code>Options / Source</code>：提供用于采样、匹配、投射或比较的参考几何。</li>
+<li><code>Options / Mesh Island</code>：按互不连接的网格块分别处理。</li>
+<li><code>Options / Source Mesh Island</code>：按参考网格的独立块分组采样，避免跨块传递。</li>
+</ul>
+<h4 id="_122">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-resample-edge">O Resample Edge</h3>
+<p>把边转换为曲线后按 Length 重采样，再转回边并合并近点。</p>
+<h4 id="_123">输入</h4>
+<ul>
+<li><code>Edge</code>：提供要处理、筛选或转换的边。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Length</code>：控制生成、重采样或搜索使用的长度。</li>
+<li><code>Options / Merge Distance</code>：决定相距多近的点会被合并。</li>
+</ul>
+<h4 id="_124">输出</h4>
+<ul>
+<li><code>Edge</code>：输出处理或筛选后的边。</li>
+</ul>
+<h3 id="o-rest-position">O Rest Position</h3>
+<p>保存并输出几何的 Rest Position，供后续变形与张力计算使用。</p>
+<h4 id="_125">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+</ul>
+<h4 id="_126">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+<li><code>Rest Positon</code>：输出记录下来的未变形位置。</li>
+</ul>
+<h3 id="o-scene-time">O Scene Time</h3>
+<p>把场景时间按 Step 量化，输出步进秒数。</p>
+<h4 id="_127">输入</h4>
+<ul>
+<li><code>Step</code>：控制时间或计算按多大步长前进。</li>
+</ul>
+<h4 id="_128">输出</h4>
+<ul>
+<li><code>Step Seconds</code>：输出按步长量化后的时间。</li>
+</ul>
+<h3 id="o-screw">O Screw</h3>
+<p>围绕指定中心轴旋转并推进输入网格，生成旋转体或螺纹结构。</p>
+<h4 id="_129">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Angle</code>：控制旋转角度或方向角。</li>
+<li><code>Screw</code>：控制绕轴旋转同时前进的螺旋量。</li>
+<li><code>Iterations</code>：控制重复计算次数；次数越多通常越充分，也会更慢。</li>
+<li><code>Steps</code>：控制过程被拆分成多少步。</li>
+<li><code>Options / Center</code>：指定操作围绕的中心位置或目标中心。</li>
+<li><code>Options / Axis</code>：选择计算、变换或生成结构所沿的轴。</li>
+</ul>
+<h4 id="_130">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+</ul>
+<h3 id="o-selection">O Selection</h3>
+<p>读取指定名称的布尔选择属性，并支持反选。</p>
+<h4 id="_131">输入</h4>
+<ul>
+<li><code>Name</code>：指定要读取或写入的属性名称。</li>
+<li><code>Invert</code>：反转当前选择、遮罩或判断结果。</li>
+</ul>
+<h4 id="_132">输出</h4>
+<ul>
+<li><code>Selection</code>：输出满足条件的元素选择。</li>
+</ul>
+<h3 id="o-set-edge-radius">O Set Edge Radius</h3>
+<p>在选中边上存储或设置后续管线节点使用的半径。</p>
+<h4 id="_133">输入</h4>
+<ul>
+<li><code>Edge</code>：提供要处理、筛选或转换的边。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Radius</code>：控制影响范围、管线粗细或圆形尺寸。</li>
+</ul>
+<h4 id="_134">输出</h4>
+<ul>
+<li><code>Edge</code>：输出处理或筛选后的边。</li>
+</ul>
+<h3 id="o-shortest-paths">O Shortest Paths</h3>
+<p>从 Root 计算加权最短路径，输出路径边、总成本与路径因子。</p>
+<h4 id="_135">输入</h4>
+<ul>
+<li><code>Edge</code>：提供要处理、筛选或转换的边。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Root</code>：指定最短路径开始计算的根元素。</li>
+<li><code>Cost</code>：为路径计算提供每一步的代价或权重。</li>
+<li><code>Merged</code>：决定是否把生成结果中彼此重合或接近的部分合并。</li>
+</ul>
+<h4 id="_136">输出</h4>
+<ul>
+<li><code>Edge</code>：输出处理或筛选后的边。</li>
+<li><code>Total Cost</code>：输出从根元素到当前位置的累计路径代价。</li>
+<li><code>Factor</code>：输出可用于后续混合或控制强度的系数。</li>
+</ul>
+<h3 id="o-smooth">O Smooth</h3>
+<p>迭代平滑选中几何，可通过 Pin Sharp 和 Pin Boundary 保留特征。</p>
+<h4 id="_137">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Iterations</code>：控制重复计算次数；次数越多通常越充分，也会更慢。</li>
+<li><code>Pin Sharp</code>：尽量固定尖锐特征，避免被平滑掉。</li>
+<li><code>Pin Boundary</code>：固定边界，避免平滑或松弛时轮廓收缩。</li>
+<li><code>Options / Weight</code>：控制每个元素受效果影响的程度。</li>
+</ul>
+<h4 id="_138">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-smooth-attributes">O Smooth Attributes</h3>
+<p>在指定域上迭代平滑 Float、Vector 或 Color 属性。</p>
+<h4 id="_139">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Float</code>：提供要处理或传递的小数属性。</li>
+<li><code>Vector</code>：提供要处理、转换或可视化的向量。</li>
+<li><code>Color</code>：提供要使用、混合或处理的颜色。</li>
+<li><code>on</code>：打开或关闭这一项处理。</li>
+<li><code>Iterations</code>：控制重复计算次数；次数越多通常越充分，也会更慢。</li>
+<li><code>Weight</code>：控制每个元素受效果影响的程度。</li>
+</ul>
+<h4 id="_140">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+</ul>
+<h3 id="o-solidfy">O Solidfy</h3>
+<p>为网格增加厚度，并输出侧面选择。</p>
+<h4 id="_141">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Thickness</code>：控制实体、描边或管壁的厚度。</li>
+<li><code>Offset</code>：在原位置、时间或数值基础上增加偏移。</li>
+</ul>
+<h4 id="_142">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+<li><code>Side</code>：输出侧面区域选择。</li>
+</ul>
+<h3 id="o-store-selection">O Store Selection</h3>
+<p>把当前 Selection 以给定 Name 存入指定几何域。</p>
+<h4 id="_143">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Name</code>：指定要读取或写入的属性名称。</li>
+</ul>
+<h4 id="_144">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-symmetry">O Symmetry</h3>
+<p>按轴镜像或径向复制几何，生成对称结构。</p>
+<h4 id="_145">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Radial</code>：控制是否围绕中心按径向方式计算。</li>
+</ul>
+<h4 id="_146">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-tension">O Tension</h3>
+<p>比较当前位置与 Rest Position，输出形变张力场。</p>
+<h4 id="_147">输入</h4>
+<ul>
+<li><code>Rest Position</code>：提供未变形时的位置，作为形变比较基准。</li>
+</ul>
+<h4 id="_148">输出</h4>
+<ul>
+<li><code>O Tension</code>：输出形变产生的张力值。</li>
+</ul>
+<h3 id="o-timing">O Timing</h3>
+<p>在指定第 N 帧条件下输出布尔时序信号。</p>
+<h4 id="_149">输入</h4>
+<ul>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>N</code>：指定触发或采样使用的第几个时间步。</li>
+</ul>
+<h4 id="_150">输出</h4>
+<ul>
+<li><code>Boolean</code>：输出布尔判断结果。</li>
+</ul>
+<h3 id="o-torus">O Torus</h3>
+<p>生成可控主半径、次半径和分段数的圆环网格及 UV。</p>
+<h4 id="_151">输入</h4>
+<ul>
+<li><code>Major Segments</code>：控制主体一圈的分段精细度。</li>
+<li><code>Minor Segments</code>：控制截面一圈的分段精细度。</li>
+<li><code>Major Radius</code>：控制圆环或螺旋主体的半径。</li>
+<li><code>Minor Radius</code>：控制圆环截面或次级结构的半径。</li>
+</ul>
+<h4 id="_152">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+<li><code>UV Map</code>：输出生成或转移后的 UV 坐标。</li>
+</ul>
+<h3 id="o-transfer-attributes">O Transfer Attributes</h3>
+<p>从 Source 采样并写入 Float、Integer、Vector 或 Color 属性，支持跨域和分组。 概念命名可参照 <a href="https://www.sidefx.com/docs/houdini/nodes/sop/attribtransfer.html">Houdini 同名或近似节点</a>。</p>
+<h4 id="_153">妙用</h4>
+<ul>
+<li>重拓扑或重网格后，把颜色、遮罩、方向等数据从原模型传回新模型。</li>
+</ul>
+<h4 id="_154">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Source</code>：提供用于采样、匹配、投射或比较的参考几何。</li>
+<li><code>Float</code>：提供要处理或传递的小数属性。</li>
+<li><code>Integer</code>：提供要处理或传递的整数属性。</li>
+<li><code>Vector</code>：提供要处理、转换或可视化的向量。</li>
+<li><code>Color</code>：提供要使用、混合或处理的颜色。</li>
+<li><code>on</code>：打开或关闭这一项处理。</li>
+<li><code>Evaluate on</code>：选择在哪一类几何元素上计算结果。</li>
+<li><code>Options / Group ID</code>：用编号把元素分组，让每组独立计算。</li>
+<li><code>Options / Sample Position</code>：指定去参考几何上查询数据的位置。</li>
+<li><code>Options / Sample Group ID</code>：限定从相同分组中采样，避免数据串到其他组。</li>
+</ul>
+<h4 id="_155">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+</ul>
+<h3 id="o-transfer-material">O Transfer Material</h3>
+<p>按采样位置或 UV Island 从 Source 转移材质分配。</p>
+<h4 id="_156">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Source</code>：提供用于采样、匹配、投射或比较的参考几何。</li>
+<li><code>Options / UV Island</code>：按 UV 岛分组或限制处理范围。</li>
+<li><code>Options / UV Island</code>：按 UV 岛分组或限制处理范围。</li>
+<li><code>Options / UV</code>：提供纹理坐标，用于采样、转移或空间计算。</li>
+</ul>
+<h4 id="_157">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+</ul>
+<h3 id="o-transfer-uv">O Transfer UV</h3>
+<p>从 Source 向目标网格转移 UV，并可按 UV Island 和 Fix 范围修正断裂。</p>
+<h4 id="_158">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Source</code>：提供用于采样、匹配、投射或比较的参考几何。</li>
+<li><code>Menu</code>：选择节点的工作模式；切换后相关输入也会随之变化。</li>
+<li><code>Fix</code>：选择需要固定、不参与调整的部分。</li>
+<li><code>Options / UV Island</code>：按 UV 岛分组或限制处理范围。</li>
+<li><code>Options / UV Island</code>：按 UV 岛分组或限制处理范围。</li>
+<li><code>Options / Fix Range</code>：限制「Fix」相关处理的作用范围。</li>
+<li><code>Options / UV</code>：提供纹理坐标，用于采样、转移或空间计算。</li>
+</ul>
+<h4 id="_159">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+</ul>
+<h3 id="o-transform">O Transform</h3>
+<p>对选中几何或组件应用平移、旋转、缩放或矩阵，并支持软选择。</p>
+<h4 id="_160">输入</h4>
+<ul>
+<li><code>Geometry</code>：提供要处理的几何。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Mode</code>：选择节点采用的工作方式。</li>
+<li><code>Translation</code>：指定平移量。</li>
+<li><code>Rotation</code>：指定旋转量或朝向。</li>
+<li><code>Scale</code>：整体放大或缩小形状、坐标或效果尺度。</li>
+<li><code>Transform</code>：提供完整的平移、旋转和缩放变换。</li>
+<li><code>Soft</code>：让硬选择变成带渐变的柔和影响。</li>
+<li><code>Options / Soft Iterations</code>：控制柔和范围向外扩展和过渡的次数。</li>
+</ul>
+<h4 id="_161">输出</h4>
+<ul>
+<li><code>Geometry</code>：输出处理后的几何。</li>
+</ul>
+<h3 id="o-tube">O Tube</h3>
+<p>把边转换为可调分辨率、半径和厚度的管状网格，可封口和连接近端点。</p>
+<h4 id="_162">输入</h4>
+<ul>
+<li><code>Edge</code>：提供要处理、筛选或转换的边。</li>
+<li><code>Resolution</code>：控制生成结果或采样网格的精细度。</li>
+<li><code>Radius Scale</code>：按比例放大或缩小已有半径。</li>
+<li><code>Thickness</code>：控制实体、描边或管壁的厚度。</li>
+<li><code>Shade Smooth</code>：决定结果是否使用平滑着色。</li>
+<li><code>Fill Caps</code>：决定开放截面是否封口。</li>
+<li><code>Connect</code>：决定是否连接彼此接近或相邻的部分。</li>
+<li><code>Connect / Distance Threshold</code>：决定距离达到什么条件时才产生效果。</li>
+<li><code>Connect / Color</code>：提供要使用、混合或处理的颜色。</li>
+</ul>
+<h4 id="_163">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+</ul>
+<h3 id="o-uv-island">O UV Island</h3>
+<p>根据 UV Split 生成稳定的 UV Island 标识。</p>
+<h4 id="_164">输入</h4>
+<ul>
+<li><code>UV</code>：提供纹理坐标，用于采样、转移或空间计算。</li>
+</ul>
+<h4 id="_165">输出</h4>
+<ul>
+<li><code>UV Island</code>：输出稳定的 UV 岛编号。</li>
+</ul>
+<h3 id="o-uv-tangent">O UV Tangent</h3>
+<p>从网格 UV 计算并存储 UV Tangent。</p>
+<h4 id="_166">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Options / UV</code>：提供纹理坐标，用于采样、转移或空间计算。</li>
+</ul>
+<h4 id="_167">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+<li><code>UV Tangent</code>：输出沿 UV 方向的表面切线。</li>
+</ul>
+<h3 id="o-voxel-remesh">O Voxel Remesh</h3>
+<p>体素化并重建网格，可控制分辨率、适应性、拓扑旋转与后续松弛。 概念命名可参照 <a href="https://www.sidefx.com/docs/houdini/nodes/sop/remesh.html">Houdini 同名或近似节点</a>。</p>
+<h4 id="_168">妙用</h4>
+<ul>
+<li>把扫描、布尔碎片或相交网格先统一成连续表面，再继续平滑和变形。</li>
+</ul>
+<h4 id="_169">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Resolution</code>：控制生成结果或采样网格的精细度。</li>
+<li><code>Relax Iterations</code>：控制松弛计算重复次数；次数越多，分布越均匀。</li>
+<li><code>Options / Shade Smooth</code>：决定结果是否使用平滑着色。</li>
+<li><code>Options / Relax Weight</code>：控制松弛对当前位置的影响强度。</li>
+<li><code>Options / Threshold</code>：设置判断或筛选生效的分界值。</li>
+<li><code>Options / Adaptivity</code>：减少平坦区域的面数，同时尽量保留轮廓和细节。</li>
+<li><code>Options / Topo Rotation</code>：沿网格拓扑调整方向，使重建后的边流转向。</li>
+</ul>
+<h4 id="_170">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+</ul>
+<h3 id="o-wireframe">O Wireframe</h3>
+<p>把选中网格边转换成具有 Radius 和 Resolution 的线框几何。</p>
+<h4 id="_171">输入</h4>
+<ul>
+<li><code>Mesh</code>：提供要处理或作为参考的网格。</li>
+<li><code>Selection</code>：限制效果作用范围；未选中的部分保持不变。</li>
+<li><code>Resolution</code>：控制生成结果或采样网格的精细度。</li>
+<li><code>Radius</code>：控制影响范围、管线粗细或圆形尺寸。</li>
+</ul>
+<h4 id="_172">输出</h4>
+<ul>
+<li><code>Mesh</code>：输出处理后的网格。</li>
+</ul>
+<h2 id="_173">着色器节点</h2>
+<h3 id="o-background">O Background</h3>
+<p>构建可分别控制可见背景、环境光和 Cycles 透射行为的 World Shader。</p>
+<h4 id="_174">输入</h4>
+<ul>
+<li><code>Color</code>：提供要使用、混合或处理的颜色。</li>
+<li><code>Strength</code>：控制效果的整体强弱。</li>
+<li><code>Light</code>：提供光照颜色或光照信息。</li>
+<li><code>Strength</code>：控制效果的整体强弱。</li>
+<li><code>Options / Transmission (Cycles)</code>：控制 Cycles 中光线穿过材质的程度。</li>
+</ul>
+<h4 id="_175">输出</h4>
+<ul>
+<li><code>Shader</code>：输出可连接到材质或世界表面的着色器。</li>
+</ul>
+<h3 id="o-circle">O Circle</h3>
+<p>生成二维圆形遮罩 Fac 与径向 Gradient。</p>
+<h4 id="_176">输入</h4>
+<ul>
+<li><code>Radius</code>：控制影响范围、管线粗细或圆形尺寸。</li>
+<li><code>Vector</code>：提供要处理、转换或可视化的向量。</li>
+</ul>
+<h4 id="_177">输出</h4>
+<ul>
+<li><code>Fac</code>：输出可作为遮罩或混合系数使用的数值。</li>
+<li><code>Gradient</code>：输出形状边缘或方向上的渐变值。</li>
+</ul>
+<h3 id="o-ensure-uv">O Ensure UV</h3>
+<p>规范输入纹理坐标，确保下游二维纹理获得稳定 UV。</p>
+<h4 id="_178">输入</h4>
+<ul>
+<li><code>Vector</code>：提供要处理、转换或可视化的向量。</li>
+</ul>
+<h4 id="_179">输出</h4>
+<ul>
+<li><code>Vector</code>：输出计算后的向量。</li>
+</ul>
+<h3 id="o-grid">O Grid</h3>
+<p>把坐标量化或重复为 X×Y 网格坐标。</p>
+<h4 id="_180">输入</h4>
+<ul>
+<li><code>X</code>：控制 X 方向的尺寸、分段或数值。</li>
+<li><code>Y</code>：控制 Y 方向的尺寸、分段或数值。</li>
+<li><code>Vector</code>：提供要处理、转换或可视化的向量。</li>
+</ul>
+<h4 id="_181">输出</h4>
+<ul>
+<li><code>Vector</code>：输出计算后的向量。</li>
+</ul>
+<h3 id="o-linear">O Linear</h3>
+<p>按 Angle 生成线性 Fac 与 Gradient。</p>
+<h4 id="_182">输入</h4>
+<ul>
+<li><code>Angle</code>：控制旋转角度或方向角。</li>
+<li><code>Vector</code>：提供要处理、转换或可视化的向量。</li>
+</ul>
+<h4 id="_183">输出</h4>
+<ul>
+<li><code>Fac</code>：输出可作为遮罩或混合系数使用的数值。</li>
+<li><code>Gradient</code>：输出形状边缘或方向上的渐变值。</li>
+</ul>
+<h3 id="o-pixelate">O Pixelate</h3>
+<p>按 X×Y 分辨率量化二维坐标，形成像素化采样。</p>
+<h4 id="_184">输入</h4>
+<ul>
+<li><code>X</code>：控制 X 方向的尺寸、分段或数值。</li>
+<li><code>Y</code>：控制 Y 方向的尺寸、分段或数值。</li>
+<li><code>Vector</code>：提供要处理、转换或可视化的向量。</li>
+</ul>
+<h4 id="_185">输出</h4>
+<ul>
+<li><code>Vector</code>：输出计算后的向量。</li>
+</ul>
+<h3 id="o-square">O Square</h3>
+<p>生成可调 X/Y 尺寸的矩形遮罩 Fac 与边缘 Gradient。</p>
+<h4 id="_186">输入</h4>
+<ul>
+<li><code>X</code>：控制 X 方向的尺寸、分段或数值。</li>
+<li><code>Y</code>：控制 Y 方向的尺寸、分段或数值。</li>
+<li><code>Vector</code>：提供要处理、转换或可视化的向量。</li>
+</ul>
+<h4 id="_187">输出</h4>
+<ul>
+<li><code>Fac</code>：输出可作为遮罩或混合系数使用的数值。</li>
+<li><code>Gradient</code>：输出形状边缘或方向上的渐变值。</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../asset-libraries/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Asset Libraries">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Asset Libraries
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../o-extra/" class="md-footer__link md-footer__link--next" aria-label="Next: O Extra">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                O Extra
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 OmooLab
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["header.autohide", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "content.code.copy", "content.code.select"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

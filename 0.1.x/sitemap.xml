@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://docs.omoolab.xyz/omoonodes/0.1.x/</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.omoolab.xyz/omoonodes/0.1.x/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.omoolab.xyz/omoonodes/0.1.xen/"/>
+    </url>
+    <url>
+        <loc>https://docs.omoolab.xyz/omoonodes/0.1.x/asset-libraries/</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.omoolab.xyz/omoonodes/0.1.x/asset-libraries/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.omoolab.xyz/omoonodes/0.1.xen/asset-libraries/"/>
+    </url>
+    <url>
+        <loc>https://docs.omoolab.xyz/omoonodes/0.1.x/develop/</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.omoolab.xyz/omoonodes/0.1.x/develop/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.omoolab.xyz/omoonodes/0.1.xen/develop/"/>
+    </url>
+    <url>
+        <loc>https://docs.omoolab.xyz/omoonodes/0.1.x/nodes/o-essentials/</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.omoolab.xyz/omoonodes/0.1.x/nodes/o-essentials/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.omoolab.xyz/omoonodes/0.1.xen/nodes/o-essentials/"/>
+    </url>
+    <url>
+        <loc>https://docs.omoolab.xyz/omoonodes/0.1.x/nodes/o-extra/</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.omoolab.xyz/omoonodes/0.1.x/nodes/o-extra/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.omoolab.xyz/omoonodes/0.1.xen/nodes/o-extra/"/>
+    </url>
+    <url>
+        <loc>https://docs.omoolab.xyz/omoonodes/0.1.x/en/</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.omoolab.xyz/omoonodes/0.1.x/en/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.omoolab.xyz/omoonodes/0.1.x"/>
+    </url>
+    <url>
+        <loc>https://docs.omoolab.xyz/omoonodes/0.1.x/en/asset-libraries/</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.omoolab.xyz/omoonodes/0.1.x/en/asset-libraries/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.omoolab.xyz/omoonodes/0.1.xasset-libraries/"/>
+    </url>
+    <url>
+        <loc>https://docs.omoolab.xyz/omoonodes/0.1.x/en/develop/</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.omoolab.xyz/omoonodes/0.1.x/en/develop/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.omoolab.xyz/omoonodes/0.1.xdevelop/"/>
+    </url>
+    <url>
+        <loc>https://docs.omoolab.xyz/omoonodes/0.1.x/en/nodes/o-essentials/</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.omoolab.xyz/omoonodes/0.1.x/en/nodes/o-essentials/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.omoolab.xyz/omoonodes/0.1.xnodes/o-essentials/"/>
+    </url>
+    <url>
+        <loc>https://docs.omoolab.xyz/omoonodes/0.1.x/en/nodes/o-extra/</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.omoolab.xyz/omoonodes/0.1.x/en/nodes/o-extra/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.omoolab.xyz/omoonodes/0.1.xnodes/o-extra/"/>
+    </url>
+</urlset>

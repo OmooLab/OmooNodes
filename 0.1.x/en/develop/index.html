@@ -12,10 +12,10 @@
         <meta name="author" content="OmooLab">
       
       
-        <link rel="canonical" href="https://docs.omoolab.xyz/omoonodes/0.1.0/en/develop/">
+        <link rel="canonical" href="https://docs.omoolab.xyz/omoonodes/0.1.x/en/develop/">
       
       
-        <link rel="prev" href="../asset-libraries/">
+        <link rel="prev" href="../nodes/o-extra/">
       
       
       
@@ -26,7 +26,7 @@
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
@@ -272,6 +272,28 @@
   
   
   
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../nodes/o-essentials/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Nodes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
     
   
   
@@ -438,6 +460,127 @@
       
   
   
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nodes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Nodes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodes/o-essentials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    O Essentials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodes/o-extra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    O Extra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -463,10 +606,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -484,8 +627,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -633,6 +776,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#node-documentation-and-the-codex-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node Documentation and the Codex Skill
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -747,6 +901,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#node-documentation-and-the-codex-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node Documentation and the Codex Skill
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -771,10 +936,17 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>sync
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests
 </span></code></pre></div>
-<p>Build or preview the documentation with:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>build
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>serve
+<p>Test, build, preview, and deploy the documentation with:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span><span class="nb">test</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span>build
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span>dev
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span>deploy
 </span></code></pre></div>
+<p><code>test</code> runs a strict build in a temporary directory to check errors and warnings;
+<code>dev</code> provides live preview. <code>build</code> uses the version in <code>pyproject.toml</code> to generate
+the <code>major.minor.x</code> series (currently <code>0.1.x</code>), updates <code>latest</code>, and commits to the
+local <code>gh-pages</code> branch. <code>deploy</code> builds the same version and pushes to <code>gh-pages</code>
+on the <code>github</code> remote. Configure GitHub Pages to publish from that branch's root.</p>
 <h2 id="directory-layout">Directory Layout</h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>subspaces   Blender asset sources
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>contents    Cleaned local Asset Libraries
@@ -827,9 +999,8 @@ script.</p>
 <li><code>-P build_assets.py</code> executes the build script.</li>
 <li><code>--</code> separates Blender arguments from build-script arguments.</li>
 <li><code>SOURCE</code> is one Asset Library source directory.</li>
-<li><code>-o/--out</code> selects the output parent. Local results keep the source directory
-  name. Remote results use lowercase kebab-case, for example
-  <code>O_Essentials → o-essentials</code>.</li>
+<li><code>-o/--out</code> selects the output parent; the result keeps the <code>SOURCE</code> directory
+  name.</li>
 </ul>
 <p>Composition, cleanup, and validation happen in staging directories. The target is
 replaced only after every step succeeds. Blender backups, old remote listings, and
@@ -851,9 +1022,7 @@ dependencies:</p>
 <h2 id="build-remote-asset-libraries">Build Remote Asset Libraries</h2>
 <p>Remote mode localizes linked datablocks, removes external references, generates the
 listing, metadata, and thumbnails, and validates asset files and SHA-256 hashes:</p>
-<p>Localization happens while source-relative paths are still valid. Changing the
-Remote output directory to kebab-case therefore does not affect existing
-cross-library references or require their source paths to be changed. Dependency
+<p>Localization happens while source-relative paths are still valid. Dependency
 datablocks keep their node contents without inheriting Asset marks from the source
 library.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
@@ -874,15 +1043,56 @@ combined with <code>--self-contained</code>.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>dist/o-essentials</code></td>
-<td><code>https://assets.omoolab.xyz/b52/o-essentials</code></td>
+<td><code>dist/O_Essentials</code></td>
+<td><code>https://assets.omoolab.xyz/b52/O_Essentials</code></td>
 </tr>
 <tr>
-<td><code>dist/o-extra</code></td>
-<td><code>https://assets.omoolab.xyz/b52/o-extra</code></td>
+<td><code>dist/O_Extra</code></td>
+<td><code>https://assets.omoolab.xyz/b52/O_Extra</code></td>
 </tr>
 </tbody>
 </table>
+<h2 id="node-documentation-and-the-codex-skill">Node Documentation and the Codex Skill</h2>
+<p>Node metadata follows one directional synchronization flow:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Published .blend files
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  → .agents/skills/use-omoo-nodes/references/node-catalog.json
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  → docs/nodes/o-essentials.md
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  → docs/nodes/o-extra.md
+</span></code></pre></div>
+<p><code>node-catalog.json</code> is the machine reference used by the skill. It stores exact node
+names, tree types, socket identifiers, defaults, dependencies, and concise usage
+descriptions. <code>docs/nodes/</code> contains the user-facing references generated from the same
+catalog. Do not maintain duplicate node Markdown inside the skill.</p>
+<p>Maintain node functions, practical use cases, and plain-language parameter explanations
+in <code>scripts/generate_node_reference.py</code>. Node functions are also written to each
+catalog <code>description</code>, while the docs receive the complete user-facing guide. After
+updating assets, inspect the published libraries with the target Blender version, then
+regenerate the catalog descriptions and documentation:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">BLENDER</span><span class="o">=</span><span class="s2">&quot;C:/path/to/blender.exe&quot;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span>-P<span class="w"> </span>scripts/inspect_omoo_nodes.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span>dist/O_Essentials<span class="w"> </span>dist/O_Extra<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span>--output<span class="w"> </span>.agents/skills/use-omoo-nodes/references/node-catalog.json
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/generate_node_reference.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">  </span>.agents/skills/use-omoo-nodes/references/node-catalog.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">  </span>dist<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">  </span>docs/nodes
+</span></code></pre></div>
+<p>The generator embeds <code>BEHAVIOR_NOTES</code> into each catalog <code>description</code> and rebuilds
+both node reference pages. Generation fails when a new node has no usage description,
+preventing silent drift between the skill and docs.</p>
+<p>Finish by running the Blender integration check, skill validator, tests, and docs
+check:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span>-P<span class="w"> </span>scripts/validate_omoo_nodes_in_blender.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span>dist<span class="w"> </span>dist/validation/use-omoo-nodes-validation.blend
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/test_use_omoo_nodes_skill.py
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span><span class="nb">test</span>
+</span></code></pre></div>
+<p>Keep asset spelling exactly as published, including names such as <code>O Solidfy</code> and
+<code>Rest Positon</code>.</p>
 
 
 
@@ -912,7 +1122,7 @@ combined with <code>--self-contained</code>.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../asset-libraries/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Asset Libraries">
+          <a href="../nodes/o-extra/" class="md-footer__link md-footer__link--prev" aria-label="Previous: O Extra">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -922,7 +1132,7 @@ combined with <code>--self-contained</code>.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Asset Libraries
+                O Extra
               </div>
             </div>
           </a>
