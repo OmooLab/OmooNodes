@@ -2,7 +2,7 @@
 
 ![cover](assets/cover.png)
 
-Omoo Nodes is a suite of practical node asset libraries created by OmooLab for
+Omoo Nodes is a suite of practical node asset libraries for
 Blender. It turns frequently used workflows into reusable node groups, reducing the
 time spent rebuilding common functionality while making complex node trees clearer
 and easier to maintain.

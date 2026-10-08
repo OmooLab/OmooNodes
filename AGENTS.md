@@ -36,11 +36,17 @@ uv sync
 # 运行全部测试
 uv run pytest tests
 
-# 构建文档
-uv run mkdocs build
+# 测试文档
+uv run docs test
+
+# 构建版本文档到本地 gh-pages
+uv run docs build
 
 # 本地预览文档
-uv run mkdocs serve
+uv run docs dev
+
+# 部署版本文档到 GitHub gh-pages
+uv run docs deploy
 
 # 指定目标 Blender 的实际路径
 BLENDER="C:/path/to/blender.exe"

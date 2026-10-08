@@ -7,6 +7,9 @@ requires-python = ">=3.11.0"
 readme = "README.md"
 license = "MIT"
 
+[project.scripts]
+docs = "tools.docs:main"
+
 [dependency-groups]
 dev = [
     "pytest>=8.3.2,<9",
@@ -25,8 +28,8 @@ dev = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.uv]
-package = false
+[tool.hatch.build.targets.wheel]
+packages = ["tools"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

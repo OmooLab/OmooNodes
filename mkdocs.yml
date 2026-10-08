@@ -1,7 +1,10 @@
 site_name: OmooNodes Docs
 site_url: https://docs.omoolab.xyz/omoonodes/
 site_author: OmooLab
-site_description: OmooNodes provides reusable node assets as local and remote Blender Asset Libraries.
+site_description: Extra geometry nodes for Blender
+
+repo_name: OmooLab/OmooNodes
+repo_url: https://github.com/OmooLab/OmooNodes
 
 nav:
   - OmooNodes:

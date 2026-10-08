@@ -11,12 +11,19 @@ uv sync
 uv run pytest tests
 ```
 
-构建或预览文档：
+测试、构建、预览和部署文档：
 
 ```bash
-uv run mkdocs build
-uv run mkdocs serve
+uv run docs test
+uv run docs build
+uv run docs dev
+uv run docs deploy
 ```
+
+`test` 在临时目录中严格构建，检查文档错误与警告；`dev` 提供实时预览。
+`build` 根据 `pyproject.toml` 的版本生成 `major.minor.x` 系列（当前为 `0.1.x`），
+更新 `latest` 并提交到本地 `gh-pages`。`deploy` 构建同一版本并推送到 `github`
+远端的 `gh-pages`；GitHub Pages 使用该分支的根目录作为发布源。
 
 ## 目录结构
 
@@ -157,14 +164,14 @@ uv run python scripts/generate_node_reference.py \
 生成器会把 `BEHAVIOR_NOTES` 同步写入 catalog 的 `description`，并同时重建两份节点文档。
 新增节点但缺少用途说明时生成会失败，避免 skill 与 docs 静默漂移。
 
-最后运行 Blender 集成检查、skill validator、测试和文档构筑：
+最后运行 Blender 集成检查、skill validator、测试和文档检查：
 
 ```bash
 "$BLENDER" -b --python-exit-code 1 \
   -P scripts/validate_omoo_nodes_in_blender.py -- \
   dist dist/validation/use-omoo-nodes-validation.blend
 uv run pytest tests/test_use_omoo_nodes_skill.py
-uv run mkdocs build
+uv run docs test
 ```
 
 文档中的节点名必须保留资产原始拼写，例如 `O Solidfy` 与 `Rest Positon`。

@@ -11,12 +11,20 @@ uv sync
 uv run pytest tests
 ```
 
-Build or preview the documentation with:
+Test, build, preview, and deploy the documentation with:
 
 ```bash
-uv run mkdocs build
-uv run mkdocs serve
+uv run docs test
+uv run docs build
+uv run docs dev
+uv run docs deploy
 ```
+
+`test` runs a strict build in a temporary directory to check errors and warnings;
+`dev` provides live preview. `build` uses the version in `pyproject.toml` to generate
+the `major.minor.x` series (currently `0.1.x`), updates `latest`, and commits to the
+local `gh-pages` branch. `deploy` builds the same version and pushes to `gh-pages`
+on the `github` remote. Configure GitHub Pages to publish from that branch's root.
 
 ## Directory Layout
 
@@ -182,14 +190,14 @@ both node reference pages. Generation fails when a new node has no usage descrip
 preventing silent drift between the skill and docs.
 
 Finish by running the Blender integration check, skill validator, tests, and docs
-build:
+check:
 
 ```bash
 "$BLENDER" -b --python-exit-code 1 \
   -P scripts/validate_omoo_nodes_in_blender.py -- \
   dist dist/validation/use-omoo-nodes-validation.blend
 uv run pytest tests/test_use_omoo_nodes_skill.py
-uv run mkdocs build
+uv run docs test
 ```
 
 Keep asset spelling exactly as published, including names such as `O Solidfy` and
