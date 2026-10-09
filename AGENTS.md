@@ -24,8 +24,8 @@
 
 - [总览](README.md)：项目用途与安装方式。
 - [资产库](docs/asset-libraries.md)：资产库使用说明。
-- [开发](docs/develop.md)：资产构建、版本合并与节点参考同步流程。
-- [O Essentials](docs/nodes/o-essentials.md)、[O Extra](docs/nodes/o-extra.md)：从 catalog 生成的节点参考。
+- [开发](docs/develop.md)：资产构建、节点往返与文档开发流程。
+- [O Essentials](docs/nodes/o-essentials.md)、[O Extra](docs/nodes/o-extra.md)：节点参考。
 
 ## 常见命令
 
@@ -35,6 +35,10 @@ uv sync
 
 # 运行全部测试
 uv run pytest tests
+
+# 从正式节点脚本准备人工编辑库
+uv run nodes dev nodes/O_Essentials -o workspaces
+uv run nodes dev nodes/O_Essentials -s workspaces
 
 # 测试文档
 uv run docs test
@@ -48,34 +52,17 @@ uv run docs dev
 # 部署版本文档到 GitHub gh-pages
 uv run docs deploy
 
-# 指定目标 Blender 的实际路径
-BLENDER="C:/path/to/blender.exe"
+# 构建本地资产库
+uv run nodes build --target b45 -o contents
 
-# 构建本地资产库，先构建公共依赖
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Essentials -o contents
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Extra -o contents
+# 构建独立本地资产库
+uv run nodes build nodes/O_Extra --target b45 --self-contained -o contents
 
 # 构建远程资产库
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Essentials --remote -o dist
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Extra --remote -o dist
+uv run nodes build --target b52 --remote -o dist
 
-# 从发布资产提取节点 catalog
-"$BLENDER" -b --python-exit-code 1 -P scripts/inspect_omoo_nodes.py -- \
-  dist/O_Essentials dist/O_Extra \
-  --output .agents/skills/use-omoo-nodes/references/node-catalog.json
-
-# 同步节点说明与参考文档
-uv run python scripts/generate_node_reference.py \
-  .agents/skills/use-omoo-nodes/references/node-catalog.json dist docs/nodes
-
-# Blender 集成验证
-"$BLENDER" -b --python-exit-code 1 \
-  -P scripts/validate_omoo_nodes_in_blender.py -- \
-  dist dist/validation/use-omoo-nodes-validation.blend
+# 首次导入全部 Asset 节点组
+uv run nodes dump path/to/O_Library.blend -o nodes/O_Library
 ```
 
 ## 命名规范
@@ -96,20 +83,20 @@ uv run python scripts/generate_node_reference.py \
 - 修改代码、依赖或执行方式时，按需调整已有文档与计划，不为同一主题新建重复文件。
 - 根据内容选择最清晰的表达方式，优先简洁文字；复杂流程或关系在有助于理解时使用图表。Mermaid 流程图默认从上到下，节点标识使用英文字符。
 - 不使用 `---` 分割器；一级标题只用于文件开头。
-- 节点功能、案例和参数释义集中维护在 `scripts/generate_node_reference.py`；通过生成器更新 catalog 描述与 `docs/nodes/`，不直接修改生成的节点文档。
+- 节点说明保存在 `docs/nodes/`；不维护节点释义生成器或效果验证脚本。
 - `.agents/skills/use-omoo-nodes/references/node-catalog.json` 是 skill 的机器参考，不在 skill 中重复维护节点 Markdown。
 
 ## Blender 资产开发规范
 
-- OmooNodes 使用 Blender 原生 Asset Library；资产源文件位于 `subspaces/`，本地构建输出使用 `contents/`，远程构建输出使用 `dist/`。
-- 每个资产库保留一个源目录。无版本后缀的 `.blend` 是 Blender 4.5 基础层，`.b52.blend` 等文件是从对应版本起启用的 overlay，不创建低于 `b45` 的 overlay。
-- 目标版本由执行构建脚本的 Blender 决定；先载入基础层，再按版本从低到高应用不高于目标版本的 overlay。同名 Node Group 覆盖，新名称追加。
+- OmooNodes 使用 Blender 原生 Asset Library；正式节点脚本位于 `nodes/`，人工编辑库位于 `workspaces/b45/`、`workspaces/b52/`，本地发布输出使用 `contents/<版本>/`，远程发布输出使用 `dist/b52/`。
+- 每个资产库保留一个源目录。无后缀 `.py` 是最低支持 b45 的通用实现，`.b52.py` 是 b52 专用完整实现；临时编辑库均包含完整目标内容。
+- 目标 Python/bpy 版本统一配置在 `pyproject.toml` 的 `tool.nodes.targets`，由 uv 自动准备隔离环境；独立 nodebpy 后端负责 build/dump，各目标负责检查、转存和发布清理，本地与 CI 复用同一流程。
 - 保持资产库间的相对路径与公共节点依赖有效。本地构建先处理 `O_Essentials`，再处理依赖它的资产库，并使用同一输出父目录。
-- `build_assets.py` 仅依赖 Blender 内置 `bpy` 与 Python 标准库，构建环境无需安装项目 Python 依赖。
+- 通用 CLI 在 `tools/nodes/` 维护，读取调用项目配置；后台 worker 使用隔离的 Blender 用户目录。
 - 构建在临时目录完成组合、清理与校验，全部成功后替换目标目录；备份文件、旧 Remote listing 和临时文件不进入产物。
-- `--self-contained` 用于独立本地资产库；`--remote` 本地化外部引用并生成 listing、metadata、缩略图与 SHA-256，两者不能同时使用。
+- `--self-contained` 用于独立本地资产库；`--remote` 本地化外部引用并生成 listing、metadata、缩略图与 SHA-256，同时传入时按 remote 执行。
 - 修改资产或版本合并逻辑后，使用目标 Blender 构建受影响资产库并验证结果；根据改动检查节点接口、依赖和目标版本行为。
-- 修改节点接口或功能后，从构建资产重新提取 catalog，运行节点参考生成器、Blender 集成验证与相关测试；具体步骤见 [开发](docs/develop.md)。
+- 修改节点接口或功能后，检查目标库接口、依赖与保存重载，运行相关测试；具体步骤见 [开发](docs/develop.md)。
 - 节点树使用原生节点，保持布局清楚、接口与数据生命周期明确；复用已有公共节点，避免重复实现。
 - 新增或修改 Blender 类型时，检查注册与逆序注销；声明式消费者引用类型的 `bl_idname`，`bpy.ops` 执行调用保持原生命名空间写法。
 - 操作 Blender 节点效果时遵循项目中的 [use-omoo-nodes skill](.agents/skills/use-omoo-nodes/SKILL.md)。

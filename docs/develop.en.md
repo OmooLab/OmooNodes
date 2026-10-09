@@ -1,17 +1,88 @@
 # Development
 
-This page documents the asset build and documentation workflows for OmooNodes.
-
 ## Environment
 
-The project uses `uv` to manage its Python environment.
-
 ```bash
-uv sync
+uv sync --locked --dev
 uv run pytest tests
 ```
 
-Test, build, preview, and deploy the documentation with:
+The shared `nodes` CLI is maintained in `tools/nodes/` in this repository.
+The project uses Python 3.11 and bpy 4.5.14; nodebpy is installed only in the isolated backend.
+The isolated backend defaults to Python 3.13, nodebpy 520.34.1, and bpy 5.2.2.
+`tool.nodes.backend` may be omitted or override individual fields. Declare required targets explicitly:
+
+```toml
+[tool.nodes.targets]
+b45 = "4.5.14"
+b52 = "5.2.2"
+```
+
+Python is selected for the supported series: 3.11 for b45, 3.13 for b52.
+No additional targets are added. uv prepares isolated environments in `.cache/nodes/`.
+The backend converts and arranges nodes; target workers inspect, save, reload, and clean libraries.
+Workers use isolated Blender user directories and do not inherit Python paths from the controller.
+
+## Sources
+
+Only `O_Essentials` and `O_Extra` are currently managed in `nodes/`.
+
+`nodes/<collection>/` contains native nodebpy Python, resources, catalogs, and `collection.json`.
+Unversioned `.py` files are shared implementations expected to support b45. `.b52.py` files contain
+complete b52 implementations and take precedence for that target. Related libraries share one target parent directory.
+
+## Commands
+
+```bash
+uv run nodes --help
+
+# Import every asset node group and its dependencies into new sources
+uv run nodes dump path/to/O_Library.blend -o nodes/O_Library
+
+# Prepare full editable libraries and synchronize Blender changes
+uv run nodes dev nodes/O_Extra -o workspaces
+uv run nodes dev nodes/O_Extra --sync workspaces
+
+# Build local libraries and their dependencies
+uv run nodes build nodes/O_Extra --target b45 -o contents
+
+# Embed dependencies for independent local distribution
+uv run nodes build nodes/O_Extra --target b45 --self-contained -o contents
+
+# Build remote libraries with native listings and embedded dependencies
+uv run nodes build --target b52 --remote -o dist
+```
+
+For dev/build, omitted sources use `tool.nodes.source`, defaulting to `nodes`. Omitted targets
+select all configured targets. dev defaults to `workspaces/<target>/<collection>/`;
+build defaults to `dist/<target>/<collection>/`. You can edit Python and build directly.
+Target versions come from `tool.nodes.targets` in `pyproject.toml`; `--target b52` selects one target.
+dev reports dependencies, construction and layout, target saves, reload validation, and final output directories.
+Status messages use English, with one build/save/check line per file. The expected newer-backend
+conversion warning is hidden; the target saves, reloads, and checks the file version and node structure.
+Other version warnings remain visible.
+Sync reports change checks, export, version merging, rebuild validation, and commit, followed by updated source directories.
+Normal empty-scene messages for asset-only files and read logs are hidden. Other warnings remain visible;
+failed workers display their full diagnostics.
+Long connections use horizontal channels, and development libraries retain multiple Group Inputs.
+
+Initial dump always writes unversioned Python. The original file version is recorded as provenance;
+target compatibility is checked separately by dev/build. Mark public roots as assets in a migration
+copy before importing historical ordinary groups. Existing sources are updated through dev --sync.
+
+Synchronization tracks asset metadata and packed image content/settings, ignores layout changes, checks source baselines, and validates rebuilt candidates
+before committing. Shared resource edits must agree across all configured targets. Source and workspace digests are checked again before commit. Changes inherited from public dependencies do not rewrite consumer modules. Formal build uses temporary directories, preserves editable workspaces, and
+commits only after all selected targets succeed. Remote generation uses the pinned bpy package's
+native module and validates listings, metadata, files, and SHA-256.
+
+## CI and releases
+
+Tag releases run tests, build b45 local libraries and b52 remote libraries, and archive each target
+directory in CI. Granules remains deferred because of its missing dependency. Custom preview
+restoration is deferred. Cross-version Mix conversion still needs verification; saving and reloading
+alone does not establish full functional compatibility.
+
+## Documentation
 
 ```bash
 uv run docs test
@@ -20,185 +91,7 @@ uv run docs dev
 uv run docs deploy
 ```
 
-`test` runs a strict build in a temporary directory to check errors and warnings;
-`dev` provides live preview. `build` uses the version in `pyproject.toml` to generate
-the `major.minor.x` series (currently `0.1.x`), updates `latest`, and commits to the
-local `gh-pages` branch. `deploy` builds the same version and pushes to `gh-pages`
-on the `github` remote. Configure GitHub Pages to publish from that branch's root.
-
-## Directory Layout
-
-```text
-subspaces   Blender asset sources
-contents    Cleaned local Asset Libraries
-dist        Deployable Remote Asset Libraries
-```
-
-Each Asset Library has one source directory. An unversioned `.blend` file is the base
-layer. A `.b<major><minor>.blend` file is an overlay enabled from that Blender version
-onward. Same-named node groups override lower layers, while new names are added. The
-Blender running the build selects the overlays. Output paths have no version layer.
-
-For example:
-
-```text
-subspaces/O_Essentials/
-├─ O_Essentials_GeometryNodes.blend
-├─ O_Essentials_GeometryNodes.b52.blend
-├─ O_Essentials_ShaderNodes.blend
-└─ blender_assets.cats.txt
-```
-
-Blender 4.5 builds only the base layer. Blender 5.2 composes the base and `.b52.blend`
-in order. An overlay may link common node groups from the base file. The build remaps
-those references to local data in the result and replaces base node groups with
-same-named overlay implementations.
-
-### Version Composition Rules
-
-- An unversioned file is the Blender 4.5 base layer. Do not create overlays older
-  than `b45`.
-- The Blender running the script determines the target version. A filename such as
-  `.b52.blend` determines when an overlay is enabled; the file's saved version does
-  not control selection.
-- The build loads the base first, then applies every compatible overlay from the
-  lowest version to the highest.
-- New node groups are added. Same-named node groups replace lower-version
-  implementations.
-
-For example, Blender 5.3 composes `base → b52 → b53`, so a `b53` implementation wins
-when names match.
-
-## Run the Build Script
-
-The target Blender must execute the script. These Git Bash examples store its
-executable in a variable:
-
-`build_assets.py` is a single-file tool that depends only on Blender's bundled `bpy`
-and the Python standard library. The build environment does not need a separate
-Python, `uv`, or project dependencies; distributing the build tool requires only this
-script.
-
-```bash
-BLENDER="C:/path/to/blender.exe"
-```
-
-General invocation:
-
-```bash
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- SOURCE [OPTIONS]
-```
-
-- `-b` runs Blender in background mode.
-- `--python-exit-code 1` returns a non-zero status when Python fails.
-- `-P build_assets.py` executes the build script.
-- `--` separates Blender arguments from build-script arguments.
-- `SOURCE` is one Asset Library source directory.
-- `-o/--out` selects the output parent; the result keeps the `SOURCE` directory
-  name.
-
-Composition, cleanup, and validation happen in staging directories. The target is
-replaced only after every step succeeds. Blender backups, old remote listings, and
-temporary files are excluded.
-
-## Build Local Asset Libraries
-
-Local builds preserve linked libraries and their original relative paths by default.
-Build `O_Essentials` first, then `O_Extra`, keeping both under the same output parent:
-
-```bash
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Essentials -o contents
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Extra -o contents
-```
-
-The results are `contents/O_Essentials` and `contents/O_Extra`. Use
-`--self-contained` to build a local library without external linked-library
-dependencies:
-
-```bash
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Extra --self-contained -o contents
-```
-
-## Build Remote Asset Libraries
-
-Remote mode localizes linked datablocks, removes external references, generates the
-listing, metadata, and thumbnails, and validates asset files and SHA-256 hashes:
-
-Localization happens while source-relative paths are still valid. Dependency
-datablocks keep their node contents without inheriting Asset marks from the source
-library.
-
-```bash
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Essentials --remote -o dist
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Extra --remote -o dist
-```
-
-Remote builds validate asset counts, file counts, thumbnails, and SHA-256 hashes.
-`--remote` already produces a result without external references, so it cannot be
-combined with `--self-contained`.
-
-Deployment mapping:
-
-| Build Directory | Public URL |
-| --- | --- |
-| `dist/O_Essentials` | `https://assets.omoolab.xyz/b52/O_Essentials` |
-| `dist/O_Extra` | `https://assets.omoolab.xyz/b52/O_Extra` |
-
-## Node Documentation and the Codex Skill
-
-Node metadata follows one directional synchronization flow:
-
-```text
-Published .blend files
-  → .agents/skills/use-omoo-nodes/references/node-catalog.json
-  → docs/nodes/o-essentials.md
-  → docs/nodes/o-extra.md
-```
-
-`node-catalog.json` is the machine reference used by the skill. It stores exact node
-names, tree types, socket identifiers, defaults, dependencies, and concise usage
-descriptions. `docs/nodes/` contains the user-facing references generated from the same
-catalog. Do not maintain duplicate node Markdown inside the skill.
-
-Maintain node functions, practical use cases, and plain-language parameter explanations
-in `scripts/generate_node_reference.py`. Node functions are also written to each
-catalog `description`, while the docs receive the complete user-facing guide. After
-updating assets, inspect the published libraries with the target Blender version, then
-regenerate the catalog descriptions and documentation:
-
-```bash
-BLENDER="C:/path/to/blender.exe"
-
-"$BLENDER" -b --python-exit-code 1 \
-  -P scripts/inspect_omoo_nodes.py -- \
-  dist/O_Essentials dist/O_Extra \
-  --output .agents/skills/use-omoo-nodes/references/node-catalog.json
-
-uv run python scripts/generate_node_reference.py \
-  .agents/skills/use-omoo-nodes/references/node-catalog.json \
-  dist \
-  docs/nodes
-```
-
-The generator embeds `BEHAVIOR_NOTES` into each catalog `description` and rebuilds
-both node reference pages. Generation fails when a new node has no usage description,
-preventing silent drift between the skill and docs.
-
-Finish by running the Blender integration check, skill validator, tests, and docs
-check:
-
-```bash
-"$BLENDER" -b --python-exit-code 1 \
-  -P scripts/validate_omoo_nodes_in_blender.py -- \
-  dist dist/validation/use-omoo-nodes-validation.blend
-uv run pytest tests/test_use_omoo_nodes_skill.py
-uv run docs test
-```
-
-Keep asset spelling exactly as published, including names such as `O Solidfy` and
-`Rest Positon`.
+`test` performs a strict temporary build, and `dev` starts a live preview. `build` creates the project's
+major.minor.x series on local gh-pages; `deploy` pushes it to the github remote.
+Existing node descriptions remain in `docs/nodes/`, and the machine reference remains in
+`.agents/skills/use-omoo-nodes/references/node-catalog.json`.

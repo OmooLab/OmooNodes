@@ -10,41 +10,39 @@ permissions:
 
 jobs:
   package:
-    name: Package addon
-    runs-on: ubuntu-latest
+    name: Package node libraries
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
         with:
-          fetch-depth: 0
-          lfs: true
+          enable-cache: true
 
-      - name: Fetch LFS files
-        run: git lfs pull
+      - name: Install project dependencies
+        run: uv sync --locked --dev
 
-      - name: Package src/omoonodes
-        id: package
-        shell: bash
+      - name: Install bpy system libraries
         run: |
-          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libgl1 libxi6 libxfixes3 libxrender1 libxxf86vm1 libxkbcommon0 libsm6
 
-          tag_name="${GITHUB_REF_NAME}"
-          asset_tag_name="${tag_name//\//-}"
-          asset_name="omoonodes-${asset_tag_name}.zip"
-          dist_dir="${RUNNER_TEMP}/release"
-          zip_path="${dist_dir}/${asset_name}"
+      - name: Run tests
+        run: uv run --no-sync pytest tests
 
-          mkdir -p "${dist_dir}"
-          cd src
-          zip -r "${zip_path}" omoonodes \
-            -x "*/__pycache__/*" \
-            -x "*.pyc" \
-            -x "*.pyo" \
-            -x "*.blend1"
-
-          echo "asset_name=${asset_name}" >> "${GITHUB_OUTPUT}"
-          echo "zip_path=${zip_path}" >> "${GITHUB_OUTPUT}"
+      - name: Build and package nodes
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          uv run --no-sync nodes build --target b45 -o "$RUNNER_TEMP/nodes"
+          uv run --no-sync nodes build --target b52 --remote -o "$RUNNER_TEMP/nodes"
+          mkdir -p "$RUNNER_TEMP/release"
+          for target in b45 b52; do
+            (cd "$RUNNER_TEMP/nodes/$target" && zip -r "$RUNNER_TEMP/release/OmooNodes.$RELEASE_TAG.$target.zip" .)
+          done
 
       - name: Publish release
         uses: akkuman/gitea-release-action@v1
@@ -53,5 +51,5 @@ jobs:
           token: ${{ github.token }}
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
-          body: Automatically package src/omoonodes for ${{ github.ref_name }} tag.
-          files: ${{ steps.package.outputs.zip_path }}
+          body: Node asset libraries built from nodes/ for Blender 4.5 and 5.2.
+          files: ${{ runner.temp }}/release/*.zip

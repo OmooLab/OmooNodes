@@ -10,8 +10,7 @@ ROOT = Path(__file__).parents[1]
 SKILL = ROOT / ".agents" / "skills" / "use-omoo-nodes"
 REFERENCES = SKILL / "references"
 DOCS = ROOT / "docs" / "nodes"
-GENERATOR = ROOT / "scripts" / "generate_node_reference.py"
-INSPECTOR = ROOT / "scripts" / "inspect_omoo_nodes.py"
+INSPECTOR = ROOT / "tools" / "nodes" / "catalog.py"
 HELPER = SKILL / "scripts" / "omoo_blender.py"
 
 
@@ -42,19 +41,6 @@ def test_node_catalog_contains_all_published_assets() -> None:
     assert len({asset["name"] for asset in assets}) == 92
 
 
-def test_every_asset_has_a_behavior_note() -> None:
-    catalog = load_catalog()
-    generator = runpy.run_path(str(GENERATOR))
-    notes = generator["BEHAVIOR_NOTES"]
-
-    assert {
-        asset["name"]
-        for asset in catalog["assets"]
-    } == set(notes)
-    assert {
-        asset["name"]: asset["description"]
-        for asset in catalog["assets"]
-    } == notes
 
 
 def test_generated_reference_has_one_section_per_asset() -> None:
@@ -65,26 +51,6 @@ def test_generated_reference_has_one_section_per_asset() -> None:
     assert extra.count("\n### O ") == 6
 
 
-def test_generated_reference_is_written_as_a_user_manual() -> None:
-    catalog = load_catalog()
-    generator = runpy.run_path(str(GENERATOR))
-    asset_section = generator["asset_section"]
-
-    for asset in catalog["assets"]:
-        section = asset_section(asset)
-        directions = {socket["in_out"] for socket in asset["interface"]}
-
-        assert asset["description"] in section
-        assert ("#### 输入" in section) == ("INPUT" in directions)
-        assert ("#### 输出" in section) == ("OUTPUT" in directions)
-        assert "| 方向 |" not in section
-        assert "默认值" not in section
-        assert "范围与说明" not in section
-        assert "NodeSocket" not in section
-        assert "源文件：" not in section
-        assert "依赖：" not in section
-        assert "控制节点中的" not in section
-        assert "输出节点计算得到的" not in section
 
 
 def test_high_value_nodes_include_practical_guidance() -> None:
@@ -128,9 +94,8 @@ def test_generated_node_markdown_is_not_duplicated_inside_skill() -> None:
     assert not (REFERENCES / "o-extra.md").exists()
 
 
-def test_runtime_helper_stays_with_skill_and_generators_live_at_root() -> None:
+def test_runtime_helper_stays_with_skill_and_inspection_lives_in_tools() -> None:
     assert HELPER.is_file()
-    assert GENERATOR.is_file()
     assert INSPECTOR.is_file()
     assert not (ROOT / "scripts" / "omoo_blender.py").exists()
 

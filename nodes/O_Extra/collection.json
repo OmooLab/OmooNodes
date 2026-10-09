@@ -1,0 +1,246 @@
+{
+  "dependencies": [
+    "O_Essentials"
+  ],
+  "files": {
+    "O_Extra.blend": {
+      "source": "O_Extra",
+      "links": {
+        "O Debug Direction": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Displace": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Project": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Relax": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Scene Time": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Noise Texture": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Fast Remesh": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Is Edge Boundary": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Is UV Split": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Mask by Distance": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Mask by Selection": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Smooth": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Transfer Attributes": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Transfer UV": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O UV Island": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Voxel Remesh": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Align Edge Ends": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Curve to Edge": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Edge to Curve": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Index Selection": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Mix Color": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Quad Sphere": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Smooth Attributes": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Solidfy": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Spherization Correction": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Symmetry": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Tube": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_GeometryNodes.blend"
+        },
+        "O Linear": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_ShaderNodes.blend"
+        },
+        "O Background": {
+          "library": "O_Essentials",
+          "file": "O_Essentials_ShaderNodes.blend"
+        }
+      },
+      "imports": {
+        "O Debug Direction": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_debug_direction",
+          "class": "ODebugDirection"
+        },
+        "O Displace": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_displace",
+          "class": "ODisplace"
+        },
+        "O Project": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_project",
+          "class": "OProject"
+        },
+        "O Relax": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_relax",
+          "class": "ORelax"
+        },
+        "O Scene Time": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_scene_time",
+          "class": "OSceneTime"
+        },
+        "O Noise Texture": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_noise_texture",
+          "class": "ONoiseTexture"
+        },
+        "O Fast Remesh": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_fast_remesh",
+          "class": "OFastRemesh"
+        },
+        "O Is Edge Boundary": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_is_edge_boundary",
+          "class": "OIsEdgeBoundary"
+        },
+        "O Is UV Split": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_is_uv_split",
+          "class": "OIsUVSplit"
+        },
+        "O Mask by Distance": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_mask_by_distance",
+          "class": "OMaskByDistance"
+        },
+        "O Mask by Selection": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_mask_by_selection",
+          "class": "OMaskBySelection"
+        },
+        "O Smooth": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_smooth",
+          "class": "OSmooth"
+        },
+        "O Transfer Attributes": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_transfer_attributes",
+          "class": "OTransferAttributes"
+        },
+        "O Transfer UV": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_transfer_uv",
+          "class": "OTransferUV"
+        },
+        "O UV Island": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_uv_island",
+          "class": "OUVIsland"
+        },
+        "O Voxel Remesh": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_voxel_remesh",
+          "class": "OVoxelRemesh"
+        },
+        "O Align Edge Ends": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_align_edge_ends",
+          "class": "OAlignEdgeEnds"
+        },
+        "O Curve to Edge": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_curve_to_edge",
+          "class": "OCurveToEdge"
+        },
+        "O Edge to Curve": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_edge_to_curve",
+          "class": "OEdgeToCurve"
+        },
+        "O Index Selection": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_index_selection",
+          "class": "OIndexSelection"
+        },
+        "O Mix Color": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_mix_color",
+          "class": "OMixColor"
+        },
+        "O Quad Sphere": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_quad_sphere",
+          "class": "OQuadSphere"
+        },
+        "O Smooth Attributes": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_smooth_attributes",
+          "class": "OSmoothAttributes"
+        },
+        "O Solidfy": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_solidfy",
+          "class": "OSolidfy"
+        },
+        "O Spherization Correction": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry._shared.o_spherization_correction",
+          "class": "OSpherizationCorrection"
+        },
+        "O Symmetry": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_symmetry",
+          "class": "OSymmetry"
+        },
+        "O Tube": {
+          "module": "nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_tube",
+          "class": "OTube"
+        },
+        "O Linear": {
+          "module": "nodes.O_Essentials.O_Essentials_ShaderNodes.shader.o_linear",
+          "class": "OLinear"
+        },
+        "O Background": {
+          "module": "nodes.O_Essentials.O_Essentials_ShaderNodes.shader.o_background",
+          "class": "OBackground"
+        }
+      }
+    }
+  }
+}

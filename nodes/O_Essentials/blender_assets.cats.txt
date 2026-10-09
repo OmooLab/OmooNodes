@@ -1,0 +1,19 @@
+# This is an Asset Catalog Definition file for Blender.
+#
+# Empty lines and lines starting with `#` will be ignored.
+# The first non-ignored line should be the version indicator.
+# Other lines are of the format "UUID:catalog/path/for/assets:simple catalog name"
+
+VERSION 1
+
+9c732f19-40c8-4419-8e41-44096ada8c6d:O Essentials:O Essentials
+304de8ab-a7d3-4df3-b6b2-4674d8814339:O Essentials/Attribute:O Essentials-Attribute
+3aee6aa4-2dd5-4adb-9bed-3676454cdeff:O Essentials/Debug:O Essentials-Debug
+f223bfa5-ce4b-4f80-838a-eff17d3cf085:O Essentials/Deform:O Essentials-Deform
+925722af-3fbd-4bb1-8247-dfe9a1ecd480:O Essentials/Edge:O Essentials-Edge
+2cd36519-46ee-428e-a751-5c3d0312efb2:O Essentials/Filter:O Essentials-Filter
+0218b41f-9d3f-4dd0-9491-5c56e57678db:O Essentials/Generate:O Essentials-Generate
+99c91009-1ea6-4fc1-bf33-6351786a8df1:O Essentials/Read:O Essentials-Read
+4dd41edf-4431-4f79-a357-c6b444a4416f:O Essentials/Shader:O Essentials-Shader
+2e34744f-a050-4efb-a7b7-c052b449fc5d:O Essentials/Texture:O Essentials-Texture
+1f098c57-6187-4e3a-95ba-d7e3d187c6d5:O Essentials/Utilities:O Essentials-Utilities

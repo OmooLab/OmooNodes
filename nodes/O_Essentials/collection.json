@@ -1,0 +1,20 @@
+{
+  "dependencies": [],
+  "files": {
+    "O_Essentials_CompositingNodes.blend": {
+      "source": "O_Essentials_CompositingNodes",
+      "links": {},
+      "imports": {}
+    },
+    "O_Essentials_GeometryNodes.blend": {
+      "source": "O_Essentials_GeometryNodes",
+      "links": {},
+      "imports": {}
+    },
+    "O_Essentials_ShaderNodes.blend": {
+      "source": "O_Essentials_ShaderNodes",
+      "links": {},
+      "imports": {}
+    }
+  }
+}

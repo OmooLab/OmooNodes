@@ -1,17 +1,86 @@
 # 开发
 
-本页记录 OmooNodes 资产库的构筑与文档开发流程。
-
 ## 环境
 
-项目使用 `uv` 管理 Python 环境。
-
 ```bash
-uv sync
+uv sync --locked --dev
 uv run pytest tests
 ```
 
-测试、构建、预览和部署文档：
+`tools/nodes/` 在本项目维护通用 `nodes` CLI。
+项目环境使用 Python 3.11、bpy 4.5.14，不安装 nodebpy。
+独立后端默认 Python 3.13、nodebpy 520.34.1、bpy 5.2.2，可省略 `tool.nodes.backend`，
+也可在该表中覆盖需要的字段。`tool.nodes.targets` 必须明确声明目标及精确 bpy 版本：
+
+```toml
+[tool.nodes.targets]
+b45 = "4.5.14"
+b52 = "5.2.2"
+```
+
+工具匹配对应 Python：b45 使用 3.11，b52 使用 3.13。只声明 b45 时，不会补入 b52。
+工具通过 uv 准备隔离环境，缓存到 `.cache/nodes/`。后端负责转换和布局，各目标负责检查、
+保存、重载与发布清理。worker 使用隔离的 Blender 用户目录。
+
+## 节点来源
+
+当前 `nodes/` 只管理 `O_Essentials` 与 `O_Extra`。
+
+`nodes/<集合>/` 保存 nodebpy 原生 Python、资源、catalog 和 `collection.json`。
+无版本后缀 `.py` 是最低支持 b45 的通用实现；`.b52.py` 是 b52 专用完整实现，构建 b52 时优先选择。
+同版本的资产库保持在同一父目录，跨库依赖由所属库维护。
+
+## 命令
+
+```bash
+# 查看完整参数
+uv run nodes --help
+
+# 首次导入全部 Asset 节点组及辅助依赖，不覆盖已有来源
+uv run nodes dump path/to/O_Library.blend -o nodes/O_Library
+
+# 准备完整节点库，供 Blender 查看、修改和调试
+uv run nodes dev nodes/O_Extra -o workspaces
+
+# 检查并回写人工修订
+uv run nodes dev nodes/O_Extra --sync workspaces
+
+# 直接从源码构建本地节点库，自动构建依赖
+uv run nodes build nodes/O_Extra --target b45 -o contents
+
+# 外部依赖嵌入库，供独立本地分发
+uv run nodes build nodes/O_Extra --target b45 --self-contained -o contents
+
+# 构建远程库，自动嵌入依赖并生成原生 listing
+uv run nodes build --target b52 --remote -o dist
+```
+
+`dev/build` 省略来源时读取 `tool.nodes.source`，默认 `nodes`；省略目标时处理全部配置目标。
+目标版本读取 `pyproject.toml` 的 `tool.nodes.targets`，可用 `--target b52` 只处理一个目标。
+`dev` 显示依赖集合、构建与布局、目标版本保存、重载校验，成功后列出最终输出目录。
+运行提示使用英文，每个文件显示一行构建、保存和校验流程。
+同步显示修改检查、导出、版本合并、重建校验与提交，完成后列出已更新的源码目录。
+已知后端转存到较旧目标时收起版本警告，随后重载检查文件版本与节点结构；其他版本警告保留。
+资产文件没有场景或界面时产生的空场景提示，以及普通读取日志会收起；失败时显示完整诊断。
+`dev` 默认输出 `workspaces/<目标>/<集合>/`，`build` 默认输出 `dist/<目标>/<集合>/`。
+可以直接修改源码后 build，人工往返是可选环节。长线使用同高水平通道，保留便于编辑的多个 Group Input。
+
+`dump` 统一导入无版本后缀 `.py`，原文件保存版本只记录来源；目标兼容性由后续 dev/build 检查。
+历史普通组先在迁移副本中标记 Asset，再导入。已有来源的修订使用 dev --sync。
+
+回写比较节点逻辑、Asset 元数据、接口标识及 packed 图片内容/颜色设置，忽略布局变化。
+仅公共依赖变化时更新基线，不重写消费者源码。共享资源须在所有配置目标一致修改，否则报冲突。
+校验源基线、依赖和重建结果，并在提交前再次检查源码和开发库摘要，保护并发编辑。
+正式构建使用独立临时目录，不覆盖人工编辑库，选定目标全部成功后才替换产物。
+Remote 生成器来自固定 bpy 的原生模块，验证 listing、metadata、文件与 SHA-256。
+
+## CI 与发布
+
+标签发布先运行测试，再分别 build b45 本地库和 b52 远程库，最后由 CI 压缩各目标目录。
+Granules 的缺失依赖仍待处理，不参与构建。自定义图标恢复暂缓。
+跨版本 Mix 转换仍需验收，保存重载检查不能宣告全部功能兼容。
+
+## 文档
 
 ```bash
 uv run docs test
@@ -20,158 +89,6 @@ uv run docs dev
 uv run docs deploy
 ```
 
-`test` 在临时目录中严格构建，检查文档错误与警告；`dev` 提供实时预览。
-`build` 根据 `pyproject.toml` 的版本生成 `major.minor.x` 系列（当前为 `0.1.x`），
-更新 `latest` 并提交到本地 `gh-pages`。`deploy` 构建同一版本并推送到 `github`
-远端的 `gh-pages`；GitHub Pages 使用该分支的根目录作为发布源。
-
-## 目录结构
-
-```text
-subspaces   Blender 资产源文件
-dist        Asset Library 导出文件夹
-```
-
-`subspaces` 中每个 Asset Library 只保留一个目录。无版本后缀的 `.blend` 是基础层；
-`.b<major><minor>.blend` 是从对应版本起启用的 overlay。同名 Node Group 向下覆盖，
-新名称则追加。执行构建的 Blender 自动决定启用哪些 overlay，输出路径不包含版本层。
-
-例如：
-
-```text
-subspaces/O_Essentials/
-├─ O_Essentials_GeometryNodes.blend
-├─ O_Essentials_GeometryNodes.b52.blend
-├─ O_Essentials_ShaderNodes.blend
-└─ blender_assets.cats.txt
-```
-
-Blender 4.5 只构筑基础层；Blender 5.2 会按顺序组合基础层和 `.b52.blend`。overlay 可以
-Link 基础文件中的公共 Node Group，构筑脚本会将这些引用映射回产物中的本地数据，并让
-overlay 中的同名 Node Group 覆盖基础实现。
-
-### 版本合并规则
-
-- 无后缀文件是 Blender 4.5 基础层，不应创建低于 `b45` 的 overlay。
-- 目标版本由执行脚本的 Blender 决定；overlay 的启用版本由 `.b52.blend` 等文件名决定，
-  不使用文件内部记录的保存版本。
-- 构筑时先载入基础层，再按版本从低到高应用所有不高于目标版本的 overlay。
-- overlay 中的新 Node Group 会被加入；同名 Node Group 会覆盖较低版本的实现。
-
-例如 Blender 5.3 的合并顺序为 `base → b52 → b53`，最终由 `b53` 的同名节点胜出。
-
-## 执行构筑脚本
-
-脚本必须由目标 Blender 执行。以下示例使用 Git Bash，并将 executable 保存到变量中：
-
-`build_assets.py` 是单文件工具，只依赖 Blender 内置的 `bpy` 与 Python 标准库。构筑
-环境不需要另外安装 Python、`uv` 或项目依赖；分发构筑工具时只需携带该脚本。
-
-```bash
-BLENDER="C:/path/to/blender.exe"
-```
-
-通用调用形式：
-
-```bash
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- SOURCE [OPTIONS]
-```
-
-- `-b`：使用后台模式，不打开 Blender 界面。
-- `--python-exit-code 1`：Python 构筑失败时返回非零退出码。
-- `-P build_assets.py`：执行构筑脚本。
-- `--`：分隔 Blender 参数与构筑脚本参数。
-- `SOURCE`：单个 Asset Library 源目录。
-- `-o/--out`：输出父目录；产物目录名沿用 `SOURCE` 的目录名。
-
-构筑会在临时目录中完成组合、清理与校验，全部成功后才替换目标目录。Blender 备份文件、
-旧 Remote listing 和临时文件不会进入产物。
-
-## 构筑本地资产库
-
-默认本地构筑保留 linked library 和原始相对路径。应先构筑 `O_Essentials`，再构筑
-`O_Extra`，并让它们保持在同一输出父目录：
-
-```bash
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Essentials -o contents
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Extra -o contents
-```
-
-结果分别位于 `contents/O_Essentials` 和 `contents/O_Extra`。使用 `--self-contained`
-可以构筑没有外部 linked library 依赖的独立本地资产库：
-
-```bash
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Extra --self-contained -o contents
-```
-
-## 构筑远程资产库
-
-Remote 模式会将 linked datablock 本地化，清理外部引用，生成 listing、metadata 和缩略图，
-并校验资产文件与 SHA-256：
-
-本地化会在源文件的相对路径仍然有效时完成。依赖 datablock 会保留节点内容，但不会
-继承来源资产库的 Asset 标记。
-
-```bash
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Essentials --remote -o dist
-"$BLENDER" -b --python-exit-code 1 -P build_assets.py -- \
-  subspaces/O_Extra --remote -o dist
-```
-
-结果分别位于 `dist/O_Essentials` 和 `dist/O_Extra`。如需适配网络地址，可在构筑完成后
-手动调整发布目录名。
-
-Remote 构筑会验证资产数量、文件数量、缩略图和 SHA-256。`--remote` 已经生成无外部引用
-的产物，因此不能与 `--self-contained` 同时使用。
-
-## 节点文档与 Codex Skill
-
-节点资料采用一套单向同步流程：
-
-```text
-发布版 .blend
-  → .agents/skills/use-omoo-nodes/references/node-catalog.json
-  → docs/nodes/o-essentials.md
-  → docs/nodes/o-extra.md
-```
-
-`node-catalog.json` 是 skill 使用的机器参考，保存精确节点名、类型、Socket identifier、
-默认值、依赖和简短用途。`docs/nodes/` 是从同一 catalog 生成的面向用户参考。不要在 skill
-中再维护重复的节点 Markdown。
-
-节点功能、妙用案例和参数释义集中维护在 `scripts/generate_node_reference.py`，其中节点功能
-同时写回 catalog 的 `description`，docs 则生成面向使用者的完整说明。更新资产后先用目标
-Blender 重新检查发布版，再生成 catalog 描述和 docs：
-
-```bash
-BLENDER="C:/path/to/blender.exe"
-
-"$BLENDER" -b --python-exit-code 1 \
-  -P scripts/inspect_omoo_nodes.py -- \
-  dist/O_Essentials dist/O_Extra \
-  --output .agents/skills/use-omoo-nodes/references/node-catalog.json
-
-uv run python scripts/generate_node_reference.py \
-  .agents/skills/use-omoo-nodes/references/node-catalog.json \
-  dist \
-  docs/nodes
-```
-
-生成器会把 `BEHAVIOR_NOTES` 同步写入 catalog 的 `description`，并同时重建两份节点文档。
-新增节点但缺少用途说明时生成会失败，避免 skill 与 docs 静默漂移。
-
-最后运行 Blender 集成检查、skill validator、测试和文档检查：
-
-```bash
-"$BLENDER" -b --python-exit-code 1 \
-  -P scripts/validate_omoo_nodes_in_blender.py -- \
-  dist dist/validation/use-omoo-nodes-validation.blend
-uv run pytest tests/test_use_omoo_nodes_skill.py
-uv run docs test
-```
-
-文档中的节点名必须保留资产原始拼写，例如 `O Solidfy` 与 `Rest Positon`。
+`test` 在临时目录严格构建；`dev` 实时预览。`build` 按项目版本生成 major.minor.x 并提交到本地
+ gh-pages；`deploy` 推送到 github 远端。现有节点说明保存在 `docs/nodes/`，机器参考保存在
+`.agents/skills/use-omoo-nodes/references/node-catalog.json`。
