@@ -1,23 +1,27 @@
+# Node-group asset "O Point Grid" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
+# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
 from nodebpy import geometry as g, TreeBuilder
 from nodebpy.builder import CustomGeometryGroup
 
+
 class OPointGrid(CustomGeometryGroup):
-    _name = 'O Point Grid'
-    _color_tag = 'GEOMETRY'
+    _name = "O Point Grid"
+    _color_tag = "GEOMETRY"
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
-        menu = tree.inputs.menu('Menu', 'XY', optional_label=True)
-        space = tree.inputs.float('Space', 0.10000000149011612, min_value=0.009999999776482582, max_value=1.0, subtype='DISTANCE')
-        radius = tree.inputs.float('Radius', 1.0, min_value=0.10000000149011612, max_value=2.0)
-        min = tree.inputs.vector('Min', (-1.0, -1.0, -1.0))
-        max = tree.inputs.vector('Max', (1.0, 1.0, 1.0))
-        position = tree.inputs.float('Position', 0.5, description='Amount of mixing between the A and B inputs', min_value=0.0, max_value=1.0, subtype='FACTOR')
-        inside = tree.inputs.boolean('Inside', False)
-        points = tree.outputs.geometry('Points')
+        menu = tree.inputs.menu("Menu", "XY", optional_label=True)
+        space = tree.inputs.float("Space", 0.10000000149011612, min_value=0.009999999776482582, max_value=1.0, subtype="DISTANCE")
+        radius = tree.inputs.float("Radius", 1.0, min_value=0.10000000149011612, max_value=2.0)
+        min = tree.inputs.vector("Min", (-1.0, -1.0, -1.0))
+        max = tree.inputs.vector("Max", (1.0, 1.0, 1.0))
+        position = tree.inputs.float("Position", 0.5, description="Amount of mixing between the A and B inputs", min_value=0.0, max_value=1.0, subtype="FACTOR")
+        inside = tree.inputs.boolean("Inside", False)
+        points = tree.outputs.geometry("Points")
+
         index = g.Index()
         index_1 = g.Index()
-        menu_switch = g.MenuSwitch.integer(menu, {'XY': 0, 'XZ': 1, 'YZ': 2, 'XYZ': -1})
+        menu_switch = g.MenuSwitch.integer(menu, {"XY": 0, "XZ": 1, "YZ": 2, "XYZ": -1})
         result = g.Mix.vector(position, min, max, clamp_factor=True).o.result_vector
         vector_math = max + (9.999999747378752e-05, 9.999999747378752e-05, 9.999999747378752e-05)
         separate_xyz = g.SeparateXYZ(vector=vector_math)
@@ -50,6 +54,17 @@ class OPointGrid(CustomGeometryGroup):
         combine_xyz_1 = g.CombineXYZ(x=(separate_xyz_5.o.x / space).ceil() * space, y=(separate_xyz_5.o.y / space).ceil() * space, z=(separate_xyz_5.o.z / space).ceil() * space)
         transform_geometry = g.TransformGeometry(geometry=g.Points(count=math_4, position=index_switch_7), translation=index_switch_4)
         transform_geometry_1 = g.TransformGeometry(geometry=g.Points(count=math_9 * math_11, position=combine_xyz), translation=combine_xyz_1)
-        (menu_switch.o.output > -1).switch.geometry(transform_geometry_1, transform_geometry) >> g.SetPointRadius(radius=space * radius * 0.5) >> g.SetPosition(offset=inside.switch.vector((0.0, 0.0, 0.0), space * -0.5)) >> points
+        (
+            (menu_switch.o.output > -1).switch.geometry(transform_geometry_1, transform_geometry)
+            >> g.SetPointRadius(radius=space * radius * 0.5)
+            >> g.SetPosition(offset=inside.switch.vector((0.0, 0.0, 0.0), space * -0.5))
+            >> points
+        )
+
 ASSET = OPointGrid
-ASSET_METADATA = {'author': 'Ma Nan', 'copyright': 'Omoo Lab', 'catalog_id': '0218b41f-9d3f-4dd0-9491-5c56e57678db'}
+
+ASSET_METADATA = {
+    "author": "Ma Nan",
+    "copyright": "Omoo Lab",
+    "catalog_id": "0218b41f-9d3f-4dd0-9491-5c56e57678db",
+}

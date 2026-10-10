@@ -2,13 +2,13 @@
 
 ### Requirement: 三个命令统一开发与正式构建
 
-nodes SHALL 只提供 dev、build、dump 和各命令帮助。dev 默认准备完整开发节点库与基线；
---sync/-s SHALL 接收开发目录并验证回写，和显式 --output 互斥。build SHALL 从源码构建正式节点库，
+nodes SHALL 只提供 dev、build、dump 和各命令帮助。dev 从源码生成并覆盖完整开发节点库；
+--sync/-s SHALL 接收开发目录并完整导出覆盖源码，和显式 --output 互斥。build SHALL 从源码构建正式节点库，
 dump SHALL 从节点库文件或目录导入来源。系统 MUST 不提供独立 sync/export/pack/catalog 或 docs nodes。
 
 #### Scenario: 可选人工开发往返
 - **WHEN** 用户 dev 准备开发库后在 Blender 修改，再 dev -s 回写
-- **THEN** 验证后只更新变化源码，用户也可直接修改 .py 后 build，不依赖该开发环节
+- **THEN** 完整导出并覆盖对应 Python 和资源，用户也可直接修改 .py 后 build，不依赖该开发环节
 
 ### Requirement: build 明确选择 local 与 remote
 
@@ -65,18 +65,18 @@ dump SHALL 验证转换往返；目标兼容性 SHALL 由后续 dev/build 验收
 - **THEN** 全部 Asset 根通过实际验证后写入来源，原文件摘要不变
 
 
-### Requirement: 同步覆盖元数据与共享资源并保护并发修改
+### Requirement: 操作者决定开发库与源码的覆盖方向
 
-系统 SHALL 将 Asset 元数据、接口标识、适用组属性、packed 图片内容和颜色设置纳入签名。
-仅公共依赖变化时 SHALL 更新开发库基线，不重写消费者源码。
+dev SHALL 从源码生成并覆盖所选开发库。dev -s SHALL 完整导出所选开发库的 Asset 根、辅助组、元数据、接口与 packed 图片，覆盖对应 Python 和资源，删除已移除节点的生成源码。
 同步 SHALL 自动识别唯一工作区目标；多个目标存在时 MUST 要求显式选择。
-修改 SHALL 回写现有通用或专用源码，不自动生成版本分支。共享源码与资源只需修改一个工作区，并对全部配置目标重建校验。
-提交前 MUST 再次核对源与开发库摘要，发生并发修改时保留人工内容及原基线。
+通用实现 SHALL 回写通用文件，已有 b52 专用实现 SHALL 回写专用文件。目标兼容性由 dev/build 检查。
 
-#### Scenario: 修改期间出现并发编辑
-- **WHEN** 同步候选通过验证后，源码或开发目录被另一个操作者修改
-- **THEN** 拒绝提交候选，不覆盖操作者的修改，不推进基线
+#### Scenario: 源码与开发库均有编辑
+- **WHEN** 用户执行 dev
+- **THEN** 以源码为准覆盖开发库
+- **WHEN** 用户执行 dev -s
+- **THEN** 以开发库为准覆盖对应源码和资源
 
-#### Scenario: 图片颜色设置只在一个目标修改
-- **WHEN** 共享图片在一个目标改为 Non-Color，其他目标保持原设置
-- **THEN** 更新共享资源，对全部目标验证，通过后统一提交
+#### Scenario: 开发库移除节点
+- **WHEN** 用户移除 Asset 节点后执行 dev -s
+- **THEN** 移除对应生成源码

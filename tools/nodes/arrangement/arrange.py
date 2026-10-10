@@ -2,9 +2,8 @@
 
 from .branches import calculation_blocks
 from .dimensions import estimate_node_dimensions, visible_socket
-from .flow import origin_socket, socket_links
 from .layout import plan_layout
-from .common import prepare_node_group, replace_link_source
+from .common import origin_socket, prepare_node_group, replace_link_source, socket_links
 
 
 def _remove_routes(node_group):
@@ -130,4 +129,3 @@ def arrange_nodes(node_group):
             nodes[i].parent = frame
             nodes[i].location = absolute - frame.location
     prepare_node_group(node_group)
-

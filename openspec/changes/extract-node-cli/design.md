@@ -63,7 +63,7 @@ AnyImage 使用 local，可将所需节点库文件随插件分发并按组名�
 
 | 命令 | 输入 → 输出 |
 | --- | --- |
-| `nodes dev [SOURCE] [-o WORKSPACE | -s WORKSPACE] [--target TARGET]` | 默认准备完整开发节点库；--sync/-s 从开发库验证并回写源码 |
+| `nodes dev [SOURCE] [-o WORKSPACE | -s WORKSPACE] [--target TARGET]` | 默认准备完整开发节点库；--sync/-s 从开发库完整导出并覆盖源码 |
 | `nodes build [SOURCE] [-o OUTPUT] [--target TARGET] [--remote] [--self-contained]` | 从源码构建正式节点库，默认本地，--remote 生成远程库 |
 | `nodes dump INPUT -o SOURCE` | 现有节点库文件或目录 → 经验证的原生源码集合 |
 
@@ -75,10 +75,10 @@ dump 首次导入统一使用无版本后缀 .py，原始 .blend 的保存版本
 **dev**
 
 - `-o/--output WORKSPACE`：准备开发库的父目录，默认 workspaces。
-- `-s/--sync WORKSPACE`：读取该目录的开发库，验证后写回来源；直接接收目录，不是布尔开关。
+- `-s/--sync WORKSPACE`：读取该目录的开发库，完整导出并覆盖来源；直接接收目录，不是布尔开关。
 - 两者显式使用时互斥。省略两者相当于准备 workspaces。
 - `--target TARGET`：准备或读取指定目标；省略时只准备最低目标；回写自动读取唯一工作区目标，多版本工作区须显式选择。
-- 回写仍须验证候选涉及的适配范围；未读取的版本不能被静默覆盖。
+- dev 覆盖所选开发库，dev -s 覆盖对应 Python 和资源，由操作者决定覆盖方向。
 
 **build**
 
@@ -127,8 +127,7 @@ AnyImage 自己的插件打包程序从 dist/b45/O_AnyImage/ 取构建结果中�
 未来版本变体只在声明、实现并验证对应目标后启用，不按版本大小套用补丁。
 来源使用 collection.json 描述集合文件和依赖归属，公开根使用模块原生 ASSET 定义。
 SDK ASSET 声明与正式节点库的 Asset 标记保留。开发库包含全部公开组与依赖，便于查看、调试、修改；
-Asset 元数据、packed 图片数据与颜色设置参与签名；源码和开发库在提交前再次核对，并发修改拒绝回写。通用节点回写通用源码，已有专用节点回写专用源码，不自动分化版本；共享资源可在一个工作区修改，对全部目标重建校验。已有根和辅助组修改由 --sync 检测，新公开组通过 Asset 标记纳入，不能将所有辅助组自动提升为公开根。
-同步逐文件提交变更源码和基线，保留目录与编辑库 .blend；文件备份支持失败回滚，回滚受阻时保留备份。
+dev 从源码生成并覆盖开发库。dev -s 完整导出 Asset 根、辅助组、元数据与 packed 图片，直接覆盖对应 Python 和资源，并移除已删除节点的生成源码。通用实现回写通用文件，已有 b52 专用实现回写专用文件。目标兼容性通过 dev/build 检查。
 
 nodebpy dump 的 Asset 根要求与节点库约定一致。dump 导入全部 Asset 根及其依赖。
 历史普通组迁移先在临时副本标记公开根，再调用 dump 并验证，原文件保持不变。不存在单独的普通 blend 正式产物分支；AnyImage 同样使用节点库，

@@ -12,12 +12,9 @@ sys.path.insert(0, str(ROOT))
 
 import bpy
 
-from tools.nodes.graph import digest, tree_graph
+from tools.nodes.files import write_json
+from tools.nodes.graph import tree_graph
 from tools.nodes.publication import release_compositor_storage
-
-
-def write_json(path, data):
-    Path(path).write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf8")
 
 
 def snapshot():
@@ -45,9 +42,6 @@ def snapshot():
         if not getattr(group, "is_tool", False):
             graph["tree_properties"].pop("node_tool_idname", None)
         graph["interface_identifiers"] = [item.identifier for item in group.interface.items_tree if item.item_type == "SOCKET"]
-        graph["own_signature"] = digest({"logic": tree_graph(group, own=True),
-                                        "asset": graph["asset_metadata"], "tree": graph["tree_properties"],
-                                        "identifiers": graph["interface_identifiers"]})
         result[group.name] = graph
     return result
 
@@ -69,9 +63,6 @@ def dump(job):
     local_names = [group.name for group in bpy.data.node_groups if group.library is None]
     groups = [group for group in bpy.data.node_groups if group.asset_data and group.library is None]
     names = [group.name for group in groups]
-    names = job.get("names", names)
-    if not names:
-        raise ValueError(f"No local node assets: {job['input']}")
     # Preserve foreign ownership before nodebpy localizes its introspection copy.
     owners = {group.name: str(Path(bpy.path.abspath(group.library.filepath)).resolve())
               for group in bpy.data.node_groups if group.library}
@@ -85,13 +76,12 @@ def dump(job):
         for frame in [node for node in group.nodes if node.bl_idname == "NodeFrame"]:
             group.nodes.remove(frame)
     temporary = Path(job["output"]).parent / "dump-input.blend"
+    temporary.parent.mkdir(parents=True, exist_ok=True)
     for library in bpy.data.libraries:
         library.filepath = str(Path(bpy.path.abspath(library.filepath)).resolve())
     save(temporary)
     images = []
     resources = Path(job["output"]) / "resources"
-    old_records = json.loads((resources / "images.json").read_text(encoding="utf8")) if (resources / "images.json").exists() else []
-    old_names = {item["name"]: item["file"] for item in old_records}
     needed = set()
     visited = set()
 
@@ -117,20 +107,19 @@ def dump(job):
         if image.packed_file is None:
             raise ValueError(f"Image must be packed before export: {image.name}")
         resources.mkdir(parents=True, exist_ok=True)
-        filename = old_names.get(image.name)
-        if filename is None:
-            index = len(old_records) + len(images)
-            filename = f"{index}{Path(image.filepath).suffix or '.png'}"
+        filename = f"{len(images)}{Path(image.filepath).suffix or '.png'}"
         (resources / filename).write_bytes(image.packed_file.data)
         images.append({"name": image.name, "file": filename,
                        "colorspace": image.colorspace_settings.name, "alpha_mode": image.alpha_mode})
     bpy.ops.wm.read_factory_settings(use_empty=True)
-    modules = dump_library(temporary, job["output"], names=names, format=False)
+    if names:
+        dump_library(temporary, job["output"], names=names, format=False)
+    else:
+        Path(job["output"]).mkdir(parents=True, exist_ok=True)
     normalize_vector_defaults(Path(job["output"]))
     if images:
         write_json(resources / "images.json", images)
-    write_json(job["report"], {"graphs": graph, "owners": owners, "source_version": source_version, "groups": local_names,
-                               "modules": {name: str(path) for name, path in modules.items()}})
+    write_json(job["report"], {"graphs": graph, "owners": owners, "source_version": source_version, "groups": local_names})
 
 
 def build(job):
@@ -169,7 +158,7 @@ def build(job):
         absolute = Path(bpy.path.abspath(library.filepath)).resolve()
         library.filepath = "//" + os.path.relpath(absolute, Path(job["output"]).parent).replace("\\", "/")
     save(job["output"])
-    write_json(job["report"], {"graphs": snapshot(), "version": list(bpy.app.version[:2])})
+    write_json(job["report"], {"version": list(bpy.app.version[:2])})
 
 
 def inspect(job):
@@ -187,6 +176,12 @@ def inspect(job):
         # Close Blender's read handles before replacing the input on Windows.
         bpy.ops.wm.read_factory_settings(use_empty=True)
         converted.replace(destination)
+        bpy.ops.wm.open_mainfile(filepath=str(destination), load_ui=False)
+        file_version = list(bpy.data.version)
+        if file_version[:2] != list(bpy.app.version[:2]):
+            raise ValueError(f"Unexpected saved file version: {file_version}")
+        if snapshot() != graph:
+            raise ValueError(f"Node data changed after saving: {destination}")
     write_json(job["report"], {"graphs": graph, "version": list(bpy.app.version[:2]), "file_version": file_version})
 
 

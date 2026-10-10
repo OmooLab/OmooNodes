@@ -27,7 +27,7 @@ from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_symmetry import OS
 class ODrawTubes(CustomGeometryGroup):
     _name = 'O Draw Tubes'
     _color_tag = 'GEOMETRY'
-    _tree_properties = {'node_tool_idname': 'geometry.o_draw_tubes', 'is_modifier': True}
+    _tree_properties = {'is_modifier': True}
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         grease_pencil = tree.inputs.geometry('Grease Pencil')

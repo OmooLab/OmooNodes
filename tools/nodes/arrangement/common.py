@@ -15,3 +15,13 @@ def replace_link_source(node_group, link, source):
     if multi:
         replacement.swap_multi_input_sort_id(link)
         node_group.links.remove(link)
+
+
+def socket_links(socket):
+    return sorted(socket.links, key=lambda link: link.multi_input_sort_id, reverse=True)
+
+
+def origin_socket(socket):
+    while socket.node.bl_idname == "NodeReroute":
+        socket = socket.node.inputs[0].links[0].from_socket
+    return socket

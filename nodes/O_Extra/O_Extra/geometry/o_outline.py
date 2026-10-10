@@ -7,7 +7,7 @@ from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_displace import OD
 class OOutline(CustomGeometryGroup):
     _name = 'O Outline'
     _color_tag = 'GEOMETRY'
-    _tree_properties = {'default_group_node_width': 160, 'node_tool_idname': 'geometry.o_outline', 'is_modifier': True}
+    _tree_properties = {'default_group_node_width': 160, 'is_modifier': True}
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         mesh = tree.inputs.geometry('Mesh')

@@ -24,6 +24,6 @@ class OGradientBackground(CustomShaderGroup):
         mapping = s.Mapping.texture(s.Mapping.texture(s.TextureCoordinate().o.window, (0.5, 0.5, 0.5)), location, scale=scale)
         o_linear = OLinear(Angle=angle + 1.5707963705062866, Vector=s.Mapping.texture(mapping, (-0.5, -0.5, -0.5)))
         mix = g.Mix.color(s.InvertColor(fac=invert, color=o_linear.o.gradient), a, b, clamp_factor=True)
-        OBackground(Color=mix.o.result_color, Light=light, **{'Transmission (Cycles)': transmission_cycles}, _named_links=[('Strength', strength)]) >> shader
+        OBackground(Color=mix.o.result_color, Light=light, **{'Transmission (Cycles)': transmission_cycles}, _named_links=[('Strength', strength), ('Strength', 1.0)]) >> shader
 ASSET = OGradientBackground
 ASSET_METADATA = {'catalog_id': '90187864-01c8-45bc-99f1-66e7e746beb8'}

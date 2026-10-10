@@ -1,98 +1,64 @@
 # 开发
 
-## 环境
+## 环境与配置
 
 ```bash
 uv sync --locked --dev
 uv run pytest tests
 ```
 
-`tools/nodes/` 在本项目维护通用 `nodes` CLI。
-项目环境使用 Python 3.11、bpy 4.5.14，不安装 nodebpy。
-独立后端默认 Python 3.13、nodebpy 520.34.1、bpy 5.2.2，可省略 `tool.nodes.backend`，
-也可在该表中覆盖需要的字段。支持目标必须明确声明，最低目标作为通用基础版本及默认 dev 目标：
+`tools/nodes/` 提供 `nodes` 命令，读取调用项目的 `pyproject.toml`：
 
 ```toml
 [tool.nodes]
 targets = ["b45", "b52"]
-
-# 可选：覆盖已声明目标的精确版本
-[tool.nodes.versions]
-b45 = "4.5.14"
 ```
 
-工具内置已验证默认版本：b45 为 bpy 4.5.14/Python 3.11，b52 为 bpy 5.2.2/Python 3.13，不联网查询。版本覆盖不能增加未声明目标。
-工具通过 uv 准备隔离环境，缓存到 `.cache/nodes/`。后端负责转换和布局，各目标负责检查、
-保存、重载与发布清理。worker 使用隔离的 Blender 用户目录。
+默认 b45 使用 Python 3.11 / bpy 4.5.14，b52 使用 Python 3.13 / bpy 5.2.2。
+转换后端使用 Python 3.13 / bpy 5.2.2 / nodebpy 520.34.1，由 uv 准备环境并缓存到 `.cache/nodes/`。
+`tool.nodes.versions` 可覆盖已声明目标的 bpy 版本，`tool.nodes.backend` 可覆盖后端版本。
 
-## 节点来源
+各指令以 `...` 显示进度、`✔` 标记完成，最后列出输出目录。Blender 的 Info、Warning、读取路径和正常退出时的内存泄漏统计隐藏；其他 Error 或异常退出会停止后续流程。
 
-当前 `nodes/` 只管理 `O_Essentials` 与 `O_Extra`。
+## 节点开发
 
-`nodes/<集合>/` 保存 nodebpy 原生 Python、资源、catalog 和 `collection.json`。
-无版本后缀 `.py` 是适配项目最低配置目标的通用实现；`.b52.py` 是 b52 专用完整实现，构建 b52 时优先选择。
-同版本的资产库保持在同一父目录，跨库依赖由所属库维护。
-
-## 命令
+`nodes/<资产库>/` 保存 Python、资源、catalog 和记录文件归属与依赖的 `collection.json`。
+通用实现使用 `.py`，b52 专用实现使用 `.b52.py`。同版本的依赖库放在同一父目录。
 
 ```bash
-# 查看完整参数
-uv run nodes --help
-
-# 首次导入全部 Asset 节点组及辅助依赖，不覆盖已有来源
+# 首次导入 Asset 节点及依赖，输出目录须不存在
 uv run nodes dump path/to/O_Library.blend -o nodes/O_Library
 
-# 准备完整节点库，供 Blender 查看、修改和调试
+# 从源码生成并覆盖开发库
 uv run nodes dev nodes/O_Extra -o workspaces
 
-# 检查并回写人工修订
-uv run nodes dev nodes/O_Extra --sync workspaces
+# 从开发库完整导出，覆盖对应 Python 和资源
+uv run nodes dev nodes/O_Extra -s workspaces
 
-# 直接从源码构建本地节点库，自动构建依赖
+# 构建本地库及依赖
 uv run nodes build nodes/O_Extra --target b45 -o contents
 
-# 外部依赖嵌入库，供独立本地分发
+# 独立本地库：嵌入外部依赖
 uv run nodes build nodes/O_Extra --target b45 --self-contained -o contents
 
-# 构建远程库，自动嵌入依赖并生成原生 listing
+# 远程库：嵌入依赖并生成原生 listing、metadata、缩略图和 SHA-256
 uv run nodes build --target b52 --remote -o dist
 ```
 
-`dev/build` 省略来源时读取 `tool.nodes.source`，默认 `nodes`。dev 默认只导出最低目标，build 默认构建全部配置目标。
-`--target b52` 可选择已声明的其他目标。sync 自动读取开发库的唯一目标；已有多版本目录时须加 `--target`。
-`dev` 显示依赖集合、构建与布局、目标版本保存、重载校验，成功后列出最终输出目录。
-运行提示使用英文，每个文件显示一行构建、保存和校验流程。
-同步显示修改检查、导出、版本合并、重建校验与提交，完成后列出已更新的源码目录。
-已知后端转存到较旧目标时收起版本警告，随后重载检查文件版本与节点结构；其他版本警告保留。
-资产文件没有场景或界面时产生的空场景提示，以及普通读取日志会收起；失败时显示完整诊断。
-`dev` 默认输出 `workspaces/<目标>/<集合>/`，`build` 默认输出 `dist/<目标>/<集合>/`。
-可以直接修改源码后 build，人工往返是可选环节。长线使用同高水平通道，保留便于编辑的多个 Group Input。
+人用 Blender 编辑开发库，AI 直接修改源码，由操作者决定覆盖方向。回写也会删除已移除节点的生成源码。
+`dev` 默认最低目标，`build` 默认全部目标；`-s` 自动选择唯一工作区目标，多版本时需指定 `--target`。
+省略来源时读取 `tool.nodes.source`，默认 `nodes`。默认输出分别为 `workspaces/<目标>/<资产库>/` 和 `dist/<目标>/<资产库>/`。
+构建在临时目录完成，目标 Blender 保存、重载检查后替换输出；CI 再压缩发布。
 
-`dump` 统一导入无版本后缀 `.py`，原文件保存版本只记录来源；目标兼容性由后续 dev/build 检查。
-历史普通组先在迁移副本中标记 Asset，再导入。已有来源的修订使用 dev --sync。
-
-回写比较节点逻辑、Asset 元数据、接口标识及 packed 图片内容/颜色设置，忽略布局变化。
-仅公共依赖变化时更新基线，不重写消费者源码。通用节点修改回写原通用文件，已有专用实现回写专用文件；不会自动创建版本分支。共享资源也只需修改所选开发库，回写后对所有目标重建校验。
-校验源基线、依赖和重建结果，并在提交前再次检查源码和开发库摘要，保护并发编辑。
-同步仅替换变更文件和基线，保留源码目录及开发库 `.blend`；提交失败时从文件备份回滚。
-正式构建使用独立临时目录，不覆盖人工编辑库，选定目标全部成功后才替换产物。
-Remote 生成器来自固定 bpy 的原生模块，验证 listing、metadata、文件与 SHA-256。
-
-## CI 与发布
-
-标签发布先运行测试，再分别 build b45 本地库和 b52 远程库，最后由 CI 压缩各目标目录。
-Granules 的缺失依赖仍待处理，不参与构建。自定义图标恢复暂缓。
-跨版本 Mix 转换仍需验收，保存重载检查不能宣告全部功能兼容。
+b52 的 92 个资产已通过完整往返。b52 后端读取 b45 文件时会迁移 `O Stroke`、`O Mix Color` 等节点；完整往返建议使用 `--target b52`。
 
 ## 文档
 
 ```bash
-uv run docs test
-uv run docs build
-uv run docs dev
-uv run docs deploy
+uv run docs test    # 临时目录严格构建
+uv run docs dev     # 本地预览
+uv run docs build  # 按 major.minor.x 构建并提交到本地 gh-pages
+uv run docs deploy # 推送到 github 远端
 ```
 
-`test` 在临时目录严格构建；`dev` 实时预览。`build` 按项目版本生成 major.minor.x 并提交到本地
- gh-pages；`deploy` 推送到 github 远端。现有节点说明保存在 `docs/nodes/`，机器参考保存在
-`.agents/skills/use-omoo-nodes/references/node-catalog.json`。
+节点说明在 `docs/nodes/`，机器参考在 `.agents/skills/use-omoo-nodes/references/node-catalog.json`。

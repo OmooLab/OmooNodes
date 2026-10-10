@@ -1,4 +1,5 @@
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -57,3 +58,94 @@ def test_wrong_python_is_rejected_before_package_install(tmp_path, monkeypatch):
     monkeypatch.setattr(runtimes.subprocess, "check_output", lambda *a, **kw: '{"python": "3.11", "bpy": "5.2.2"}')
     with pytest.raises(ValueError, match="Wrong Python"):
         runtimes.ensure_runtime(tmp_path, "b52", settings)
+
+
+@pytest.mark.parametrize("overrides", [{}, {"nodebpy": "530.0.0", "bpy": "5.3.0"}, {"nodebpy": "520.34.2"}])
+def test_backend_defaults_can_be_omitted_or_partially_overridden(tmp_path, monkeypatch, overrides):
+    monkeypatch.chdir(tmp_path)
+    backend = "[tool.nodes.backend]\n" + "".join(f'{key} = "{value}"\n' for key, value in overrides.items()) if overrides else ""
+    (tmp_path / "pyproject.toml").write_text(backend + '[tool.nodes]\ntargets = ["b45"]\n')
+    prepared = {}
+
+    def prepare(cache, name, settings):
+        prepared[name] = settings
+        return "python-" + name
+
+    monkeypatch.setattr(runtimes, "ensure_runtime", prepare)
+    config = runtimes.configuration()
+    assert prepared["backend"] == {"python": "3.13", "nodebpy": "520.34.1", "bpy": "5.2.2", **overrides}
+    assert config["builder_version"] == prepared["backend"]["bpy"]
+    assert config["versions"] == {"b45": "4.5.14"}
+    assert set(prepared) == {"backend", "b45"}
+
+
+@pytest.mark.parametrize("targets", ["", "targets = []\n"])
+def test_targets_must_be_explicit_and_nonempty(tmp_path, monkeypatch, targets):
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "pyproject.toml").write_text('[tool.nodes]\nsource = "nodes"\n' + targets)
+    monkeypatch.setattr(runtimes, "ensure_runtime", lambda *args: pytest.fail("Invalid configuration prepared a runtime"))
+    with pytest.raises(ValueError, match="nonempty list"):
+        runtimes.configuration()
+
+
+def test_dev_defaults_to_lowest_target_and_versions_only_override_declared_targets(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    path = tmp_path / "pyproject.toml"
+    path.write_text('[tool.nodes]\ntargets = ["b52", "b45"]\n[tool.nodes.versions]\nb45 = "4.5.13"\n')
+    prepared = {}
+    monkeypatch.setattr(runtimes, "ensure_runtime", lambda cache, name, settings: prepared.setdefault(name, settings))
+    config = runtimes.configuration(development=True)
+    assert config["versions"] == {"b45": "4.5.13"}
+    assert set(prepared) == {"backend", "b45"}
+    assert set(runtimes.configuration()["versions"]) == {"b45", "b52"}
+    path.write_text('[tool.nodes]\ntargets = ["b45"]\n[tool.nodes.versions]\nb52 = "5.2.2"\n')
+    with pytest.raises(ValueError, match="only override declared"):
+        runtimes.configuration()
+
+
+@pytest.mark.parametrize("action", ["build", "dump", "inspect", "publish"])
+def test_worker_uses_requested_runtime_and_reports_failure(tmp_path, monkeypatch, capsys, action):
+    config = {"builder": "python-builder", "builder_version": "5.3.0",
+              "b52": "python-b52", "versions": {"b52": "5.2.2"}}
+    calls = []
+
+    def execute(command, env, **options):
+        assert Path(env["BLENDER_USER_CONFIG"]).is_relative_to(tmp_path)
+        assert env["PYTHONNOUSERSITE"] == "1"
+        job = json.loads(Path(command[-1]).read_text())
+        calls.append((command[0], job["expected_version"]))
+        assert "backend" not in job
+        Path(job["report"]).write_text('{"graphs": {}}')
+        return subprocess.CompletedProcess(command, int(failed), stdout=(
+            'Read blend: "D:/Projects/OmooNodes/.cache/nodes/example.blend"\n'
+            '00:01.000  blend            | Read blend: "example.blend"\n'
+            "Warning: File written by newer Blender binary (502.45), expect loss of data!\n"
+            "Warning: Library file, loading empty scene\n"
+            "warning: Another warning\n"
+            "Info: Read library: 'example.blend'\n"
+            "info: Saved file\n"
+            "Worker diagnostic\n" + error))
+
+    failed = False
+    error = ""
+    monkeypatch.setattr(runtimes.subprocess, "run", execute)
+    runtimes.run_worker(config, tmp_path, action)
+    runtimes.run_worker(config, tmp_path, "inspect", version="b52")
+    assert calls == [("python-builder", "5.3.0"), ("python-b52", "5.2.2")]
+    assert capsys.readouterr().out == "Worker diagnostic\n" * 2
+    failed = True
+    with pytest.raises(subprocess.CalledProcessError):
+        runtimes.run_worker(config, tmp_path, action)
+    assert capsys.readouterr().out == "Worker diagnostic\n"
+    failed = False
+    error = "Error: Cannot load library\n"
+    with pytest.raises(RuntimeError, match="Cannot load library"):
+        runtimes.run_worker(config, tmp_path, action)
+    assert capsys.readouterr().out == "Worker diagnostic\n" + error
+    error = "Error: Not freed memory blocks: 1, total unfreed memory 0.000008 MB\n"
+    assert runtimes.run_worker(config, tmp_path, action) == {"graphs": {}}
+    assert capsys.readouterr().out == "Worker diagnostic\n"
+    failed = True
+    with pytest.raises(subprocess.CalledProcessError):
+        runtimes.run_worker(config, tmp_path, action)
+    assert capsys.readouterr().out == "Worker diagnostic\n" + error

@@ -6,7 +6,7 @@ OmooNodes 和 AnyImage 都需要从 nodebpy 源码构建可编辑节点，并将
 
 - 先在 OmooNodes 的 tools/nodes/ 维护通用工具和 nodes 命令，按可提取的包边界组织；稳定并验证第二个消费者后再独立发行 node-cli，本次不创建独立仓库。
 - CLI 控制层支持 Python 3.11 起；nodebpy 构建后端和各目标 bpy 都由 uv 准备隔离环境，AnyImage 无需为 nodebpy 升级主项目 Python。
-- 只提供 dev、build、dump。dev 默认准备开发库，--sync/-s 接收工作区目录并验证回写；build 从源码构建 local/remote 正式节点库，默认 local，--remote 切换远程，--self-contained 支持独立本地库；dump 自动导入全部 Asset 根及依赖。
+- 只提供 dev、build、dump。dev 默认准备开发库，--sync/-s 接收工作区目录并覆盖对应源码；build 从源码构建 local/remote 正式节点库，默认 local，--remote 切换远程，--self-contained 支持独立本地库；dump 自动导入全部 Asset 根及依赖。
 - nodes/ 保存 nodebpy 原生模块，版本文件规则不变；collection.json 记录文件与依赖，公开根由原生 ASSET 定义；目标配置声明 Python/bpy。
 - 所有流程统一以节点库运作。AnyImage 同样构建单文件本地库，插件按原组名直接引用；OmooNodes CI 显式构建 b45 本地库与 b52 远程库。
 - 移除独立 sync/export/pack/catalog 及普通 blend 正式产物分支。scripts/ 功能并入 tools/，保留的结构处理并入 tools/nodes/；移除节点释义生成、效果验证和旧入口，不增加 docs nodes。
@@ -18,7 +18,7 @@ OmooNodes 和 AnyImage 都需要从 nodebpy 源码构建可编辑节点，并将
 ### New Capabilities
 
 - `portable-node-projects`：可提取的工具边界、项目配置、后端与目标环境隔离、原生节点源码和普通组根。
-- `node-artifact-pipeline`：统一开发库、验证回写、本地/远程正式节点库目录构建。
+- `node-artifact-pipeline`：统一开发库、完整导出覆盖、本地/远程正式节点库目录构建。
 - `node-project-adoption`：OmooNodes 正式产物与发布接入，AnyImage 节点源码迁移和消费接口验证。
 
 ### Modified Capabilities

@@ -8,7 +8,7 @@ from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_displace import OD
 class ORandomJitter(CustomGeometryGroup):
     _name = 'O Random Jitter'
     _color_tag = 'GEOMETRY'
-    _tree_properties = {'node_tool_idname': 'geometry.o_random_jitter', 'is_modifier': True}
+    _tree_properties = {'is_modifier': True}
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         geometry = tree.inputs.geometry('Geometry')

@@ -42,7 +42,7 @@ SHALL 统一为节点库，local/remote 分发由 build 的 --remote 决定，�
 ### Requirement: 普通节点组可以成为公开根
 
 dump SHALL 导入全部 Asset 根及其依赖，不提供名称筛选。历史普通组迁移 SHALL 先在迁移副本标记公开根，再调用 dump。
-dev SHALL 以公开根建立基线并允许人工贡献，公开根使用 Asset 标记，
+dev SHALL 以公开根生成可供人工编辑的开发库，公开根使用 Asset 标记，
 保留公开组、接口和完整依赖。原文件 MUST 不因导出而改变。
 
 #### Scenario: 迁移 AnyImage 普通组

@@ -93,7 +93,7 @@ def socket_key(socket):
     return [active.index(socket), socket.name, socket.type]
 
 
-def tree_graph(tree, memo=None, own=False):
+def tree_graph(tree, memo=None):
     memo = {} if memo is None else memo
     if tree in memo:
         return memo[tree]
@@ -148,8 +148,8 @@ def tree_graph(tree, memo=None, own=False):
         base = {"type": node.bl_idname, "properties": configuration, "defaults": values}
         if node.type == "GROUP":
             base["group"] = node.node_tree.name if node.node_tree else None
-            if node.node_tree is not None and not (own and (node.node_tree.library or node.node_tree.asset_data)):
-                base["group_logic"] = digest(tree_graph(node.node_tree, memo, own=own))
+            if node.node_tree is not None:
+                base["group_logic"] = digest(tree_graph(node.node_tree, memo))
         bases[node] = digest(base)
         configurations.append(base)
     colors = dict(bases)

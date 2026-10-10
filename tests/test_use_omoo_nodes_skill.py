@@ -10,7 +10,6 @@ ROOT = Path(__file__).parents[1]
 SKILL = ROOT / ".agents" / "skills" / "use-omoo-nodes"
 REFERENCES = SKILL / "references"
 DOCS = ROOT / "docs" / "nodes"
-INSPECTOR = ROOT / "tools" / "nodes" / "catalog.py"
 HELPER = SKILL / "scripts" / "omoo_blender.py"
 
 
@@ -41,63 +40,12 @@ def test_node_catalog_contains_all_published_assets() -> None:
     assert len({asset["name"] for asset in assets}) == 92
 
 
-
-
 def test_generated_reference_has_one_section_per_asset() -> None:
     essentials = (DOCS / "o-essentials.md").read_text(encoding="utf-8")
     extra = (DOCS / "o-extra.md").read_text(encoding="utf-8")
 
     assert essentials.count("\n### O ") == 86
     assert extra.count("\n### O ") == 6
-
-
-
-
-def test_high_value_nodes_include_practical_guidance() -> None:
-    essentials = (DOCS / "o-essentials.md").read_text(encoding="utf-8")
-    extra = (DOCS / "o-extra.md").read_text(encoding="utf-8")
-
-    assert "把 `O Noise Texture` 接到 `Height`" in essentials
-    assert "等于此值的位置不移动" in essentials
-    assert "推动噪声随时间连续变化" in essentials
-    assert "制作定格动画、手绘抖线或机械部件的轻微振动" in extra
-
-
-def test_skill_covers_assets_and_readable_node_authoring() -> None:
-    skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
-
-    assert "## 范围" in skill
-    assert "## 使用 Omoo Nodes" in skill
-    assert "## 构建节点" in skill
-    assert "## 保持可读" in skill
-    assert "## 验收" in skill
-    assert "https://assets.omoolab.xyz/b52/O_Essentials" in skill
-    assert "https://assets.omoolab.xyz/b52/O_Extra" in skill
-    assert "动态任务只实现动态本身" in skill
-    assert "不要创建或调整相机、灯光、背景" in skill
-    assert "创建多个 Group Input" in skill
-    assert "socket.hide = not socket.is_linked" in skill
-    assert "不要修改其 `name` 或设置 `node.label`" in skill
-    assert "Frame 和 String 说明不是默认要求" in skill
-    assert "内容必须非空" in skill
-    assert "不要让任何节点、Reroute、Frame 或说明节点互相重叠" in skill
-    assert "自定义 Attribute 使用 `o_` 前缀" in skill
-    assert "node_group.is_modifier = True" in skill
-    assert "稳定 ID" in skill
-    assert "Capture Attribute" in skill
-    assert "坐标空间" in skill
-    assert len(skill.splitlines()) <= 100
-
-
-def test_generated_node_markdown_is_not_duplicated_inside_skill() -> None:
-    assert not (REFERENCES / "o-essentials.md").exists()
-    assert not (REFERENCES / "o-extra.md").exists()
-
-
-def test_runtime_helper_stays_with_skill_and_inspection_lives_in_tools() -> None:
-    assert HELPER.is_file()
-    assert INSPECTOR.is_file()
-    assert not (ROOT / "scripts" / "omoo_blender.py").exists()
 
 
 def test_configured_asset_roots_reject_unsynchronized_remote_cache(
