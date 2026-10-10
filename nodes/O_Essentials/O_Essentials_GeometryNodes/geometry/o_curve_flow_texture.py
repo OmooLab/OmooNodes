@@ -1,8 +1,6 @@
-# Node-group asset "O Curve Flow Texture" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_edge_to_curve import OEdgeToCurve
 from .o_resample_edge import OResampleEdge
 from .o_smooth import OSmooth
@@ -20,12 +18,12 @@ class OCurveFlowTexture(CustomGeometryGroup):
         normal_twist_tangent = tree.inputs.vector("Normal/Twist/Tangent", (0.0, 0.0, 1.0), min_value=-1.0, max_value=1.0)
         radius = tree.inputs.float("Radius", 0.0, min_value=0.0, max_value=1.0, subtype="DISTANCE")
         with tree.inputs.panel("Options", default_closed=True):
-            resample_length = tree.inputs.float("Resample Length", 0.10000000149011612, min_value=0.009999999776482582, max_value=1.0, subtype="DISTANCE")
+            resample_length = tree.inputs.float("Resample Length", 0.1, min_value=0.01, max_value=1.0, subtype="DISTANCE")
             smooth_iterations = tree.inputs.integer("Smooth Iterations", 10, description="How many times to blur the values for all elements", min_value=1, max_value=10)
             smooth = tree.inputs.float("Smooth", 1.0, description="Relative mix weight of neighboring elements", min_value=0.0, max_value=1.0, subtype="FACTOR")
         vector = tree.outputs.vector("Vector")
 
-        o_smooth = OSmooth(Geometry=OResampleEdge(Edge=curve_edge, Length=resample_length), Iterations=smooth_iterations, **{"Pin Boundary": 0.9998999834060669}, Weight=smooth)
+        o_smooth = OSmooth(Geometry=OResampleEdge(Edge=curve_edge, Length=resample_length), Iterations=smooth_iterations, **{"Pin Boundary": 0.9999}, Weight=smooth)
         o_edge_to_curve = OEdgeToCurve(Edge=o_smooth)
         position = g.Position()
         capture = g.CaptureAttribute.point(geometry=reverse.switch.geometry(o_edge_to_curve, g.ReverseCurve(curve=o_edge_to_curve)))

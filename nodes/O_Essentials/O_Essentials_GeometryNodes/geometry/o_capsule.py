@@ -1,8 +1,6 @@
-# Node-group asset "O Capsule" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class OCapsule(CustomGeometryGroup):
@@ -33,7 +31,7 @@ class OCapsule(CustomGeometryGroup):
         switch = g.BooleanMath.subtract(top_cap, bottom_cap).o.boolean.switch.boolean(boolean_math_2, boolean_math_1)
         switch_1 = g.BooleanMath.nor(top_cap, bottom_cap).o.boolean.switch.boolean((top_cap & bottom_cap).switch.boolean(switch, boolean_math), boolean_math_1 & boolean_math_2)
         vector_math = g.Position().o.position * (1.0, 1.0, 0.0)
-        math_2 = ((vector_math / radius).length() - 1.0) * 1.5707963705062866
+        math_2 = ((vector_math / radius).length() - 1.0) * 1.5707964
         math_3 = (math_2 * g.MapRange.float(cylinder.o.top, to_min=1.0, to_max=-1.0, clamp=True).o.result).sin()
         (
             cylinder

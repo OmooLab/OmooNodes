@@ -1,10 +1,8 @@
-import ast
 from pathlib import Path
 
 import pytest
 
-from tools.nodes import sources
-from tools.nodes.sources import overwrite_sources, select_sources
+from nodes_tool.sources import apply_changes, select_sources
 
 
 def write(root: Path, name: str, content: str) -> None:
@@ -37,47 +35,39 @@ def test_unknown_version_cannot_silently_select_sources(tmp_path):
         select_sources(tmp_path, tmp_path / "out", "b53")
 
 
-def test_foreign_shared_class_is_imported_from_owner_without_forwarding_file(tmp_path):
-    root = tmp_path / "sources"
-    shared = root / "geometry/_shared"
-    shared.mkdir(parents=True)
-    (shared / "helper.py").write_text("class Helper:\n    _name = 'Public Helper'\n", encoding="utf8")
-    asset = root / "geometry/asset.py"
-    asset.write_text("from ._shared.helper import Helper\nclass Asset:\n    _name = 'Asset'\n", encoding="utf8")
-    sources.rewrite_foreign_modules(root, {"Public Helper": {"module": "nodes.Owner.geometry.helper", "class": "Helper"}})
-    assert not (shared / "helper.py").exists()
-    statements = ast.parse(asset.read_text()).body
-    assert isinstance(statements[0], ast.ImportFrom)
-    assert statements[0].module == "nodes.Owner.geometry.helper"
-    assert statements[0].names[0].asname == "Helper"
-    assert statements[1].name == "Asset"
-
-
-def test_foreign_rewrite_keeps_untouched_comments_and_format(tmp_path):
-    source = tmp_path / "asset.py"
-    original = "# Authored comment\nclass Asset:\n    _name = \"Asset\"\n"
-    source.write_text(original)
-    sources.rewrite_foreign_modules(tmp_path, {})
-    assert source.read_text() == original
-
-
 @pytest.mark.parametrize("version", ["b45", "b52"])
-def test_overwrite_sources_replaces_python_resources_and_existing_variant(tmp_path, version):
-    source = tmp_path / "source"
-    exported = tmp_path / "exported"
-    write(source, "a.py", "common")
-    write(source, "a.b52.py", "specialized")
-    write(source, "removed.py", "stale")
-    write(source, "resources/old.png", "old image")
-    write(source, "collection.json", "manifest")
-    write(exported, "a.py", "edited")
-    write(exported, "new.py", "new asset")
-    write(exported, "resources/new.png", "new image")
-    overwrite_sources(source, exported, version)
-    assert (source / "a.py").read_text() == ("common" if version == "b52" else "edited")
-    assert (source / "a.b52.py").read_text() == ("edited" if version == "b52" else "specialized")
-    assert not (source / "removed.py").exists()
-    assert not (source / "resources/old.png").exists()
-    assert (source / "resources/new.png").read_text() == "new image"
+def test_apply_edits_preserves_unedited_code_and_targets_existing_variant(tmp_path, version):
+    source, before, after = (tmp_path / name for name in ("source", "before", "after"))
+    for root in (source, before, after):
+        write(root, "a.py", "original")
+        write(root, "untouched.py", "native_export")
+    write(source, "untouched.py", "# Authored code")
+    write(source, "a.b52.py", "specific")
+    write(after, "a.py", "edited")
+    write(after, "new.py", "new asset")
+    apply_changes(source, before, after, version)
+    assert (source / "untouched.py").read_text() == "# Authored code"
+    assert (source / "a.py").read_text() == ("original" if version == "b52" else "edited")
+    assert (source / "a.b52.py").read_text() == ("edited" if version == "b52" else "specific")
     assert (source / "new.py").read_text() == "new asset"
-    assert (source / "collection.json").read_text() == "manifest"
+
+
+def test_b52_deletion_is_explicitly_disabled(tmp_path):
+    source, before, after = (tmp_path / name for name in ("source", "before", "after"))
+    write(source, "a.py", "shared")
+    write(before, "a.py", "native_export")
+    after.mkdir()
+    apply_changes(source, before, after, "b52")
+    assert (source / "a.py").read_text() == "shared"
+    assert (source / "a.b52.py").read_text() == "DISABLED = True\n"
+
+
+def test_sync_keeps_authored_filename(tmp_path):
+    source, before, after = (tmp_path / name for name in ("source", "before", "after"))
+    definition = "class Example(CustomGeometryGroup):\n    _name = 'My Group'\n"
+    write(source, "authored.py", definition + "    # Original authoring\n")
+    write(before, "geometry/my_group.py", definition)
+    write(after, "geometry/my_group.py", definition + "    _description = 'Edited'\n")
+    apply_changes(source, before, after, "b52")
+    assert "Edited" in (source / "authored.py").read_text()
+    assert list(source.rglob("*.py")) == [source / "authored.py"]

@@ -1,8 +1,6 @@
-# Node-group asset "O Tube" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_edge_to_curve import OEdgeToCurve
 from .o_mix_color import OMixColor
 from .o_quad_sphere import OQuadSphere
@@ -17,13 +15,13 @@ class OTube(CustomGeometryGroup):
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         edge = tree.inputs.geometry("Edge")
         resolution = tree.inputs.integer("Resolution", 8, description="Number of points on the circle", min_value=4, max_value=16)
-        radius_scale = tree.inputs.float("Radius Scale", 1.0, description="Distance of the points from the origin", min_value=0.10000000149011612, max_value=2.0)
+        radius_scale = tree.inputs.float("Radius Scale", 1.0, description="Distance of the points from the origin", min_value=0.1, max_value=2.0)
         thickness = tree.inputs.float("Thickness", 0.0, min_value=0.0, max_value=1.0, subtype="FACTOR")
         shade_smooth = tree.inputs.boolean("Shade Smooth", True)
         fill_caps = tree.inputs.boolean("Fill Caps", True, description="If the profile spline is cyclic, fill the ends of the generated mesh with N-gons")
         with tree.inputs.panel("Connect", default_closed=True):
             connect = tree.inputs.boolean("Connect", False, is_panel_toggle=True)
-            distance_threshold = tree.inputs.float("Distance Threshold", 0.009999999776482582, min_value=0.0, subtype="DISTANCE")
+            distance_threshold = tree.inputs.float("Distance Threshold", 0.01, min_value=0.0, subtype="DISTANCE")
             color = tree.inputs.string("Color", "")
         mesh = tree.outputs.geometry("Mesh")
 
@@ -34,7 +32,7 @@ class OTube(CustomGeometryGroup):
         named_attribute = g.NamedAttribute.color(color)
         position = g.Position()
         math_1 = radius_scale * g.Radius()
-        math_2 = (math_1 * (1.0 + thickness) * 6.2831854820251465 / resolution).max(0.0010000000474974513)
+        math_2 = (math_1 * (1.0 + thickness) * 6.2831855 / resolution).max(0.001)
         radius = g.Radius()
         radius_1 = g.Radius()
         resample_curve = (
@@ -42,7 +40,7 @@ class OTube(CustomGeometryGroup):
             >> g.ResampleCurve(length=math_2, mode="Length", keep_last_segment=True)
         )
         set_shade_smooth = (
-            OQuadSphere(Segments=(resolution * 0.20000000298023224).max(4.0), Radius=1.100000023841858)
+            OQuadSphere(Segments=(resolution * 0.2).max(4.0), Radius=1.1)
             >> g.SetShadeSmooth.face()
         )
         separate_geometry = (
@@ -84,7 +82,7 @@ class OTube(CustomGeometryGroup):
             capture_1.o.geometry
             >> g.InstanceOnPoints(instance=set_shade_smooth, scale=radius_2.output)
             >> g.StoreNamedAttribute.instance.float(name="radius", value=radius_2.output)
-            >> g.RealizeInstances(realize_to_point_domain=True)
+            >> g.RealizeInstances()
             >> g.StoreNamedAttribute.corner.color(name=color, value=g.NamedAttribute.color(color).o.attribute.point.evaluate())
         )
         split_to_instances = g.SplitToInstances.face(g.JoinGeometry(geometry=(store_named_attribute_1, capture_3.o.geometry)), group_id=g.MeshIsland().o.island_index)

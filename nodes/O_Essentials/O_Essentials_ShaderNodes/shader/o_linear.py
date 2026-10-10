@@ -1,8 +1,6 @@
-# Node-group asset "O Linear" (ShaderNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import ShaderNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomShaderGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomShaderGroup
 
 
 class OLinear(CustomShaderGroup):

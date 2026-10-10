@@ -1,3 +1,5 @@
+独立安装与许可的剩余事项由 `unified-native-nodes` 接续；已完成记录保留。
+
 ## 1. 验证迁移与发布前置能力
 
 - [x] 1.1 在临时副本中标记 AnyImage 公开根，验证 nodebpy dump/build 可处理未标记 Asset 的源，保留原文件摘要

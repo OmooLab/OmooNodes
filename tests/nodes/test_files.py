@@ -1,6 +1,6 @@
 import pytest
 
-from tools.nodes import files
+from nodes_tool import files
 
 
 def test_directory_transaction_restores_both_libraries_on_failure(tmp_path, monkeypatch):

@@ -1,8 +1,6 @@
-# Node-group asset "O Torus" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class OTorus(CustomGeometryGroup):
@@ -23,7 +21,7 @@ class OTorus(CustomGeometryGroup):
         capture = g.CaptureAttribute.point(geometry=g.CurveCircle(resolution=major_segments, radius=major_radius))
         value = capture.items.float(spline_parameter.o.factor, "Value")
         selection = capture.items.boolean(endpoint_selection, "Selection")
-        transform_geometry = g.TransformGeometry(geometry=g.CurveCircle(resolution=minor_segments, radius=minor_radius), rotation=(0.0, 0.0, 3.1415927410125732))
+        transform_geometry = g.TransformGeometry(geometry=g.CurveCircle(resolution=minor_segments, radius=minor_radius), rotation=(0.0, 0.0, 3.1415927))
         capture_1 = g.CaptureAttribute.point(geometry=transform_geometry)
         value_1 = capture_1.items.float(spline_parameter.o.factor, "Value")
         selection_1 = capture_1.items.boolean(endpoint_selection, "Selection")

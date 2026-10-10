@@ -2,8 +2,8 @@ from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_transfer_attribute
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_voxel_remesh import OVoxelRemesh as OVoxelRemesh
 import bpy
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_displace import ODisplace as ODisplace
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_relax import ORelax as ORelax
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_smooth import OSmooth as OSmooth
@@ -25,7 +25,7 @@ class ODrawShape(CustomGeometryGroup):
             radial = tree.inputs.integer('Radial', 3, description='Number of vertices on the circle', min_value=3, max_value=8)
         with tree.inputs.panel('Remesh', default_closed=True):
             remesh = tree.inputs.boolean('Remesh', False, is_panel_toggle=True)
-            resolution_1 = tree.inputs.float('Resolution', 0.10000000149011612, min_value=0.009999999776482582, max_value=0.10000000149011612)
+            resolution_1 = tree.inputs.float('Resolution', 0.1, min_value=0.01, max_value=0.1)
             relax_iterations = tree.inputs.integer('Relax Iterations', 1, min_value=1, max_value=10)
             smooth_iterations = tree.inputs.integer('Smooth Iterations', 1, description='How many times to blur the values for all elements', min_value=1, max_value=20)
         mesh = tree.outputs.geometry('Mesh')
@@ -45,5 +45,7 @@ class ODrawShape(CustomGeometryGroup):
         o_smooth = OSmooth(Geometry=o_voxel_remesh, Iterations=smooth_iterations, **{'Pin Sharp': 1.0, 'Pin Boundary': 1.0})
         remesh.switch.geometry(o_displace, OTransferAttributes(Mesh=o_smooth, Source=o_displace, Color='o_color')) >> g.SetMaterial(material=bpy.data.materials.get('O Vertex Paint')) >> mesh
 ASSET = ODrawShape
-ASSET_METADATA = {'catalog_id': '90187864-01c8-45bc-99f1-66e7e746beb8'}
-DATABLOCK_DEPENDENCIES = {'materials': ('O Vertex Paint',)}
+
+ASSET_METADATA = {
+    "catalog_id": "90187864-01c8-45bc-99f1-66e7e746beb8",
+}

@@ -1,8 +1,6 @@
-# Node-group asset "O Voxel Remesh" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_relax import ORelax
 
 
@@ -13,12 +11,12 @@ class OVoxelRemesh(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         mesh = tree.inputs.geometry("Mesh")
-        resolution = tree.inputs.float("Resolution", 0.10000000149011612, min_value=0.009999999776482582, max_value=0.10000000149011612)
+        resolution = tree.inputs.float("Resolution", 0.1, min_value=0.01, max_value=0.1)
         relax_iterations = tree.inputs.integer("Relax Iterations", 2, min_value=1, max_value=10)
         with tree.inputs.panel("Options", default_closed=True):
             shade_smooth = tree.inputs.boolean("Shade Smooth", True)
             relax_weight = tree.inputs.float("Relax Weight", 1.0, description="Relative mix weight of neighboring elements", min_value=0.0, max_value=1.0, subtype="FACTOR")
-            threshold = tree.inputs.float("Threshold", 0.10000000149011612, description="Values larger than the threshold are inside the generated mesh", min_value=0.0, max_value=1.0)
+            threshold = tree.inputs.float("Threshold", 0.1, description="Values larger than the threshold are inside the generated mesh", min_value=0.0, max_value=1.0)
             adaptivity = tree.inputs.float("Adaptivity", 0.0, min_value=0.0, max_value=1.0, subtype="FACTOR")
             topo_rotation = tree.inputs.rotation("Topo Rotation", (0.0, 0.0, 0.0))
         mesh_1 = tree.outputs.geometry("Mesh")

@@ -1,8 +1,6 @@
-# Node-group asset "O Debug Direction" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class ODebugDirection(CustomGeometryGroup):
@@ -15,7 +13,7 @@ class ODebugDirection(CustomGeometryGroup):
         direction = tree.inputs.vector("Direction", (0.0, 0.0, 0.0), hide_value=True, default_input="NORMAL")
         menu = tree.inputs.menu("Menu", "Point", optional_label=True)
         normalize = tree.inputs.boolean("Normalize", True)
-        size = tree.inputs.float("Size", 1.0, min_value=0.10000000149011612, max_value=2.0, subtype="FACTOR")
+        size = tree.inputs.float("Size", 1.0, min_value=0.1, max_value=2.0, subtype="FACTOR")
         debug = tree.outputs.geometry("Debug")
         direction_1 = tree.outputs.vector("Direction")
 
@@ -27,17 +25,17 @@ class ODebugDirection(CustomGeometryGroup):
         index_switch = g.IndexSwitch.vector(menu_switch.o.output, (vector.output, vector_1.output))
         math_1 = size * g.Radius()
         separate_components = capture_1.o.geometry >> g.SeparateComponents()
-        instances_to_points = g.InstancesToPoints(instances=separate_components.o.instances, radius=0.10000000149011612)
+        instances_to_points = g.InstancesToPoints(instances=separate_components.o.instances, radius=0.1)
         separate_components_1 = g.SeparateComponents(geometry=geometry)
-        set_shade_smooth = g.SetShadeSmooth.face(g.Cube(size=(0.20000000298023224, 0.20000000298023224, 0.20000000298023224)))
+        set_shade_smooth = g.SetShadeSmooth.face(g.Cube(size=(0.2, 0.2, 0.2)))
         mesh_to_points = (
             g.IndexSwitch.geometry(menu_switch.o.output, (separate_components.o.mesh, g.SplitEdges(mesh=separate_components.o.mesh)))
-            >> g.MeshToPoints(radius=0.10000000149011612)
+            >> g.MeshToPoints(radius=0.1)
         )
         join_geometry = g.JoinGeometry(geometry=(mesh_to_points, g.CurveToPoints.evaluated(separate_components.o.curve), separate_components.o.point_cloud, instances_to_points))
-        set_point_radius = g.SetPointRadius(points=join_geometry, radius=0.10000000149011612)
+        set_point_radius = g.SetPointRadius(points=join_geometry, radius=0.1)
         set_shade_smooth_1 = (
-            g.Cylinder(vertices=3, radius=0.03999999910593033)
+            g.Cylinder(vertices=3, radius=0.04)
             >> g.TransformGeometry(translation=(0.0, 0.0, 1.0))
             >> g.SetShadeSmooth.face()
         )

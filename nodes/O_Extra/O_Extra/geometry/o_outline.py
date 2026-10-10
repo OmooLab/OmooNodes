@@ -1,7 +1,7 @@
 import bpy
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_displace import ODisplace as ODisplace
 
 class OOutline(CustomGeometryGroup):
@@ -11,8 +11,8 @@ class OOutline(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         mesh = tree.inputs.geometry('Mesh')
-        thickness = tree.inputs.float('Thickness', 0.009999999776482582, min_value=0.0010000000474974513, max_value=0.10000000149011612, structure_type='SINGLE', subtype='DISTANCE', force_non_field=True)
-        color = tree.inputs.color('Color', (0.10000000149011612, 0.10000000149011612, 0.10000000149011612, 1.0))
+        thickness = tree.inputs.float('Thickness', 0.01, min_value=0.001, max_value=0.1, structure_type='SINGLE', subtype='DISTANCE', force_non_field=True)
+        color = tree.inputs.color('Color', (0.1, 0.1, 0.1, 1.0))
         light = tree.inputs.float('Light', 1.0, min_value=0.0, max_value=1.0, subtype='FACTOR')
         with tree.inputs.panel('Secondary (Eevee)', default_closed=True):
             secondary_eevee = tree.inputs.boolean('Secondary (Eevee)', False, is_panel_toggle=True)
@@ -26,7 +26,7 @@ class OOutline(CustomGeometryGroup):
         with tree.inputs.panel('Options', default_closed=True):
             thickness_weight = tree.inputs.float('Thickness Weight', 1.0, min_value=0.0, max_value=1.0, subtype='FACTOR')
         geometry = tree.outputs.geometry('Geometry')
-        float_curve = g.FloatCurve(value=g.NoiseTexture(w=offset, scale=frequency, noise_dimensions='4D', normalize=True).o.factor, items=((0.0, 0.0), (0.29999998211860657, 0.0), (0.699999988079071, 1.0), (1.0, 1.0)))
+        float_curve = g.FloatCurve(value=g.NoiseTexture(w=offset, scale=frequency, noise_dimensions='4D', normalize=True).o.factor, items=((0.0, 0.0), (0.29999998, 0.0), (0.7, 1.0), (1.0, 1.0)))
         float_curve.node.mapping.update()
         float_curve.node.mapping.curves[0].points[1].select = True
         store_named_attribute = mesh >> g.StoreNamedAttribute.point.color(name='o_primary', value=color) >> g.StoreNamedAttribute.point.float(name='o_light', value=light)
@@ -34,10 +34,12 @@ class OOutline(CustomGeometryGroup):
         set_material_1 = g.StoreNamedAttribute.point.color(store_named_attribute, name='o_secondary', value=color_1) >> g.StoreNamedAttribute.point.float(name='o_threshold', value=threshold) >> g.SetMaterial(material=bpy.data.materials.get('O Outline Extra'))
         switch = loose.switch.boolean(True, float_curve >= weight)
         store_named_attribute_1 = secondary_eevee.switch.geometry(set_material, set_material_1) >> g.StoreNamedAttribute.point.float(name='o_opacity', value=switch)
-        vector_math = g.Normal().o.normal.face.evaluate() * (thickness * thickness_weight * switch).max(9.999999747378752e-06)
+        vector_math = g.Normal().o.normal.face.evaluate() * (thickness * thickness_weight * switch).max(0.00001)
         set_shade_smooth = ODisplace(Geometry=store_named_attribute_1, Direction='Vector', Vector=vector_math) >> g.FlipFaces() >> g.SetShadeSmooth.face()
         join_geometry = g.JoinGeometry(geometry=(mesh, set_shade_smooth))
         join_geometry >> geometry
 ASSET = OOutline
-ASSET_METADATA = {'catalog_id': '90187864-01c8-45bc-99f1-66e7e746beb8'}
-DATABLOCK_DEPENDENCIES = {'materials': ('O Outline', 'O Outline Extra')}
+
+ASSET_METADATA = {
+    "catalog_id": "90187864-01c8-45bc-99f1-66e7e746beb8",
+}

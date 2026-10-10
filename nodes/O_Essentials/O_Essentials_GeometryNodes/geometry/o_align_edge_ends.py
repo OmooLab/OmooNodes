@@ -1,8 +1,6 @@
-# Node-group asset "O Align Edge Ends" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_curve_to_edge import OCurveToEdge
 from .o_edge_to_curve import OEdgeToCurve
 from .o_index_selection import OIndexSelection
@@ -16,7 +14,7 @@ class OAlignEdgeEnds(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         edge = tree.inputs.geometry("Edge")
-        distance_threshold = tree.inputs.float("Distance Threshold", 0.05000000074505806, min_value=0.0, subtype="DISTANCE")
+        distance_threshold = tree.inputs.float("Distance Threshold", 0.05, min_value=0.0, subtype="DISTANCE")
         iterations = tree.inputs.integer("Iterations", 5, min_value=1, max_value=10)
         edge_1 = tree.outputs.geometry("Edge")
 

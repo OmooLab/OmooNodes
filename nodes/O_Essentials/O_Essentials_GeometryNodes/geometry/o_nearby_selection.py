@@ -1,8 +1,6 @@
-# Node-group asset "O Nearby Selection" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class ONearbySelection(CustomGeometryGroup):
@@ -12,7 +10,7 @@ class ONearbySelection(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         point_index = tree.inputs.integer("Point Index", 0, min_value=0)
-        range = tree.inputs.float("Range", 0.10000000149011612, min_value=0.0, max_value=1.0, subtype="DISTANCE")
+        range = tree.inputs.float("Range", 0.1, min_value=0.0, max_value=1.0, subtype="DISTANCE")
         exclude_self = tree.inputs.boolean("Exclude Self", True)
         invert = tree.inputs.boolean("Invert", False)
         selection = tree.outputs.boolean("Selection")

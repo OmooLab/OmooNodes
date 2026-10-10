@@ -1,8 +1,6 @@
-# Node-group asset "O Center Line" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_blend import OBlend
 from .o_curve_to_edge import OCurveToEdge
 from .o_project import OProject
@@ -18,7 +16,7 @@ class OCenterLine(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         mesh = tree.inputs.geometry("Mesh")
-        resolution = tree.inputs.float("Resolution", 0.05000000074505806, min_value=0.019999999552965164, max_value=0.20000000298023224, subtype="DISTANCE")
+        resolution = tree.inputs.float("Resolution", 0.05, min_value=0.02, max_value=0.2, subtype="DISTANCE")
         iterations = tree.inputs.integer("Iterations", 10, min_value=5, max_value=20)
         ray = tree.inputs.boolean("Ray", False)
         with tree.inputs.panel("Options", default_closed=True):
@@ -28,7 +26,7 @@ class OCenterLine(CustomGeometryGroup):
 
         raycast = (
             mesh
-            >> g.ExtrudeMesh(offset_scale=9.999999747378752e-05, individual=False)
+            >> g.ExtrudeMesh(offset_scale=0.0001, individual=False)
             >> g.Raycast.float(ray_direction=g.Normal().o.normal * -1.0)
         )
         set_position = g.SetPosition(geometry=mesh, selection=raycast.o.is_hit, position=raycast.o.hit_position)
@@ -42,7 +40,7 @@ class OCenterLine(CustomGeometryGroup):
             >> g.MergeByDistance(distance=resolution, mode="Connected")
         )
         o_project = OProject(Geometry=merge_by_distance, Selection=ray & ORegionSelection(**{"Region Mesh": o_blend}, Invert=True), Source=o_blend, **{"Max Distance": 5.0, "Radius Offset": 0.5}, Custom=(0.0, 0.0, 0.0), **{"Normal Smooth": 0}, _named_links=[("Menu", "Minimum Distance"), ("Menu", "Normal")])
-        o_smooth_1 = OSmooth(Geometry=o_project, Iterations=1, **{"Pin Sharp": 1.0, "Pin Boundary": 0.9998999834060669})
+        o_smooth_1 = OSmooth(Geometry=o_project, Iterations=1, **{"Pin Sharp": 1.0, "Pin Boundary": 0.9999})
         o_smooth_1 >> geometry.next
         (
             OResampleEdge(Edge=OCurveToEdge(Curve=geometry.result >> g.MeshToCurve()), Length=resolution)

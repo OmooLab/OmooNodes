@@ -1,8 +1,6 @@
-# Node-group asset "O Curve Deform" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class OCurveDeform(CustomGeometryGroup):
@@ -29,7 +27,7 @@ class OCurveDeform(CustomGeometryGroup):
 
         bounding_box = g.BoundingBox(geometry=geometry)
         curve_length = g.CurveLength(curve=curve)
-        rotate_rotation = g.AxesToRotation(primary_axis=primary_axis, secondary_axis=secondary_axis).o.rotation.rotate((0.0, 0.0, 1.5707963705062866), rotation_space="LOCAL")
+        rotate_rotation = g.AxesToRotation(primary_axis=primary_axis, secondary_axis=secondary_axis).o.rotation.rotate((0.0, 0.0, 1.5707964), rotation_space="LOCAL")
         set_curve_tilt = g.SetCurveTilt(curve=curve, tilt=tilt)
         sample_index = g.SampleIndex.point.boolean(set_curve_tilt, g.IsSplineCyclic(), g.Index(), clamp=True)
         menu_switch = g.MenuSwitch.vector(center, {"Center": (bounding_box.o.min + bounding_box.o.max) * 0.5 + offset_1, "Custom": custom})

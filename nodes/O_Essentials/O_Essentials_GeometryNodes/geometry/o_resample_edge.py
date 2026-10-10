@@ -1,8 +1,6 @@
-# Node-group asset "O Resample Edge" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_curve_to_edge import OCurveToEdge
 from .o_edge_to_curve import OEdgeToCurve
 
@@ -15,9 +13,9 @@ class OResampleEdge(CustomGeometryGroup):
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         edge = tree.inputs.geometry("Edge")
         selection = tree.inputs.boolean("Selection", True, hide_value=True, hide_in_modifier=True)
-        length = tree.inputs.float("Length", 0.10000000149011612, min_value=0.009999999776482582, subtype="DISTANCE")
+        length = tree.inputs.float("Length", 0.1, min_value=0.01, subtype="DISTANCE")
         with tree.inputs.panel("Options", default_closed=True):
-            _merge_distance = tree.inputs.float("Merge Distance", 0.0010000000474974513, min_value=0.0, subtype="DISTANCE")
+            _merge_distance = tree.inputs.float("Merge Distance", 0.001, min_value=0.0, subtype="DISTANCE")
         edge_1 = tree.outputs.geometry("Edge")
 
         capture = g.CaptureAttribute.point(geometry=edge)

@@ -1,8 +1,6 @@
-# Node-group asset "O Shortest Paths" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class OShortestPaths(CustomGeometryGroup):
@@ -31,7 +29,7 @@ class OShortestPaths(CustomGeometryGroup):
         for_each = g.ForEachGeometryElementZone(geometry=separate_geometry.o.selection)
         max = for_each.generated_items.float(name="Max")
         vector_math = g.AttributeStatistic.point.vector(for_each.input.o.element, attribute=g.Position()).o.mean.distance(g.Position())
-        attribute_statistic = g.AttributeStatistic.point.float(curve_to_mesh, vector_math < 0.009999999776482582, factor_1.output)
+        attribute_statistic = g.AttributeStatistic.point.float(curve_to_mesh, vector_math < 0.01, factor_1.output)
         for_each.input.o.element >> for_each.generation.input
         attribute_statistic.o.max >> max.input
         switch = merged.switch.float(factor_1.output, g.SampleIndex.point.float(for_each.generation.output, max.output, g.Index()))

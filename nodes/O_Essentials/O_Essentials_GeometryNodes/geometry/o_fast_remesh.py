@@ -1,8 +1,6 @@
-# Node-group asset "O Fast Remesh" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_relax import ORelax
 from .o_transfer_uv import OTransferUV
 from .o_uv_island import OUVIsland
@@ -15,14 +13,14 @@ class OFastRemesh(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         mesh = tree.inputs.geometry("Mesh")
-        resolution = tree.inputs.float("Resolution", 0.10000000149011612, min_value=0.009999999776482582, max_value=0.10000000149011612)
+        resolution = tree.inputs.float("Resolution", 0.1, min_value=0.01, max_value=0.1)
         relax_iterations = tree.inputs.integer("Relax Iterations", 2, min_value=1, max_value=10)
         with tree.inputs.panel("Options", default_closed=True):
             shade_smooth = tree.inputs.boolean("Shade Smooth", True)
             relax_weight = tree.inputs.float("Relax Weight", 1.0, description="Relative mix weight of neighboring elements", min_value=0.0, max_value=1.0, subtype="FACTOR")
             fix_topo_steps = tree.inputs.integer("Fix Topo Steps", 3, min_value=1, max_value=10)
-            fix_uv = tree.inputs.float("Fix UV", 0.10000000149011612, description="Amount of mixing between the A and B inputs", min_value=0.0, max_value=1.0, subtype="FACTOR")
-            fix_uv_range = tree.inputs.float("Fix UV Range", 0.10000000149011612, min_value=0.0, max_value=0.10000000149011612)
+            fix_uv = tree.inputs.float("Fix UV", 0.1, description="Amount of mixing between the A and B inputs", min_value=0.0, max_value=1.0, subtype="FACTOR")
+            fix_uv_range = tree.inputs.float("Fix UV Range", 0.1, min_value=0.0, max_value=0.1)
             uv = tree.inputs.string("UV", "UVMap")
         mesh_1 = tree.outputs.geometry("Mesh")
 

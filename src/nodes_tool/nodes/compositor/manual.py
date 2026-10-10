@@ -1,0 +1,273 @@
+# Adapted from nodebpy 520.34.1, Brady Johnston; GPL-3.0-or-later.
+from __future__ import annotations
+from nodes_tool.native import set_property
+import typing
+T = typing.TypeVar('T')
+from typing import TYPE_CHECKING, Final, Literal
+from bpy.types import CompositorNodeConvertColorSpace, CompositorNodeCryptomatteV2, CompositorNodeImage
+from ...builder import BaseNode, BooleanSocket, ColorSocket, FloatSocket, IntegerSocket, MenuSocket, SocketAccessor, StringSocket, TreeBuilder, VectorSocket
+from ...builder.socket import BaseSocket
+from ...socket_types import Image, InputBoolean, InputColor, InputFloat, InputInteger, InputMenu, InputString, InputVector
+from ..geometry.manual import Float, Frame, MenuItems, _MenuSwitchBase
+__all__ = ['Float', 'Frame', 'MenuSwitch', 'tree']
+tree: Final = TreeBuilder.compositor
+
+class MenuSwitch(_MenuSwitchBase):
+
+    @classmethod
+    def float(cls, menu: InputMenu=None, items: MenuItems[InputFloat] | None=None) -> 'MenuSwitch[FloatSocket]':
+        return MenuSwitch(menu, items, data_type='FLOAT')
+
+    @classmethod
+    def integer(cls, menu: InputMenu=None, items: MenuItems[InputInteger] | None=None) -> 'MenuSwitch[IntegerSocket]':
+        return MenuSwitch(menu, items, data_type='INT')
+
+    @classmethod
+    def boolean(cls, menu: InputMenu=None, items: MenuItems[InputBoolean] | None=None) -> 'MenuSwitch[BooleanSocket]':
+        return MenuSwitch(menu, items, data_type='BOOLEAN')
+
+    @classmethod
+    def vector(cls, menu: InputMenu=None, items: MenuItems[InputVector] | None=None) -> 'MenuSwitch[VectorSocket]':
+        return MenuSwitch(menu, items, data_type='VECTOR')
+
+    @classmethod
+    def color(cls, menu: InputMenu=None, items: MenuItems[InputColor] | None=None) -> 'MenuSwitch[ColorSocket]':
+        return MenuSwitch(menu, items, data_type='RGBA')
+
+    @classmethod
+    def string(cls, menu: InputMenu=None, items: MenuItems[InputString] | None=None) -> 'MenuSwitch[StringSocket]':
+        return MenuSwitch(menu, items, data_type='STRING')
+
+    @classmethod
+    def menu(cls, menu: InputMenu=None, items: MenuItems[InputMenu] | None=None) -> 'MenuSwitch[MenuSocket]':
+        return MenuSwitch(menu, items, data_type='MENU')
+
+    @classmethod
+    def __class_getitem__(cls, item):
+        return cls
+
+class Image(BaseNode):
+    _bl_idname = 'CompositorNodeImage'
+
+    def __init__(self, image: Image | None=None, frame_duration: int=0, frame_start: int=0, frame_offset: int=0, use_cyclic: bool=False, use_auto_refresh: bool=False, layer: str | None=None, view: str | None=None):
+        super().__init__()
+        key_args = {}
+        self.image = image
+        self.frame_duration = frame_duration
+        self.frame_start = frame_start
+        self.frame_offset = frame_offset
+        self.use_cyclic = use_cyclic
+        self.use_auto_refresh = use_auto_refresh
+        if layer:
+            self.layer = layer
+        if view:
+            self.view = view
+        self._establish_links(**key_args)
+
+    @property
+    def image(self) -> Image | None:
+        return self.node.image
+
+    @image.setter
+    def image(self, value: Image | None) -> None:
+        set_property(self.node, 'image', value)
+
+    @property
+    def frame_duration(self) -> int:
+        return self.node.frame_duration
+
+    @frame_duration.setter
+    def frame_duration(self, value: int) -> None:
+        set_property(self.node, 'frame_duration', value)
+
+    @property
+    def frame_start(self) -> int:
+        return self.node.frame_start
+
+    @frame_start.setter
+    def frame_start(self, value: int) -> None:
+        set_property(self.node, 'frame_start', value)
+
+    @property
+    def frame_offset(self) -> int:
+        return self.node.frame_offset
+
+    @frame_offset.setter
+    def frame_offset(self, value: int) -> None:
+        set_property(self.node, 'frame_offset', value)
+
+    @property
+    def use_cyclic(self) -> bool:
+        return self.node.use_cyclic
+
+    @use_cyclic.setter
+    def use_cyclic(self, value: bool) -> None:
+        set_property(self.node, 'use_cyclic', value)
+
+    @property
+    def use_auto_refresh(self) -> bool:
+        return self.node.use_auto_refresh
+
+    @use_auto_refresh.setter
+    def use_auto_refresh(self, value: bool) -> None:
+        set_property(self.node, 'use_auto_refresh', value)
+
+    @property
+    def layer(self) -> str:
+        return self.node.layer
+
+    @layer.setter
+    def layer(self, value: str) -> None:
+        set_property(self.node, 'layer', value)
+
+    @property
+    def has_layers(self) -> bool:
+        return self.node.has_layers
+
+    @property
+    def view(self) -> str:
+        return self.node.view
+
+    @view.setter
+    def view(self, value: str) -> None:
+        set_property(self.node, 'view', value)
+
+    @property
+    def has_views(self) -> bool:
+        return self.node.has_views
+
+class Cryptomatte(BaseNode):
+    _bl_idname = 'CompositorNodeCryptomatteV2'
+
+    def __init__(self, image: InputColor=None, *, source: Literal['RENDER', 'IMAGE']='RENDER', matte_id: str='', layer_name: str | None=None, frame_duration: int=0, frame_start: int=0, frame_offset: int=0, use_cyclic: bool=False, use_auto_refresh: bool=False, layer: str | None=None, view: str | None=None):
+        super().__init__()
+        key_args = {'Image': image}
+        self.source = source
+        self.matte_id = matte_id
+        self.frame_duration = frame_duration
+        self.frame_start = frame_start
+        self.frame_offset = frame_offset
+        self.use_cyclic = use_cyclic
+        self.use_auto_refresh = use_auto_refresh
+        if layer_name is not None:
+            self.layer_name = layer_name
+        if layer is not None:
+            self.layer = layer
+        if view is not None:
+            self.view = view
+        self._establish_links(**key_args)
+
+    @property
+    def source(self) -> Literal['RENDER', 'IMAGE']:
+        return self.node.source
+
+    @source.setter
+    def source(self, value: Literal['RENDER', 'IMAGE']) -> None:
+        set_property(self.node, 'source', value)
+
+    @property
+    def matte_id(self) -> str:
+        return self.node.matte_id
+
+    @matte_id.setter
+    def matte_id(self, value: str) -> None:
+        set_property(self.node, 'matte_id', value)
+
+    @property
+    def layer_name(self) -> str:
+        return self.node.layer_name
+
+    @layer_name.setter
+    def layer_name(self, value: str) -> None:
+        set_property(self.node, 'layer_name', value)
+
+    @property
+    def frame_duration(self) -> int:
+        return self.node.frame_duration
+
+    @frame_duration.setter
+    def frame_duration(self, value: int) -> None:
+        set_property(self.node, 'frame_duration', value)
+
+    @property
+    def frame_start(self) -> int:
+        return self.node.frame_start
+
+    @frame_start.setter
+    def frame_start(self, value: int) -> None:
+        set_property(self.node, 'frame_start', value)
+
+    @property
+    def frame_offset(self) -> int:
+        return self.node.frame_offset
+
+    @frame_offset.setter
+    def frame_offset(self, value: int) -> None:
+        set_property(self.node, 'frame_offset', value)
+
+    @property
+    def use_cyclic(self) -> bool:
+        return self.node.use_cyclic
+
+    @use_cyclic.setter
+    def use_cyclic(self, value: bool) -> None:
+        set_property(self.node, 'use_cyclic', value)
+
+    @property
+    def use_auto_refresh(self) -> bool:
+        return self.node.use_auto_refresh
+
+    @use_auto_refresh.setter
+    def use_auto_refresh(self, value: bool) -> None:
+        set_property(self.node, 'use_auto_refresh', value)
+
+    @property
+    def layer(self) -> str:
+        return self.node.layer
+
+    @layer.setter
+    def layer(self, value: str) -> None:
+        set_property(self.node, 'layer', value)
+
+    @property
+    def has_layers(self) -> bool:
+        return self.node.has_layers
+
+    @property
+    def view(self) -> str:
+        return self.node.view
+
+    @view.setter
+    def view(self, value: str) -> None:
+        set_property(self.node, 'view', value)
+
+    @property
+    def has_views(self) -> bool:
+        return self.node.has_views
+_ColorSpaces = Literal['ACES 1.3 sRGB', 'ACES 2.0 sRGB', 'ACES2065-1', 'ACEScc', 'ACEScct', 'ACEScg', 'AgX Base sRGB', 'AgX Log', 'Display P3', 'Filmic Log', 'Filmic sRGB', 'Khronos PBR Neutral sRGB', 'Linear CIE-XYZ D65', 'Linear CIE-XYZ E', 'Linear DCI-P3 D65', 'Linear FilmLight E-Gamut', 'Linear Rec.2020', 'Linear Rec.709', 'Non-Color', 'Rec.1886', 'Rec.2020', 'Rec.2100-HLG', 'Rec.2100-PQ', 'sRGB', 'scene_linear']
+
+class ConvertColorspace(BaseNode):
+    _bl_idname = 'CompositorNodeConvertColorSpace'
+
+    def __init__(self, image: InputColor=None, *, from_color_space: _ColorSpaces='scene_linear', to_color_space: _ColorSpaces='scene_linear'):
+        super().__init__()
+        key_args = {'Image': image}
+        self.from_color_space = from_color_space
+        self.to_color_space = to_color_space
+        self._establish_links(**key_args)
+
+    @property
+    def from_color_space(self) -> _ColorSpaces:
+        return self.node.from_color_space
+
+    @from_color_space.setter
+    def from_color_space(self, value: _ColorSpaces) -> None:
+        set_property(self.node, 'from_color_space', value)
+
+    @property
+    def to_color_space(self) -> _ColorSpaces:
+        return self.node.to_color_space
+
+    @to_color_space.setter
+    def to_color_space(self, value: _ColorSpaces) -> None:
+        set_property(self.node, 'to_color_space', value)

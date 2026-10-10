@@ -1,15 +1,13 @@
-# Node-group asset "O Stroke" (CompositorNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import CompositorNodeTree
-from nodebpy import geometry as g, compositor as c, TreeBuilder
-from nodebpy.builder import CustomCompositorGroup
+from nodes_tool import geometry as g, compositor as c, TreeBuilder
+from nodes_tool.builder import CustomCompositorGroup
 from .o_image_info import OImageInfo
 
 
 class OStroke(CustomCompositorGroup):
     _name = "O Stroke"
     _color_tag = "FILTER"
-    _tree_properties = {"default_group_node_width": 180, "is_strip_modifier": True}
+    _tree_properties = {"default_group_node_width": 180}
 
     def _build_group(self, tree: TreeBuilder[CompositorNodeTree]) -> None:
         image = tree.inputs.color("Image", (0.5, 0.5, 0.5, 1.0), description="Value of the first color input", hide_value=True)
@@ -27,18 +25,17 @@ class OStroke(CustomCompositorGroup):
             offset = tree.inputs.float("Offset", 0.0, min_value=-1000.0, max_value=1000.0)
         with tree.inputs.panel("Options", default_closed=True):
             exposure = tree.inputs.float("Exposure", 0.0, min_value=-10.0, max_value=10.0)
-            gamma = tree.inputs.float("Gamma", 1.0, description="Gamma correction value, applied as color^gamma.\nTypically used to convert from gamma encoded to linear color space, or in the reverse direction with 1/gamma", min_value=0.0010000000474974513, max_value=10.0)
+            gamma = tree.inputs.float("Gamma", 1.0, description="Gamma correction value, applied as color^gamma.\nTypically used to convert from gamma encoded to linear color space, or in the reverse direction with 1/gamma", min_value=0.001, max_value=10.0)
             blur = tree.inputs.float("Blur", 50.0, min_value=10.0, max_value=100.0)
             matte_weight = tree.inputs.float("Matte Weight", 1.0, min_value=0.0, max_value=1.0, subtype="FACTOR")
             depth_weight = tree.inputs.float("Depth Weight", 1.0, min_value=0.0, max_value=1.0, subtype="FACTOR")
             normal_weight = tree.inputs.float("Normal Weight", 1.0, min_value=0.0, max_value=1.0, subtype="FACTOR")
-            normal_threshold = tree.inputs.float("Normal Threshold", 0.20000000298023224, min_value=0.0, max_value=1.0, subtype="FACTOR")
-        image_1 = tree.outputs.color("Image", (0.800000011920929, 0.800000011920929, 0.800000011920929, 1.0))
-        stroke = tree.outputs.color("Stroke", (0.800000011920929, 0.800000011920929, 0.800000011920929, 1.0))
+            normal_threshold = tree.inputs.float("Normal Threshold", 0.2, min_value=0.0, max_value=1.0, subtype="FACTOR")
+        image_1 = tree.outputs.color("Image", (0.8, 0.8, 0.8, 1.0))
+        stroke = tree.outputs.color("Stroke", (0.8, 0.8, 0.8, 1.0))
 
-        alpha_over = c.AlphaOver()
-        clamp = g.Clamp.range(g.MapRange.float(c.Filter(image=depth, type="Laplace"), 0.10000000149011612, clamp=True).o.result, max=depth_weight)
-        map_range = g.Math.greater_than(c.Filter(image=matte, type="Laplace"), 0.10000000149011612).o.value.map_range(0.10000000149011612)
+        clamp = g.Clamp.range(g.MapRange.float(c.Filter(image=depth, type="Laplace"), 0.1, clamp=True).o.result, max=depth_weight)
+        map_range = g.Math.greater_than(c.Filter(image=matte, type="Laplace"), 0.1).o.value.map_range(0.1)
         noise_texture = g.NoiseTexture(w=offset, scale=frequency, distortion=messy, noise_dimensions="4D", normalize=True)
         o_image_info = OImageInfo(Image=image)
         math_1 = thickness * o_image_info
@@ -49,8 +46,9 @@ class OStroke(CustomCompositorGroup):
         map_range_1 = separate_color.o.red.max(separate_color.o.green).max(separate_color.o.blue).map_range(normal_threshold)
         blur_1 = c.Blur(image=(clamp.o.result + map_range_1 * normal_weight + map_range * matte_weight) * 10.0, size=math_1, type="Fast Gaussian")
         vector_math = g.MapRange.vector(noise_texture.o.color, to_min=(-1.0, -1.0, -1.0), clamp=True).o.vector * g.CombineXYZ(x=math_2, y=math_2)
-        displace = c.Displace(image=g.Math.greater_than(blur_1, 0.0010000000474974513), displacement=vector_math, interpolation="Anisotropic")
-        set_alpha = c.SetAlpha(image=mix.o.result_color, alpha=g.Math.multiply(c.AntiAliasing(image=displace), c.SeparateColor(image=color).o.alpha))
+        displace = c.Displace(image=g.Math.greater_than(blur_1, 0.001), displacement=vector_math, interpolation="Anisotropic")
+        set_alpha = c.SetAlpha(image=mix.o.result_color, alpha=g.Math.multiply(c.AntiAliasing(image=displace), c.SeparateColor(image=color).o.alpha), type="Apply Mask")
+        alpha_over = c.AlphaOver(background=image, foreground=set_alpha)
 
         alpha_over >> image_1
         set_alpha >> stroke

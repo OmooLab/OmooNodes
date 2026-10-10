@@ -1,9 +1,6 @@
-# Node group "O Spherization Correction" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
-# Shared by several assets, which import it; not an asset itself.
 from bpy.types import GeometryNodeTree
-from nodebpy import TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class OSpherizationCorrection(CustomGeometryGroup):

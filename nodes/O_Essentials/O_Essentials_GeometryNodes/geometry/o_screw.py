@@ -1,8 +1,6 @@
-# Node-group asset "O Screw" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class OScrew(CustomGeometryGroup):
@@ -13,8 +11,8 @@ class OScrew(CustomGeometryGroup):
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         mesh = tree.inputs.geometry("Mesh")
         menu = tree.inputs.menu("Menu", "Vertices", expanded=True, optional_label=True)
-        angle = tree.inputs.float("Angle", 6.2831854820251465, description="Angle of revolution.", subtype="ANGLE")
-        screw = tree.inputs.float("Screw", 1.0, description="Offset the revolution along its axis.", min_value=0.0, max_value=3.402820018375656e+38, subtype="DISTANCE")
+        angle = tree.inputs.float("Angle", 6.2831855, description="Angle of revolution.", subtype="ANGLE")
+        screw = tree.inputs.float("Screw", 1.0, description="Offset the revolution along its axis.", min_value=0.0, max_value=340282000000000000000000000000000000000.0, subtype="DISTANCE")
         iterations = tree.inputs.integer("Iterations", 1, description="Number of times to apply the screw operation.", min_value=1, max_value=10)
         steps = tree.inputs.integer("Steps", 16, description="Number of steps in the revolution.", min_value=1, max_value=32)
         with tree.inputs.panel("Options", default_closed=True):

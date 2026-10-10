@@ -1,8 +1,8 @@
 from nodes.O_Essentials.O_Essentials_ShaderNodes.shader.o_background import OBackground as OBackground
 from nodes.O_Essentials.O_Essentials_ShaderNodes.shader.o_linear import OLinear as OLinear
 from bpy.types import ShaderNodeTree
-from nodebpy import geometry as g, shader as s, TreeBuilder
-from nodebpy.builder import CustomShaderGroup
+from nodes_tool import geometry as g, shader as s, TreeBuilder
+from nodes_tool.builder import CustomShaderGroup
 
 class OGradientBackground(CustomShaderGroup):
     _name = 'O Gradient Background'
@@ -22,8 +22,11 @@ class OGradientBackground(CustomShaderGroup):
             scale = tree.inputs.float('Scale', 1.0, description='The amount of scaling along each axis', min_value=0.0, max_value=2.0)
         shader = tree.outputs.shader('Shader')
         mapping = s.Mapping.texture(s.Mapping.texture(s.TextureCoordinate().o.window, (0.5, 0.5, 0.5)), location, scale=scale)
-        o_linear = OLinear(Angle=angle + 1.5707963705062866, Vector=s.Mapping.texture(mapping, (-0.5, -0.5, -0.5)))
+        o_linear = OLinear(Angle=angle + 1.5707964, Vector=s.Mapping.texture(mapping, (-0.5, -0.5, -0.5)))
         mix = g.Mix.color(s.InvertColor(fac=invert, color=o_linear.o.gradient), a, b, clamp_factor=True)
         OBackground(Color=mix.o.result_color, Light=light, **{'Transmission (Cycles)': transmission_cycles}, _named_links=[('Strength', strength), ('Strength', 1.0)]) >> shader
 ASSET = OGradientBackground
-ASSET_METADATA = {'catalog_id': '90187864-01c8-45bc-99f1-66e7e746beb8'}
+
+ASSET_METADATA = {
+    "catalog_id": "90187864-01c8-45bc-99f1-66e7e746beb8",
+}

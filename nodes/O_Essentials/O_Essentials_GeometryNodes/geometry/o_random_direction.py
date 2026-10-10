@@ -1,8 +1,6 @@
-# Node-group asset "O Random Direction" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class ORandomDirection(CustomGeometryGroup):
@@ -19,7 +17,7 @@ class ORandomDirection(CustomGeometryGroup):
         direction_1 = tree.outputs.vector("Direction")
         rotation = tree.outputs.rotation("Rotation")
 
-        math_1 = g.RandomValue.float(-3.1415927410125732, 3.141590118408203, id, seed).o.value * axial_spread
+        math_1 = g.RandomValue.float(-3.1415927, 3.14159, id, seed).o.value * axial_spread
         vector_math = g.RandomValue.vector((-1.0, -1.0, -1.0), (1.0, 1.0, 1.0), id, seed).o.value.normalize() * (spread * 2.0)
         vector_math_1 = (direction.normalize() + vector_math).normalize() * direction.length()
         (

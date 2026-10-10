@@ -1,8 +1,6 @@
-# Node-group asset "O Transfer UV" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_is_uv_split import OIsUVSplit
 from .o_mask_by_selection import OMaskBySelection
 from .o_uv_island import OUVIsland
@@ -21,7 +19,7 @@ class OTransferUV(CustomGeometryGroup):
         with tree.inputs.panel("Options", default_closed=True):
             uv_island = tree.inputs.menu("UV Island", "Sample Position", expanded=True, optional_label=True)
             uv_island_1 = tree.inputs.integer("UV Island", 0, hide_value=True)
-            fix_range = tree.inputs.float("Fix Range", 0.10000000149011612, min_value=0.0, max_value=1.0, subtype="FACTOR")
+            fix_range = tree.inputs.float("Fix Range", 0.1, min_value=0.0, max_value=1.0, subtype="FACTOR")
             uv = tree.inputs.string("UV", "UVMap")
         mesh_1 = tree.outputs.geometry("Mesh")
 
@@ -32,7 +30,7 @@ class OTransferUV(CustomGeometryGroup):
         sample_index = g.SampleIndex.face.integer(source, OUVIsland(UV=uv), g.SampleNearest.face(source))
         index_switch = g.IndexSwitch.integer(menu_switch.o.output, (sample_index.o.value.face.evaluate(), sample_index.o.value.point.evaluate()))
         menu_switch_1 = g.MenuSwitch.integer(uv_island, {"Sample Position": index_switch, "Custom": uv_island_1})
-        map_range = (o_mask_by_selection >> g.SampleNearestSurface.float(value=o_mask_by_selection.o.mask)).o.value.map_range(1.0 - fix_range, to_max=fix.map_range(to_max=0.9900000095367432))
+        map_range = (o_mask_by_selection >> g.SampleNearestSurface.float(value=o_mask_by_selection.o.mask)).o.value.map_range(1.0 - fix_range, to_max=fix.map_range(to_max=0.99))
         mix = g.Mix.vector(map_range, position, position.o.position.face.evaluate(), clamp_factor=True)
         sample_nearest_surface = g.SampleNearestSurface.vector(source, g.NamedAttribute.vector(uv).o.attribute, OUVIsland(UV=uv), mix.o.result_vector, menu_switch_1.o.output)
         store_named_attribute = g.StoreNamedAttribute.corner.vector_2d(mesh, name="UVMap", value=sample_nearest_surface.o.value)

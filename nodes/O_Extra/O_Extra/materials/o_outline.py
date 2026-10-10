@@ -1,13 +1,10 @@
-# Material "O Outline", dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
-# The class is a recipe for the material's shader tree — build recreates the material and runs it into material.node_tree.
 from bpy.types import ShaderNodeTree
-from nodebpy import geometry as g, shader as s, TreeBuilder
-from nodebpy.builder import CustomShaderGroup
+from nodes_tool import geometry as g, shader as s, TreeBuilder
+from nodes_tool.builder import CustomShaderGroup
 
 
-class OOutline2(CustomShaderGroup):
-    _name = "Shader Nodetree"
+class OOutline(CustomShaderGroup):
+    _name = "O Outline"
 
     def _build_group(self, tree: TreeBuilder[ShaderNodeTree]) -> None:
         attribute = s.Attribute(attribute_name="o_primary")
@@ -22,7 +19,7 @@ class OOutline2(CustomShaderGroup):
         mix_shader_1 = s.MixShader(fac=attribute_1.o.factor, shader=emission, shader_001=s.DiffuseBSDF(color=attribute.o.color, normal=s.Geometry().o.normal * -1.0))
         _material_output_1 = s.MaterialOutput(surface=s.MixShader(fac=math_3, shader=transparent_bsdf, shader_001=mix_shader_1), target="EEVEE")
 
-MATERIAL = OOutline2
+MATERIAL = OOutline
 MATERIAL_NAME = "O Outline"
 
 MATERIAL_PROPERTIES = {

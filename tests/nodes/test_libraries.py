@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from tools.nodes import libraries
+from nodes_tool import libraries
 
 
 @pytest.mark.parametrize(("markers", "target", "message"), [

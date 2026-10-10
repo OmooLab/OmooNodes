@@ -1,13 +1,10 @@
-# Material "O Debug UV", dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
-# The class is a recipe for the material's shader tree — build recreates the material and runs it into material.node_tree.
 from bpy.types import ShaderNodeTree
-from nodebpy import geometry as g, shader as s, TreeBuilder
-from nodebpy.builder import CustomShaderGroup
+from nodes_tool import geometry as g, shader as s, TreeBuilder
+from nodes_tool.builder import CustomShaderGroup
 
 
-class ODebugUV2(CustomShaderGroup):
-    _name = "Shader Nodetree"
+class ODebugUV(CustomShaderGroup):
+    _name = "O Debug UV"
 
     def _build_group(self, tree: TreeBuilder[ShaderNodeTree]) -> None:
         color_attribute = s.ColorAttribute(layer_name="o_uvisland")
@@ -17,7 +14,7 @@ class ODebugUV2(CustomShaderGroup):
         mix_2 = g.Mix.color(s.Attribute(attribute_name="o_show_uvisland").o.factor, image_texture.o.color, g.Mix.color(0.5, mix.o.result_color, mix_1.o.result_color, clamp_factor=True).o.result_color, clamp_factor=True)
         _material_output = s.MaterialOutput(surface=s.Emission(color=mix_2.o.result_color), is_active_output=True)
 
-MATERIAL = ODebugUV2
+MATERIAL = ODebugUV
 MATERIAL_NAME = "O Debug UV"
 
 MATERIAL_PROPERTIES = {

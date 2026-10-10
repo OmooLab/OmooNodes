@@ -1,8 +1,6 @@
-# Node-group asset "O Background" (ShaderNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import ShaderNodeTree
-from nodebpy import geometry as g, shader as s, TreeBuilder
-from nodebpy.builder import CustomShaderGroup
+from nodes_tool import geometry as g, shader as s, TreeBuilder
+from nodes_tool.builder import CustomShaderGroup
 
 
 class OBackground(CustomShaderGroup):
@@ -11,7 +9,7 @@ class OBackground(CustomShaderGroup):
     _tree_properties = {"default_group_node_width": 160}
 
     def _build_group(self, tree: TreeBuilder[ShaderNodeTree]) -> None:
-        color = tree.inputs.color("Color", (0.05087599903345108, 0.05087599903345108, 0.05087599903345108, 1.0), description="Color of the emitted light")
+        color = tree.inputs.color("Color", (0.050876, 0.050876, 0.050876, 1.0), description="Color of the emitted light")
         strength = tree.inputs.float("Strength", 1.0, description="Strength of the emitted light", min_value=0.0, max_value=1000000.0)
         light = tree.inputs.color("Light", (0.0, 0.0, 0.0, 1.0), description="Color of the emitted light")
         strength_1 = tree.inputs.float("Strength", 1.0, description="Strength of the emitted light", min_value=0.0, max_value=1000000.0)

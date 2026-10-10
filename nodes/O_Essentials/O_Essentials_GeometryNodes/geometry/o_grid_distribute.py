@@ -1,8 +1,6 @@
-# Node-group asset "O Grid Distribute" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_random_selection import ORandomSelection
 
 
@@ -13,8 +11,8 @@ class OGridDistribute(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         mesh = tree.inputs.geometry("Mesh")
-        spacing = tree.inputs.float("Spacing", 0.20000000298023224, min_value=0.05000000074505806, subtype="DISTANCE")
-        radius = tree.inputs.float("Radius", 1.0, min_value=0.10000000149011612, max_value=2.0)
+        spacing = tree.inputs.float("Spacing", 0.2, min_value=0.05, subtype="DISTANCE")
+        radius = tree.inputs.float("Radius", 1.0, min_value=0.1, max_value=2.0)
         random = tree.inputs.float("Random", 0.0, min_value=0.0, max_value=1.0, subtype="FACTOR")
         with tree.inputs.panel("Options", default_closed=True):
             random_selection = tree.inputs.float("Random Selection", 1.0, description="Number of points to sample per unit volume", min_value=0.0, max_value=1.0, subtype="FACTOR")

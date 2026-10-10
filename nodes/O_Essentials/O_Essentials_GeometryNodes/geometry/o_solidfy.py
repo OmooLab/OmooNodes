@@ -1,8 +1,6 @@
-# Node-group asset "O Solidfy" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_displace import ODisplace
 from .o_is_edge_boundary import OIsEdgeBoundary
 
@@ -14,7 +12,7 @@ class OSolidfy(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         mesh = tree.inputs.geometry("Mesh")
-        thickness = tree.inputs.float("Thickness", 0.10000002384185791, min_value=0.0, max_value=1.0, subtype="DISTANCE")
+        thickness = tree.inputs.float("Thickness", 0.100000024, min_value=0.0, max_value=1.0, subtype="DISTANCE")
         offset = tree.inputs.float("Offset", 0.0, min_value=-1.0, max_value=1.0, subtype="FACTOR")
         geometry = tree.outputs.geometry("Geometry")
         side = tree.outputs.boolean("Side")
@@ -24,7 +22,7 @@ class OSolidfy(CustomGeometryGroup):
         extrude_mesh = g.ExtrudeMesh(mesh=o_displace, offset_scale=thickness, individual=False)
         (
             g.JoinGeometry(geometry=(g.FlipFaces(mesh=o_displace), extrude_mesh))
-            >> g.MergeByDistance(selection=OIsEdgeBoundary(), distance=9.999999974752427e-07)
+            >> g.MergeByDistance(selection=OIsEdgeBoundary(), distance=0.000001)
             >> geometry
         )
 

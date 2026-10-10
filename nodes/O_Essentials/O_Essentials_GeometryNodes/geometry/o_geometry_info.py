@@ -1,8 +1,6 @@
-# Node-group asset "O Geometry Info" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class OGeometryInfo(CustomGeometryGroup):
@@ -16,7 +14,7 @@ class OGeometryInfo(CustomGeometryGroup):
         center_point = tree.outputs.vector("Center Point")
         median_point = tree.outputs.vector("Median Point")
 
-        realize_instances = g.RealizeInstances(geometry=geometry, realize_to_point_domain=True)
+        realize_instances = g.RealizeInstances(geometry=geometry)
         bounding_box = g.BoundingBox(geometry=realize_instances)
         vector_math = g.Position().o.position.point.total() / g.DomainSize(geometry=realize_instances).o.point_count
         attribute_statistic = g.AttributeStatistic.point.vector(realize_instances, attribute=vector_math)

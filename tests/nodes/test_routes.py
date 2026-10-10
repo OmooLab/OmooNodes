@@ -1,4 +1,4 @@
-from tools.nodes.arrangement.routes import plan_routes
+from nodes_tool.arrangement.routes import plan_routes
 
 
 def test_long_wire_uses_two_horizontal_anchors_around_obstacles():

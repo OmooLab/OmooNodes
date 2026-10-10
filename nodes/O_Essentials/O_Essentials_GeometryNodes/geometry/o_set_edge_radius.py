@@ -1,8 +1,6 @@
-# Node-group asset "O Set Edge Radius" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class OSetEdgeRadius(CustomGeometryGroup):
@@ -13,7 +11,7 @@ class OSetEdgeRadius(CustomGeometryGroup):
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         edge = tree.inputs.geometry("Edge")
         selection = tree.inputs.boolean("Selection", True, hide_value=True, hide_in_modifier=True)
-        radius = tree.inputs.float("Radius", 0.10000000149011612, min_value=0.0, subtype="DISTANCE")
+        radius = tree.inputs.float("Radius", 0.1, min_value=0.0, subtype="DISTANCE")
         edge_1 = tree.outputs.geometry("Edge")
 
         (

@@ -3,7 +3,7 @@ from contextlib import redirect_stdout
 
 import pytest
 
-from tools.nodes.console import done, progress
+from nodes_tool.console import done, progress
 
 
 @pytest.mark.parametrize("failed", [False, True])

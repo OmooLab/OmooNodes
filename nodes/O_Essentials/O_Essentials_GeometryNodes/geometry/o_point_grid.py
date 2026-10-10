@@ -1,8 +1,6 @@
-# Node-group asset "O Point Grid" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class OPointGrid(CustomGeometryGroup):
@@ -11,8 +9,8 @@ class OPointGrid(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         menu = tree.inputs.menu("Menu", "XY", optional_label=True)
-        space = tree.inputs.float("Space", 0.10000000149011612, min_value=0.009999999776482582, max_value=1.0, subtype="DISTANCE")
-        radius = tree.inputs.float("Radius", 1.0, min_value=0.10000000149011612, max_value=2.0)
+        space = tree.inputs.float("Space", 0.1, min_value=0.01, max_value=1.0, subtype="DISTANCE")
+        radius = tree.inputs.float("Radius", 1.0, min_value=0.1, max_value=2.0)
         min = tree.inputs.vector("Min", (-1.0, -1.0, -1.0))
         max = tree.inputs.vector("Max", (1.0, 1.0, 1.0))
         position = tree.inputs.float("Position", 0.5, description="Amount of mixing between the A and B inputs", min_value=0.0, max_value=1.0, subtype="FACTOR")
@@ -23,7 +21,7 @@ class OPointGrid(CustomGeometryGroup):
         index_1 = g.Index()
         menu_switch = g.MenuSwitch.integer(menu, {"XY": 0, "XZ": 1, "YZ": 2, "XYZ": -1})
         result = g.Mix.vector(position, min, max, clamp_factor=True).o.result_vector
-        vector_math = max + (9.999999747378752e-05, 9.999999747378752e-05, 9.999999747378752e-05)
+        vector_math = max + (0.0001, 0.0001, 0.0001)
         separate_xyz = g.SeparateXYZ(vector=vector_math)
         index_switch = g.IndexSwitch.float(menu_switch.o.output, (separate_xyz.o.x, separate_xyz.o.x, separate_xyz.o.y))
         separate_xyz_1 = g.SeparateXYZ(vector=vector_math)

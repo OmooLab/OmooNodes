@@ -1,13 +1,10 @@
-# Material "O Outline Extra", dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
-# The class is a recipe for the material's shader tree — build recreates the material and runs it into material.node_tree.
 from bpy.types import ShaderNodeTree
-from nodebpy import geometry as g, shader as s, TreeBuilder
-from nodebpy.builder import CustomShaderGroup
+from nodes_tool import geometry as g, shader as s, TreeBuilder
+from nodes_tool.builder import CustomShaderGroup
 
 
 class OOutlineExtra(CustomShaderGroup):
-    _name = "Shader Nodetree"
+    _name = "O Outline Extra"
 
     def _build_group(self, tree: TreeBuilder[ShaderNodeTree]) -> None:
         attribute = s.Attribute(attribute_name="o_primary")

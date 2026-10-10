@@ -1,8 +1,6 @@
-# Node-group asset "O Mix Color" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class OMixColor(CustomGeometryGroup):
@@ -13,10 +11,10 @@ class OMixColor(CustomGeometryGroup):
         factor = tree.inputs.float("Factor", 0.5, description="Amount of mixing between the A and B inputs", min_value=0.0, max_value=1.0, subtype="FACTOR")
         a = tree.inputs.color("A", (0.5, 0.5, 0.5, 1.0))
         b = tree.inputs.color("B", (0.5, 0.5, 0.5, 1.0))
-        color = tree.outputs.color("Color", (0.800000011920929, 0.800000011920929, 0.800000011920929, 1.0))
+        color = tree.outputs.color("Color", (0.8, 0.8, 0.8, 1.0))
 
         result = g.Mix.color(factor, a, b, clamp_factor=True).o.result_color
-        combine_color = g.CombineColor(red=result.r, green=result.g, blue=result.b, alpha=g.SeparateColor(color=a).o.alpha)
+        combine_color = g.CombineColor(red=result.r, green=result.g, blue=result.b, alpha=g.Mix.float(factor, a.a, b.a, clamp_factor=True).o.result_float)
         combine_color >> color
 
 ASSET = OMixColor

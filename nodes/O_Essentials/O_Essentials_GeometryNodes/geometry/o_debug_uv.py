@@ -1,9 +1,7 @@
-# Node-group asset "O Debug UV" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 import bpy
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_debug_integer import ODebugInteger
 from .o_is_edge_boundary import OIsEdgeBoundary
 from .o_is_uv_split import OIsUVSplit
@@ -23,7 +21,7 @@ class ODebugUV(CustomGeometryGroup):
         with tree.inputs.panel("Transform", default_closed=True):
             translation = tree.inputs.vector("Translation", (0.0, 0.0, 0.0), min_value=-1.0, max_value=1.0)
             rotation = tree.inputs.rotation("Rotation", (0.0, 0.0, 0.0))
-            scale = tree.inputs.float("Scale", 1.0, min_value=0.10000000149011612, max_value=10.0)
+            scale = tree.inputs.float("Scale", 1.0, min_value=0.1, max_value=10.0)
         with tree.inputs.panel("Options", default_closed=True):
             uv = tree.inputs.string("UV", "UVMap")
             seam = tree.inputs.color("Seam", (1.0, 0.0, 0.0, 1.0))
@@ -61,8 +59,4 @@ ASSET_METADATA = {
     "author": "Ma Nan",
     "copyright": "Omoo Lab",
     "catalog_id": "3aee6aa4-2dd5-4adb-9bed-3676454cdeff",
-}
-
-DATABLOCK_DEPENDENCIES = {
-    "materials": ("O Debug Color", "O Debug UV"),
 }

@@ -1,8 +1,6 @@
-# Node-group asset "O Project" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_debug_direction import ODebugDirection
 
 
@@ -18,7 +16,7 @@ class OProject(CustomGeometryGroup):
         menu = tree.inputs.menu("Menu", "Minimum Distance", optional_label=True)
         positive_weight = tree.inputs.float("Positive Weight", 1.0, description="Amount of mixing between the A and B inputs", min_value=0.0, max_value=1.0, subtype="FACTOR")
         negative_weight = tree.inputs.float("Negative Weight", 1.0, description="Amount of mixing between the A and B inputs", min_value=0.0, max_value=1.0, subtype="FACTOR")
-        max_distance = tree.inputs.float("Max Distance", 0.10000000149011612, min_value=0.0, max_value=1.0, subtype="DISTANCE")
+        max_distance = tree.inputs.float("Max Distance", 0.1, min_value=0.0, max_value=1.0, subtype="DISTANCE")
         with tree.inputs.panel("Options", default_closed=True):
             weight = tree.inputs.float("Weight", 1.0, description="Amount of mixing between the A and B inputs", min_value=0.0, max_value=1.0, subtype="FACTOR")
             radius_offset = tree.inputs.float("Radius Offset", 1.0, min_value=0.0, max_value=1.0, subtype="FACTOR")
@@ -44,11 +42,8 @@ class OProject(CustomGeometryGroup):
             >> geometry_1
         )
         viewer = g.Viewer()
-        viewer.node.viewer_items.clear()
-        viewer.node.viewer_items.new('GEOMETRY', 'Geometry').auto_remove = False
-        ODebugDirection(Geometry=geometry, Direction=blur_attribute) >> viewer.i[0]
-        viewer.node.viewer_items.new('BOOLEAN', 'Value').auto_remove = False
-        raycast_1 >> viewer.i[1]
+        ODebugDirection(Geometry=geometry, Direction=blur_attribute) >> viewer
+        raycast_1 >> viewer
 
 ASSET = OProject
 

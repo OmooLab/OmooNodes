@@ -1,8 +1,6 @@
-# Node-group asset "O Is UV Split" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_is_edge_boundary import OIsEdgeBoundary
 
 
@@ -21,9 +19,9 @@ class OIsUVSplit(CustomGeometryGroup):
         corners_of_edge_1 = g.CornersOfEdge(sort_index=1)
         named_attribute = g.NamedAttribute.vector(uv)
         evaluate_at_index = named_attribute.o.attribute.corner.at(g.OffsetCornerInFace(corner_index=corners_of_edge.o.corner_index, offset=1))
-        compare = g.Compare(a=named_attribute.o.attribute.corner.at(corners_of_edge_1.o.corner_index), b=evaluate_at_index, epsilon=0.0010000000474974513, operation="NOT_EQUAL", data_type="VECTOR", mode="ELEMENT")
+        compare = g.Compare(a=named_attribute.o.attribute.corner.at(corners_of_edge_1.o.corner_index), b=evaluate_at_index, epsilon=0.001, operation="NOT_EQUAL", data_type="VECTOR", mode="ELEMENT")
         evaluate_at_index_1 = named_attribute.o.attribute.corner.at(g.OffsetCornerInFace(corner_index=corners_of_edge_1.o.corner_index, offset=1))
-        compare_1 = g.Compare(a=named_attribute.o.attribute.corner.at(corners_of_edge.o.corner_index), b=evaluate_at_index_1, epsilon=0.0010000000474974513, operation="NOT_EQUAL", data_type="VECTOR", mode="ELEMENT")
+        compare_1 = g.Compare(a=named_attribute.o.attribute.corner.at(corners_of_edge.o.corner_index), b=evaluate_at_index_1, epsilon=0.001, operation="NOT_EQUAL", data_type="VECTOR", mode="ELEMENT")
         boolean_math = ~OIsEdgeBoundary().o.is_edge_boundary & (compare_1.o.result | compare)
         edges_to_face_groups = g.EdgesToFaceGroups(boundary_edges=boolean_math)
         evaluate_at_index_2 = edges_to_face_groups.o.face_group_id.corner.at(g.CornersOfEdge(sort_index=1).o.corner_index)

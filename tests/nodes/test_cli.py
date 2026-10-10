@@ -1,6 +1,6 @@
 import pytest
 
-from tools.nodes import cli
+from nodes_tool import cli
 
 
 @pytest.mark.parametrize(("arguments", "action", "destination"), [

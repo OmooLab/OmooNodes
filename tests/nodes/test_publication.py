@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-from tools.nodes.publication import (
+from nodes_tool.publication import (
     copy_sidecar_files,
     update_library_metadata,
 )

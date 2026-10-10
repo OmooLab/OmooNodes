@@ -1,8 +1,6 @@
-# Node-group asset "O Symmetry" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 
 
 class OSymmetry(CustomGeometryGroup):
@@ -19,7 +17,7 @@ class OSymmetry(CustomGeometryGroup):
         menu_switch = g.MenuSwitch.integer(menu_1, {"X": 0, "Y": 1, "Z": 2})
         repeat_zone = g.RepeatZone(radial)
         output = repeat_zone.items.geometry(name="Output")
-        math_1 = 6.2831854820251465 / radial * repeat_zone.iteration
+        math_1 = 6.2831855 / radial * repeat_zone.iteration
         separate_components = g.SeparateComponents(geometry=geometry)
         join_geometry = g.JoinGeometry(geometry=(separate_components >> g.FlipFaces(), separate_components.o.curve, separate_components.o.grease_pencil, separate_components.o.point_cloud, separate_components.o.volume, separate_components.o.instances))
         index_switch = g.IndexSwitch.geometry(menu_switch.o.output, (g.TransformGeometry(geometry=join_geometry, scale=(-1.0, 1.0, 1.0)), g.TransformGeometry(geometry=join_geometry, scale=(1.0, -1.0, 1.0)), g.TransformGeometry(geometry=join_geometry, scale=(1.0, 1.0, -1.0))))

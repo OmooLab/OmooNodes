@@ -1,8 +1,6 @@
-# Node-group asset "O Ensure UV" (ShaderNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import ShaderNodeTree
-from nodebpy import geometry as g, shader as s, TreeBuilder
-from nodebpy.builder import CustomShaderGroup
+from nodes_tool import geometry as g, shader as s, TreeBuilder
+from nodes_tool.builder import CustomShaderGroup
 
 
 class OEnsureUV(CustomShaderGroup):
@@ -13,7 +11,7 @@ class OEnsureUV(CustomShaderGroup):
         vector = tree.inputs.vector("Vector", (0.0, 0.0), dimensions=2)
         vector_1 = tree.outputs.vector("Vector", (0.0, 0.0), dimensions=2)
 
-        mix = g.Mix.vector(g.Math.less_than(abs(vector.x) + abs(vector.y) + abs(vector.z), 9.999999974752427e-07), vector, s.TextureCoordinate().o.uv, clamp_factor=True)
+        mix = g.Mix.vector(g.Math.less_than(abs(vector.x) + abs(vector.y) + abs(vector.z), 0.000001), vector, s.TextureCoordinate().o.uv, clamp_factor=True)
 
         mix.o.result_vector >> vector_1
 

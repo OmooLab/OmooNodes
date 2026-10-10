@@ -1,8 +1,6 @@
-# Node-group asset "O Connect Adjacent" (GeometryNodeTree), dumped by nodebpy.assets.dump_library.
-# Rebuild the library with nodebpy.assets.build_library (nodebpy build).
 from bpy.types import GeometryNodeTree
-from nodebpy import geometry as g, TreeBuilder
-from nodebpy.builder import CustomGeometryGroup
+from nodes_tool import geometry as g, TreeBuilder
+from nodes_tool.builder import CustomGeometryGroup
 from .o_nearby_selection import ONearbySelection
 
 
@@ -24,7 +22,7 @@ class OConnectAdjacent(CustomGeometryGroup):
         mesh_line = g.MeshLine.end_points(2, g.AttributeStatistic.point.vector(for_each_1.input.o.element, attribute=g.Position()).o.mean, mean.output)
         mesh_line >> for_each_1.generation.input
         for_each_1.generation.output >> for_each.generation.input
-        merge_by_distance = g.MergeByDistance(geometry=for_each.generation.output, distance=9.999999747378752e-05)
+        merge_by_distance = g.MergeByDistance(geometry=for_each.generation.output, distance=0.0001)
 
         merge_by_distance >> geometry_1
 
