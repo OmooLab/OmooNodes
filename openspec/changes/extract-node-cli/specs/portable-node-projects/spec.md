@@ -16,7 +16,8 @@
 后端 SHALL 负责 dump/build，各目标 SHALL 负责检查、保存、重载与正式清理。
 实际版本 MUST 在处理前检查；只准备声明的目标，主项目 MUST 不因后端版本被迫升级 Python。
 省略后端配置时 SHALL 使用 Python 3.13、nodebpy 520.34.1、bpy 5.2.2；配置表 MAY 仅覆盖其中部分字段。
-目标 MUST 在非空的 `tool.nodes.targets` 表中以目标名到精确 bpy 版本字符串声明。
+目标 MUST 在非空的 `tool.nodes.targets` 列表中声明。最低目标 SHALL 作为默认 dev 目标和通用基础版本。
+精确 bpy 版本 MAY 通过 `tool.nodes.versions` 表覆盖已声明目标；省略时使用工具内置已验证版本，不联网查询。
 系统 SHALL 为 b45 匹配 Python 3.11，为 b52 匹配 Python 3.13；未知目标、版本不匹配或旧嵌套配置 MUST 报错。
 系统 MUST 不补入未声明目标。
 

@@ -1,12 +1,100 @@
 import ast
 import json
 import subprocess
+import os
 from pathlib import Path
 
 import pytest
 
 from tools.nodes.cli import replace_directories, rewrite_foreign_modules
 from tools.nodes import cli
+
+
+@pytest.mark.parametrize(("markers", "target", "message"), [
+    ([], None, "No development libraries found"),
+    (["b45"], "b52", "No development libraries found"),
+    (["b45", "b52"], None, "multiple versions exist"),
+])
+def test_sync_distinguishes_missing_workspaces_from_multiple_targets(tmp_path, monkeypatch, markers, target, message):
+    source = tmp_path / "nodes/Library"
+    source.mkdir(parents=True)
+    workspace = tmp_path / "workspaces"
+    workspace.mkdir()
+    for version in markers:
+        directory = workspace / version / "Library"
+        directory.mkdir(parents=True)
+        (directory / ".nodes.json").write_text("{}")
+    config = {"versions": {"b45": "4.5.14", "b52": "5.2.2"}}
+    monkeypatch.setattr(cli, "configuration", lambda *args, **kwargs: config)
+    monkeypatch.setattr(cli, "libraries", lambda path: [source])
+    monkeypatch.setattr(cli, "run_worker", lambda *args, **kwargs: pytest.fail("Invalid workspace ran a worker"))
+    with pytest.raises(ValueError, match=message):
+        cli.sync(source, workspace, target)
+
+
+def test_file_commit_restores_edits_deletions_and_baseline_when_one_file_is_locked(tmp_path, monkeypatch):
+    current = tmp_path / "nodes"
+    staged = tmp_path / "staged"
+    current.mkdir()
+    staged.mkdir()
+    (current / "edit.py").write_text("old")
+    (current / "remove.b52.py").write_text("variant")
+    (staged / "edit.py").write_text("new")
+    (staged / "add.py").write_text("added")
+    baseline = tmp_path / ".nodes.json"
+    baseline.write_text("original")
+    updated_baseline = staged / ".nodes.json"
+    updated_baseline.write_text("updated")
+    replace = Path.replace
+
+    def blocked(path, target):
+        if path == updated_baseline:
+            raise PermissionError("File locked")
+        return replace(path, target)
+
+    monkeypatch.setattr(Path, "replace", blocked)
+    changes = [(staged / "edit.py", current / "edit.py"),
+               (staged / "add.py", current / "add.py"),
+               (None, current / "remove.b52.py"), (updated_baseline, baseline)]
+    with pytest.raises(PermissionError, match="File locked"):
+        cli.replace_files(changes)
+    assert (current / "edit.py").read_text() == "old"
+    assert (current / "remove.b52.py").read_text() == "variant"
+    assert not (current / "add.py").exists()
+    assert baseline.read_text() == "original"
+    assert not list(tmp_path.rglob("*.nodes-backup"))
+
+
+@pytest.mark.skipif(os.name != "nt", reason="Windows directory handle semantics")
+def test_file_commit_works_when_windows_prevents_directory_rename(tmp_path):
+    import ctypes
+    from ctypes import wintypes
+
+    current, staged = tmp_path / "nodes", tmp_path / "staged"
+    current.mkdir()
+    staged.mkdir()
+    (current / "edit.py").write_text("old")
+    (current / "unchanged.blend").write_bytes(b"blend")
+    (staged / "edit.py").write_text("new")
+    (staged / "unchanged.blend").write_bytes(b"blend")
+    kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel.CreateFileW.argtypes = [wintypes.LPCWSTR, wintypes.DWORD, wintypes.DWORD,
+                                  wintypes.LPVOID, wintypes.DWORD, wintypes.DWORD, wintypes.HANDLE]
+    kernel.CreateFileW.restype = wintypes.HANDLE
+    kernel.CloseHandle.argtypes = [wintypes.HANDLE]
+    # Allow reads/writes while withholding delete sharing, as an open directory can do.
+    handle = kernel.CreateFileW(str(current), 1, 3, None, 3, 0x02000000, None)
+    assert handle != ctypes.c_void_p(-1).value
+    try:
+        with pytest.raises(PermissionError):
+            current.rename(tmp_path / "nodes-backup")
+        unchanged = (current / "unchanged.blend").stat().st_mtime_ns
+        cli.replace_files(cli.directory_changes(staged, current))
+        assert (current / "edit.py").read_text() == "new"
+        assert (current / "unchanged.blend").stat().st_mtime_ns == unchanged
+        assert not list(current.glob("*.nodes-backup"))
+    finally:
+        kernel.CloseHandle(handle)
 
 
 def test_foreign_shared_class_is_imported_from_owner_without_forwarding_file(tmp_path):
@@ -45,7 +133,7 @@ def test_configuration_keeps_targets_independent_of_builder(tmp_path, monkeypatc
     monkeypatch.chdir(tmp_path)
     (tmp_path / "pyproject.toml").write_text(
         f'[tool.nodes.backend]\npython = "3.13"\nnodebpy = "{sdk}"\nbpy = "{builder}"\n'
-        '[tool.nodes.targets]\nb45 = "4.5.14"\nb52 = "5.2.2"\n')
+        '[tool.nodes]\ntargets = ["b45", "b52"]\n')
 
     prepared = []
 
@@ -66,7 +154,7 @@ def test_configuration_keeps_targets_independent_of_builder(tmp_path, monkeypatc
 def test_backend_defaults_can_be_omitted_or_partially_overridden(tmp_path, monkeypatch, overrides):
     monkeypatch.chdir(tmp_path)
     backend = "[tool.nodes.backend]\n" + "".join(f'{key} = "{value}"\n' for key, value in overrides.items()) if overrides else ""
-    (tmp_path / "pyproject.toml").write_text(backend + '[tool.nodes.targets]\nb45 = "4.5.14"\n')
+    (tmp_path / "pyproject.toml").write_text(backend + '[tool.nodes]\ntargets = ["b45"]\n')
     prepared = {}
 
     def prepare(cache, name, settings):
@@ -81,12 +169,28 @@ def test_backend_defaults_can_be_omitted_or_partially_overridden(tmp_path, monke
     assert set(prepared) == {"backend", "b45"}
 
 
-@pytest.mark.parametrize("targets", ["", "[tool.nodes.targets]\n"])
+@pytest.mark.parametrize("targets", ["", "targets = []\n"])
 def test_targets_must_be_explicit_and_nonempty(tmp_path, monkeypatch, targets):
     monkeypatch.chdir(tmp_path)
     (tmp_path / "pyproject.toml").write_text('[tool.nodes]\nsource = "nodes"\n' + targets)
     monkeypatch.setattr(cli, "ensure_runtime", lambda *args: pytest.fail("Invalid configuration prepared a runtime"))
-    with pytest.raises(ValueError, match="Declare at least one target"):
+    with pytest.raises(ValueError, match="nonempty list"):
+        cli.configuration()
+
+
+def test_dev_defaults_to_lowest_target_and_versions_only_override_declared_targets(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    path = tmp_path / "pyproject.toml"
+    path.write_text('[tool.nodes]\ntargets = ["b52", "b45"]\n[tool.nodes.versions]\nb45 = "4.5.13"\n')
+    prepared = {}
+    monkeypatch.setattr(cli, "ensure_runtime", lambda cache, name, settings: prepared.setdefault(name, settings))
+    config = cli.configuration(development=True)
+    assert config["base_target"] == "b45"
+    assert config["versions"] == {"b45": "4.5.13"}
+    assert set(prepared) == {"backend", "b45"}
+    assert set(cli.configuration()["versions"]) == {"b45", "b52"}
+    path.write_text('[tool.nodes]\ntargets = ["b45"]\n[tool.nodes.versions]\nb52 = "5.2.2"\n')
+    with pytest.raises(ValueError, match="only override declared"):
         cli.configuration()
 
 
@@ -168,7 +272,7 @@ def test_only_expected_backend_conversion_warning_is_hidden(tmp_path, monkeypatc
 def test_dev_reports_final_dependency_paths_only_after_success(tmp_path, monkeypatch, capsys, fail):
     sources = [tmp_path / "nodes" / name for name in ("Owner", "Extra")]
     config = {"cache": tmp_path / "cache", "versions": {"b52": "5.2.2"}}
-    monkeypatch.setattr(cli, "configuration", lambda target: config)
+    monkeypatch.setattr(cli, "configuration", lambda target, **kwargs: config)
     monkeypatch.setattr(cli, "libraries", lambda source: sources)
     monkeypatch.setattr(cli, "verify_workspace", lambda *args: None)
 
@@ -244,7 +348,7 @@ def test_formal_build_publishes_dependency_closure_and_preserves_old_outputs_on_
         directory.mkdir(parents=True)
         (directory / "collection.json").write_text(json.dumps({"dependencies": dependencies}))
     config = {"cache": tmp_path / "cache", "versions": {"b52": "5.2.2"}, "settings": {}}
-    monkeypatch.setattr(cli, "configuration", lambda target: config)
+    monkeypatch.setattr(cli, "configuration", lambda target, **kwargs: config)
     monkeypatch.setattr(cli, "build_staged", lambda *args: None)
     calls = []
     fail = False

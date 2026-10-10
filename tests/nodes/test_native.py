@@ -121,6 +121,7 @@ def test_native_layout_and_no_change_sync_preserve_every_source_byte(prepared, t
            "for n in bpy.data.node_groups['Probe'].nodes: n.location.x += 170\n"
            f"bpy.ops.wm.save_as_mainfile(filepath={str(file)!r},check_existing=False)\n", "b52")
     before = source_digest(source)
+    shutil.rmtree(workspace / "b45")
     cli.sync(source, workspace)
     assert source_digest(source) == before
     output = capsys.readouterr().out
@@ -128,20 +129,33 @@ def test_native_layout_and_no_change_sync_preserve_every_source_byte(prepared, t
     assert "Committing:" not in output
 
 
-def test_native_b45_edit_survives_backend_dump_and_deduplicates_matching_b52(prepared, tmp_path, monkeypatch, capsys):
+def test_native_b45_shared_edit_does_not_require_a_b52_workspace_edit(prepared, tmp_path, monkeypatch, capsys):
     config, source, workspace = case(prepared, tmp_path)
     monkeypatch.setattr(cli, "configuration", lambda *args, **kwargs: config)
-    for version in ("b45", "b52"):
-        edit_value(config, tmp_path, workspace / version / "Probe/Probe.blend", 3.0, version)
-    cli.sync(source, workspace)
+    edit_value(config, tmp_path, workspace / "b45/Probe/Probe.blend", 3.0, "b45")
+    cli.sync(source, workspace, target="b45")
     output = capsys.readouterr().out
     assert output.index("exporting") < output.index("merging versions") < output.index("Validating:") < output.index("Committing:") < output.index("Done: sources synchronized")
     assert source.as_posix() in output
     assert "3.0" in (source / "geometry/geometry/probe.py").read_text()
     assert not list(source.rglob("*.b52.py"))
     before = source_digest(source)
-    cli.sync(source, workspace)
+    cli.sync(source, workspace, target="b45")
     assert source_digest(source) == before
+
+
+def test_native_hide_in_modifier_edit_is_shared_without_a_version_branch(prepared, tmp_path, monkeypatch):
+    config, source, workspace = case(prepared, tmp_path)
+    monkeypatch.setattr(cli, "configuration", lambda *args, **kwargs: config)
+    shutil.rmtree(workspace / "b52")
+    file = workspace / "b45/Probe/Probe.blend"
+    native(config, tmp_path, f"import bpy\nbpy.ops.wm.open_mainfile(filepath={str(file)!r},load_ui=False)\n"
+           "bpy.context.preferences.filepaths.save_version=0\n"
+           "bpy.data.node_groups['Probe'].interface.items_tree['Value'].hide_in_modifier=True\n"
+           f"bpy.ops.wm.save_as_mainfile(filepath={str(file)!r},check_existing=False)\n", "b45")
+    cli.sync(source, workspace)
+    assert not list(source.rglob("*.b52.py"))
+    assert "hide_in_modifier=True" in (source / "geometry/geometry/probe.py").read_text()
 
 
 def test_native_metadata_edit_and_new_asset_are_saved(prepared, tmp_path, monkeypatch):
@@ -154,11 +168,12 @@ def test_native_metadata_edit_and_new_asset_are_saved(prepared, tmp_path, monkey
            "g.asset_data.description='Changed'\ng.asset_data.tags.new('new')\n"
            "new=g.copy()\nnew.name='New Probe'\nnew.asset_mark()\nnew.use_fake_user=True\n"
            f"bpy.ops.wm.save_as_mainfile(filepath={str(file)!r},check_existing=False)\n", "b52")
-    cli.sync(source, workspace)
+    cli.sync(source, workspace, target="b52")
     report = cli.run_worker(config, tmp_path, "inspect", version="b52", input=str(file))
     assert report["graphs"]["Probe"]["asset_metadata"]["author"] == "Editor"
     assert "New Probe" in report["graphs"]
-    assert any("Editor" in p.read_text() for p in source.rglob("*.b52.py"))
+    assert any("Editor" in p.read_text() for p in source.rglob("*.py"))
+    assert not list(source.rglob("*.b52.py"))
 
 
 def test_native_failure_preserves_source_and_baseline(prepared, tmp_path, monkeypatch, capsys):
@@ -172,7 +187,7 @@ def test_native_failure_preserves_source_and_baseline(prepared, tmp_path, monkey
         raise ValueError("Rejected candidate")
     monkeypatch.setattr(cli, "build_staged", fail)
     with pytest.raises(ValueError, match="Rejected candidate"):
-        cli.sync(source, workspace)
+        cli.sync(source, workspace, target="b52")
     assert source_digest(source) == before
     assert (file.parent / ".nodes.json").read_bytes() == baseline
     output = capsys.readouterr().out
@@ -180,7 +195,7 @@ def test_native_failure_preserves_source_and_baseline(prepared, tmp_path, monkey
     assert "Done: sources synchronized" not in output
 
 
-def test_native_resource_change_is_detected_and_shared_conflict_is_rejected(prepared, tmp_path, monkeypatch):
+def test_native_resource_change_is_shared_and_validated(prepared, tmp_path, monkeypatch):
     config, source, workspace = case(prepared, tmp_path)
     monkeypatch.setattr(cli, "configuration", lambda *args, **kwargs: config)
     file = workspace / "b52/Probe/ProbeImage.blend"
@@ -188,10 +203,8 @@ def test_native_resource_change_is_detected_and_shared_conflict_is_rejected(prep
            "bpy.context.preferences.filepaths.save_version=0\n"
            "bpy.data.images['Pixel'].colorspace_settings.name='Non-Color'\n"
            f"bpy.ops.wm.save_as_mainfile(filepath={str(file)!r},check_existing=False)\n", "b52")
-    before = source_digest(source)
-    with pytest.raises(ValueError, match="Shared resource conflict"):
-        cli.sync(source, workspace)
-    assert source_digest(source) == before
+    cli.sync(source, workspace, target="b52")
+    assert "Non-Color" in (source / "shader/resources/images.json").read_text()
 
 
 
@@ -210,7 +223,7 @@ def test_native_concurrent_changes_are_preserved_before_commit(prepared, tmp_pat
     monkeypatch.setattr(cli, "build_staged", concurrent_change)
     baseline = (file.parent / ".nodes.json").read_bytes()
     with pytest.raises(ValueError, match="changed during synchronization"):
-        cli.sync(source, workspace)
+        cli.sync(source, workspace, target="b52")
     assert "human change" in marker.read_text()
     assert (file.parent / ".nodes.json").read_bytes() == baseline
 
@@ -226,10 +239,10 @@ def test_native_removal_and_stale_source_reject_without_rewriting_baseline(prepa
            f"bpy.ops.wm.save_as_mainfile(filepath={str(file)!r},check_existing=False)\n", "b52")
     before = source_digest(source)
     with pytest.raises(ValueError, match="Missing assets"):
-        cli.sync(source, workspace)
+        cli.sync(source, workspace, target="b52")
     assert source_digest(source) == before
     assert (file.parent / ".nodes.json").read_bytes() == baseline
     with (source / "geometry/geometry/probe.py").open("a") as stream:
         stream.write("\n# changed source\n")
     with pytest.raises(ValueError, match="Source changed since workspace build"):
-        cli.sync(source, workspace)
+        cli.sync(source, workspace, target="b52")

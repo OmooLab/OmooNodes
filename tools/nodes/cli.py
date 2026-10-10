@@ -17,6 +17,7 @@ from .runtimes import ensure_runtime, runtime_environment, target_settings
 
 WORKER = Path(__file__).with_name("blender.py")
 DEFAULT_BACKEND = {"python": "3.13", "nodebpy": "520.34.1", "bpy": "5.2.2"}
+DEFAULT_VERSIONS = {"b45": "4.5.14", "b52": "5.2.2"}
 
 
 def read_json(path):
@@ -42,19 +43,23 @@ def project_root():
     raise ValueError("No [tool.nodes] project configuration found")
 
 
-def configuration(target=None, prepare_targets=True):
+def configuration(target=None, prepare_targets=True, development=False):
     root = project_root()
     settings = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf8"))["tool"]["nodes"]
     declared = settings.get("targets")
-    if not isinstance(declared, dict) or not declared:
-        raise ValueError("Declare at least one target in [tool.nodes.targets]")
-    targets = {label: target_settings(label, version) for label, version in declared.items()}
+    if not isinstance(declared, list) or not declared or any(not isinstance(label, str) or label not in DEFAULT_VERSIONS for label in declared) or len(set(declared)) != len(declared):
+        raise ValueError('Set tool.nodes.targets to a nonempty list of supported targets: ["b45", "b52"]')
+    overrides = settings.get("versions", {})
+    if not isinstance(overrides, dict) or set(overrides) - set(declared):
+        raise ValueError("tool.nodes.versions may only override declared targets")
+    targets = {label: target_settings(label, overrides.get(label, DEFAULT_VERSIONS[label])) for label in declared}
+    base_target = min(targets, key=lambda label: tuple(map(int, targets[label]["bpy"].split("."))))
     if target and target not in targets:
         raise ValueError(f"Unknown target: {target}")
-    chosen = [target] if target else list(targets)
+    chosen = [target or base_target] if target or development else list(targets)
     backend = {**DEFAULT_BACKEND, **settings.get("backend", {})}
     cache = root / ".cache/nodes"
-    data = {"root": root, "cache": cache, "settings": settings,
+    data = {"root": root, "cache": cache, "settings": settings, "base_target": base_target,
             "builder": ensure_runtime(cache, "backend", backend), "builder_version": backend["bpy"],
             "versions": {label: targets[label]["bpy"] for label in chosen}}
     for label in chosen if prepare_targets else ():
@@ -215,11 +220,58 @@ def replace_directories(replacements):
         shutil.rmtree(backup)
 
 
+def directory_changes(source, target):
+    """List changed files without replacing the containing directories."""
+    paths = {path.relative_to(root) for root in (source, target) for path in root.rglob("*")
+             if path.is_file() and "__pycache__" not in path.relative_to(root).parts}
+    changes = []
+    for relative in sorted(paths):
+        updated, current = source / relative, target / relative
+        if updated.is_file() and current.is_file() and updated.read_bytes() == current.read_bytes():
+            continue
+        changes.append((updated if updated.is_file() else None, current))
+    return changes
+
+
+def replace_files(replacements):
+    """Commit changed files together; preserve backups if rollback is blocked."""
+    backups = {}
+    installed = []
+    for _, target in replacements:
+        backup = target.with_name(target.name + ".nodes-backup")
+        if backup.exists():
+            raise ValueError(f"Unfinished transaction: {backup}")
+    try:
+        for _, target in replacements:
+            if target.exists():
+                backup = target.with_name(target.name + ".nodes-backup")
+                backups[target] = backup
+                shutil.copy2(target, backup)
+        for source, target in replacements:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if source is None:
+                target.unlink()
+            else:
+                source.replace(target)
+            installed.append(target)
+    except Exception:
+        for target in reversed(installed):
+            if target in backups:
+                backups[target].replace(target)
+            else:
+                target.unlink(missing_ok=True)
+        for backup in backups.values():
+            backup.unlink(missing_ok=True)
+        raise
+    for backup in backups.values():
+        backup.unlink()
+
+
 def dev(source, workspace, target=None):
     if source.is_relative_to(workspace) or workspace.is_relative_to(source):
         raise ValueError("Source and editing workspace must not overlap")
     print("Preparing development libraries: checking runtimes", flush=True)
-    config = configuration(target)
+    config = configuration(target, development=True)
     closure = libraries(source)
     print(f"Collections: {' -> '.join(library.name for library in closure)}", flush=True)
     cache = config["cache"]
@@ -242,12 +294,21 @@ def dev(source, workspace, target=None):
 def sync(source, workspace, target=None):
     # Sync never bypasses logical validation or writes sources directly from dump.
     print("Preparing sync: checking runtimes", flush=True)
-    config = configuration(target)
+    config = configuration(target, prepare_targets=False)
     if source.is_relative_to(workspace) or workspace.is_relative_to(source):
         raise ValueError("Source and editing workspace must not overlap")
     if not workspace.is_dir():
         raise ValueError(f"Development directory does not exist: {workspace}")
     closure = libraries(source)
+    available = [label for label in config["versions"] if not target or label == target
+                 if any((workspace / label / library.name / ".nodes.json").is_file() for library in closure)]
+    if not available:
+        raise ValueError(f"No development libraries found for the selected source/target in {workspace}; run nodes dev first")
+    if len(available) > 1:
+        raise ValueError("Sync requires one workspace target; use --target when multiple versions exist")
+    version = available[0]
+    config = {**config, "versions": {version: config["versions"][version]}}
+    config[version] = ensure_runtime(config["cache"], version, target_settings(version, config["versions"][version]))
     print(f"Collections: {' -> '.join(library.name for library in closure)}", flush=True)
     source_versions = {library: source_digest(library) for library in closure}
     workspace_versions = {}
@@ -296,7 +357,7 @@ def sync(source, workspace, target=None):
             if changed:
                 candidate = temporary / "candidate" / library.name
                 print(f"  {library.name}: merging versions", flush=True)
-                merge_exports(library, exports, candidate, targets=config["settings"]["targets"])
+                merge_exports(library, exports, candidate)
                 replacements.append((candidate, library))
         if not replacements:
             print("Done: no logical changes", flush=True)
@@ -317,14 +378,16 @@ def sync(source, workspace, target=None):
             for filename, expected in baseline["files"].items():
                 verify_graphs(expected, validated_baseline["files"][filename], filename)
         source_changes = list(replacements)
+        file_changes = [change for candidate, library in source_changes
+                        for change in directory_changes(candidate, library)]
         for baseline_path, baseline in baselines:
             library_name = baseline_path.parent.name
             version = baseline["version"]
-            edited_copy = temporary / "editing-copies" / version / library_name
-            shutil.copytree(baseline_path.parent, edited_copy)
+            staged_baseline = temporary / "baselines" / version / library_name / ".nodes.json"
+            staged_baseline.parent.mkdir(parents=True, exist_ok=True)
             baseline["source"] = source_digest(candidates.get(library_name, next(library for library in closure if library.name == library_name)))
-            write_json(edited_copy / ".nodes.json", baseline)
-            replacements.append((edited_copy, baseline_path.parent))
+            write_json(staged_baseline, baseline)
+            file_changes.append((staged_baseline, baseline_path))
         print("Committing: checking concurrent changes", flush=True)
         for library, expected in source_versions.items():
             if source_digest(library) != expected:
@@ -332,7 +395,7 @@ def sync(source, workspace, target=None):
         for edited, expected in workspace_versions.items():
             if source_digest(edited) != expected:
                 raise ValueError(f"Development library changed during synchronization: {edited}")
-        replace_directories(replacements)
+        replace_files(file_changes)
         print("Done: sources synchronized", flush=True)
         for _, destination in source_changes:
             print(f"  {destination.as_posix()}", flush=True)
@@ -431,7 +494,7 @@ def parser():
     direction = development.add_mutually_exclusive_group()
     direction.add_argument("-o", "--output", type=Path, help="Development parent; defaults to workspaces")
     direction.add_argument("-s", "--sync", type=Path, help="Read target libraries from this development parent and synchronize sources")
-    development.add_argument("--target", help="Configured target; defaults to all")
+    development.add_argument("--target", help="Dev: lowest configured target by default; sync: recorded workspace target")
     formal = commands.add_parser("build", help="Build formal node libraries")
     formal.add_argument("source", nargs="?", type=Path, help="Collection or nodes root; defaults to project source")
     formal.add_argument("-o", "--output", type=Path, default=Path("dist"), help="Output parent; defaults to dist")

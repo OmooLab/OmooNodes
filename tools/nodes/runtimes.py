@@ -17,7 +17,7 @@ def target_settings(target, version):
     if target not in TARGET_PYTHON:
         raise ValueError(f"Unsupported target: {target}")
     if not isinstance(version, str) or not re.fullmatch(r"\d+\.\d+\.\d+", version):
-        raise ValueError(f"Set tool.nodes.targets.{target} to an exact bpy version string")
+        raise ValueError(f"Set tool.nodes.versions.{target} to an exact bpy version string")
     major, minor, _ = version.split(".")
     if target != f"b{major}{minor}":
         raise ValueError(f"Target {target} does not match bpy {version}")

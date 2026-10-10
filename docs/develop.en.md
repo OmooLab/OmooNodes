@@ -13,13 +13,16 @@ The isolated backend defaults to Python 3.13, nodebpy 520.34.1, and bpy 5.2.2.
 `tool.nodes.backend` may be omitted or override individual fields. Declare required targets explicitly:
 
 ```toml
-[tool.nodes.targets]
+[tool.nodes]
+targets = ["b45", "b52"]
+
+# Optional exact version override
+[tool.nodes.versions]
 b45 = "4.5.14"
-b52 = "5.2.2"
 ```
 
 Python is selected for the supported series: 3.11 for b45, 3.13 for b52.
-No additional targets are added. uv prepares isolated environments in `.cache/nodes/`.
+Verified defaults are bpy 4.5.14 for b45 and 5.2.2 for b52; no live version lookup. Overrides cannot add undeclared targets. uv prepares isolated environments in `.cache/nodes/`.
 The backend converts and arranges nodes; target workers inspect, save, reload, and clean libraries.
 Workers use isolated Blender user directories and do not inherit Python paths from the controller.
 
@@ -28,7 +31,7 @@ Workers use isolated Blender user directories and do not inherit Python paths fr
 Only `O_Essentials` and `O_Extra` are currently managed in `nodes/`.
 
 `nodes/<collection>/` contains native nodebpy Python, resources, catalogs, and `collection.json`.
-Unversioned `.py` files are shared implementations expected to support b45. `.b52.py` files contain
+Unversioned `.py` files are shared implementations expected to support the lowest configured target. `.b52.py` files contain
 complete b52 implementations and take precedence for that target. Related libraries share one target parent directory.
 
 ## Commands
@@ -54,14 +57,15 @@ uv run nodes build --target b52 --remote -o dist
 ```
 
 For dev/build, omitted sources use `tool.nodes.source`, defaulting to `nodes`. Omitted targets
-select all configured targets. dev defaults to `workspaces/<target>/<collection>/`;
+select the lowest target for dev and all targets for build. Sync reads one workspace target, requiring --target if several exist. dev defaults to `workspaces/<target>/<collection>/`;
 build defaults to `dist/<target>/<collection>/`. You can edit Python and build directly.
-Target versions come from `tool.nodes.targets` in `pyproject.toml`; `--target b52` selects one target.
+Target versions can be overridden through `tool.nodes.versions` in `pyproject.toml`; `--target b52` selects one target.
 dev reports dependencies, construction and layout, target saves, reload validation, and final output directories.
 Status messages use English, with one build/save/check line per file. The expected newer-backend
 conversion warning is hidden; the target saves, reloads, and checks the file version and node structure.
 Other version warnings remain visible.
 Sync reports change checks, export, version merging, rebuild validation, and commit, followed by updated source directories.
+Sync replaces changed files and baselines, preserving source directories and editable blend files; failed commits restore file backups.
 Normal empty-scene messages for asset-only files and read logs are hidden. Other warnings remain visible;
 failed workers display their full diagnostics.
 Long connections use horizontal channels, and development libraries retain multiple Group Inputs.
@@ -71,7 +75,7 @@ target compatibility is checked separately by dev/build. Mark public roots as as
 copy before importing historical ordinary groups. Existing sources are updated through dev --sync.
 
 Synchronization tracks asset metadata and packed image content/settings, ignores layout changes, checks source baselines, and validates rebuilt candidates
-before committing. Shared resource edits must agree across all configured targets. Source and workspace digests are checked again before commit. Changes inherited from public dependencies do not rewrite consumer modules. Formal build uses temporary directories, preserves editable workspaces, and
+before committing. Edits return to their existing shared or specialized source; no implicit variants are created. Shared resources are edited in one target and validated across all configured targets. Source and workspace digests are checked again before commit. Changes inherited from public dependencies do not rewrite consumer modules. Formal build uses temporary directories, preserves editable workspaces, and
 commits only after all selected targets succeed. Remote generation uses the pinned bpy package's
 native module and validates listings, metadata, files, and SHA-256.
 

@@ -10,15 +10,18 @@ uv run pytest tests
 `tools/nodes/` 在本项目维护通用 `nodes` CLI。
 项目环境使用 Python 3.11、bpy 4.5.14，不安装 nodebpy。
 独立后端默认 Python 3.13、nodebpy 520.34.1、bpy 5.2.2，可省略 `tool.nodes.backend`，
-也可在该表中覆盖需要的字段。`tool.nodes.targets` 必须明确声明目标及精确 bpy 版本：
+也可在该表中覆盖需要的字段。支持目标必须明确声明，最低目标作为通用基础版本及默认 dev 目标：
 
 ```toml
-[tool.nodes.targets]
+[tool.nodes]
+targets = ["b45", "b52"]
+
+# 可选：覆盖已声明目标的精确版本
+[tool.nodes.versions]
 b45 = "4.5.14"
-b52 = "5.2.2"
 ```
 
-工具匹配对应 Python：b45 使用 3.11，b52 使用 3.13。只声明 b45 时，不会补入 b52。
+工具内置已验证默认版本：b45 为 bpy 4.5.14/Python 3.11，b52 为 bpy 5.2.2/Python 3.13，不联网查询。版本覆盖不能增加未声明目标。
 工具通过 uv 准备隔离环境，缓存到 `.cache/nodes/`。后端负责转换和布局，各目标负责检查、
 保存、重载与发布清理。worker 使用隔离的 Blender 用户目录。
 
@@ -27,7 +30,7 @@ b52 = "5.2.2"
 当前 `nodes/` 只管理 `O_Essentials` 与 `O_Extra`。
 
 `nodes/<集合>/` 保存 nodebpy 原生 Python、资源、catalog 和 `collection.json`。
-无版本后缀 `.py` 是最低支持 b45 的通用实现；`.b52.py` 是 b52 专用完整实现，构建 b52 时优先选择。
+无版本后缀 `.py` 是适配项目最低配置目标的通用实现；`.b52.py` 是 b52 专用完整实现，构建 b52 时优先选择。
 同版本的资产库保持在同一父目录，跨库依赖由所属库维护。
 
 ## 命令
@@ -55,8 +58,8 @@ uv run nodes build nodes/O_Extra --target b45 --self-contained -o contents
 uv run nodes build --target b52 --remote -o dist
 ```
 
-`dev/build` 省略来源时读取 `tool.nodes.source`，默认 `nodes`；省略目标时处理全部配置目标。
-目标版本读取 `pyproject.toml` 的 `tool.nodes.targets`，可用 `--target b52` 只处理一个目标。
+`dev/build` 省略来源时读取 `tool.nodes.source`，默认 `nodes`。dev 默认只导出最低目标，build 默认构建全部配置目标。
+`--target b52` 可选择已声明的其他目标。sync 自动读取开发库的唯一目标；已有多版本目录时须加 `--target`。
 `dev` 显示依赖集合、构建与布局、目标版本保存、重载校验，成功后列出最终输出目录。
 运行提示使用英文，每个文件显示一行构建、保存和校验流程。
 同步显示修改检查、导出、版本合并、重建校验与提交，完成后列出已更新的源码目录。
@@ -69,8 +72,9 @@ uv run nodes build --target b52 --remote -o dist
 历史普通组先在迁移副本中标记 Asset，再导入。已有来源的修订使用 dev --sync。
 
 回写比较节点逻辑、Asset 元数据、接口标识及 packed 图片内容/颜色设置，忽略布局变化。
-仅公共依赖变化时更新基线，不重写消费者源码。共享资源须在所有配置目标一致修改，否则报冲突。
+仅公共依赖变化时更新基线，不重写消费者源码。通用节点修改回写原通用文件，已有专用实现回写专用文件；不会自动创建版本分支。共享资源也只需修改所选开发库，回写后对所有目标重建校验。
 校验源基线、依赖和重建结果，并在提交前再次检查源码和开发库摘要，保护并发编辑。
+同步仅替换变更文件和基线，保留源码目录及开发库 `.blend`；提交失败时从文件备份回滚。
 正式构建使用独立临时目录，不覆盖人工编辑库，选定目标全部成功后才替换产物。
 Remote 生成器来自固定 bpy 的原生模块，验证 listing、metadata、文件与 SHA-256。
 

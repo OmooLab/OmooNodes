@@ -32,13 +32,13 @@
 
 ## 验证记录
 
-- 全量测试 59 项通过；本地构建曾验证 121 个资产；当前范围收敛为 O_Essentials/O_Extra 共 92 个资产，b52 远程库已通过验证，原生 listing 与摘要通过。
-- 完整双版本开发库无修改回写通过；临时 b52 修改 O Scene Time 的 Step 后，仅新增对应 .b52.py，其他源码字节不变。
+- 全量测试 74 项及新增 Hide in Modifier 回归测试通过；当前范围为 O_Essentials/O_Extra 共 92 个资产，b52 远程库已通过验证，原生 listing 与摘要通过。
+- 目标列表决定支持范围，最低目标为默认 dev 与通用基础版本；单版本工作区可自动识别，旧多版本工作区须显式选目标。
 - Python 3.11 控制进程可调度独立 3.13 SDK 与 b52 环境；清除继承的 PYTHONHOME/PYTHONPATH，worker 使用隔离 Blender 用户目录。
 - AnyImage 10 个公开组在临时目录完成 SDK 导出重建，Depth Cutout 逻辑一致；原工作区未改。
 - AnyImage 的 O Image Layer、O Shadeless 逻辑一致，但 Socket identifier 重排。问题已记录；按用户决定，本次不继续处理 AnyImage，正式接入时另行验收。
 - 1.4 已补充真实 bpy 往返、元数据与新增 Asset、共享图片冲突、源过期、并发修改、缺失 Asset 及候选失败测试。
 - 图像签名覆盖 packed 数据、colorspace、alpha mode；Asset 签名覆盖作者、描述、标签、catalog、接口标识和适用的组属性。
-- 父组因公共依赖变化而改变时仅更新基线，不重写父组源码；实际 b45 Step 修改仅改 O Scene Time 的通用文件与保留原 b52 实现的版本文件。
+- 父组因公共依赖变化而改变时仅更新基线，不重写父组源码；Step、Hide in Modifier 等通用修改回写通用文件，不自动创建版本分支；既有专用实现按来源回写。
 - 现有开发库在内容核对一致后升级基线；未改原 .blend，未覆盖人工修改。既有跨版本 Mix 求值差异诊断保留；本轮不恢复效果验证。Granules 继续延期。
 - 项目环境为 Python 3.11、bpy 4.5.14，nodebpy 仅在独立后端安装；双版本开发库实跑成功。已知后端转存警告仅在成功转换时收起，4.5 Compositor 旧版存储通过原生临时写入释放，退出无内存泄漏提示，输入文件字节保持不变。

@@ -40,27 +40,27 @@ def source_digest(source: Path) -> str:
     return digest.hexdigest()
 
 
-def merge_exports(base: Path, updated: dict[str, Path], destination: Path, targets=VERSIONS) -> None:
-    """Merge complete modules; callers validate their logical equivalence first."""
+def merge_exports(base: Path, updated: dict[str, Path], destination: Path) -> None:
+    """Write edits to their existing source definition; never create implicit variants."""
     shutil.copytree(base, destination)
-    files = {path.relative_to(root) for root in updated.values()
-             for path in root.rglob("*.py") if "__pycache__" not in path.parts}
-    for relative in sorted(files):
-        generic = destination / relative
-        specialized = generic.with_name(generic.stem + ".b52.py")
-        old45 = generic.read_bytes() if generic.exists() else None
-        old52 = specialized.read_bytes() if specialized.exists() else old45
-        contents = {version: (root / relative).read_bytes()
-                    for version, root in updated.items() if (root / relative).is_file()}
-        b45 = contents.get("b45", old45)
-        b52 = contents.get("b52", old52)
-        generic.parent.mkdir(parents=True, exist_ok=True)
-        if b45 is not None:
-            generic.write_bytes(b45)
-        if b52 == b45:
-            specialized.unlink(missing_ok=True)
-        elif b52 is not None:
-            specialized.write_bytes(b52)
+    changes = {}
+    for version, root in updated.items():
+        for path in root.rglob("*.py"):
+            if "__pycache__" in path.parts:
+                continue
+            relative = path.relative_to(root)
+            specialized = relative.with_name(relative.stem + ".b52.py")
+            origin = specialized if version == "b52" and (base / specialized).is_file() else relative
+            value = path.read_bytes()
+            if (base / origin).is_file() and (base / origin).read_bytes() == value:
+                continue
+            if origin in changes and changes[origin] != value:
+                raise ValueError(f"Conflicting edits to shared source: {origin}")
+            changes[origin] = value
+    for relative, value in changes.items():
+        path = destination / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(value)
     resources = {path.relative_to(root) for root in updated.values()
                  for path in root.rglob("*") if path.is_file() and "resources" in path.relative_to(root).parts}
     for relative in sorted(resources):
@@ -68,10 +68,11 @@ def merge_exports(base: Path, updated: dict[str, Path], destination: Path, targe
         before = original.read_bytes() if original.exists() else None
         contents = {(root / relative).read_bytes() if (root / relative).exists() else None
                     for root in updated.values()}
-        if contents == {before}:
+        contents.discard(before)
+        if not contents:
             continue
-        if set(updated) != set(targets) or len(contents) != 1:
-            raise ValueError(f"Shared resource conflict; synchronize the same resource in all configured targets: {relative}")
+        if len(contents) != 1:
+            raise ValueError(f"Shared resource conflict: {relative}")
         value = contents.pop()
         target = destination / relative
         target.parent.mkdir(parents=True, exist_ok=True)

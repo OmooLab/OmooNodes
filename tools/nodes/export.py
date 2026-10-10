@@ -46,6 +46,20 @@ def register_emitters():
     compare = _EMITTERS["FunctionNodeCompare"]
     viewer = _EMITTERS["GeometryNodeViewer"]
 
+    @register_emitter("ShaderNodeTexImage")
+    def emit_image_texture(node, context):
+        expression = context.constructor(node)
+        if node.image is None:
+            return expression
+        # nodebpy records the image dependency but omits the node's image assignment.
+        variable = f"image_texture_{len(context.var_map)}_{len(context.pending_lines)}"
+        context.pending_lines.extend([
+            "    import bpy",
+            f"    {variable} = {expression.render()}",
+            f"    {variable}.node.image = bpy.data.images[{node.image.name!r}]",
+        ])
+        return Ref(variable)
+
     @register_emitter("FunctionNodeAlignEulerToVector")
     def emit_align_euler(node, context):
         # This legacy node is still native Blender RNA but has no SDK wrapper.

@@ -30,32 +30,34 @@ def test_select_versions_preserves_dependencies_and_specialized_precedence(tmp_p
     assert not (tmp_path / "b52/geometry/__pycache__").exists()
 
 
-def test_merge_one_version_preserves_other_version_then_deduplicates(tmp_path):
+def test_shared_edit_updates_common_source_without_implicit_variant(tmp_path):
     base = tmp_path / "base"
     write(base, "a.py", "original")
     edited = tmp_path / "edited"
     write(edited, "a.py", "changed")
     split = tmp_path / "split"
     merge_exports(base, {"b52": edited}, split)
-    assert (split / "a.py").read_text() == "original"
-    assert (split / "a.b52.py").read_text() == "changed"
+    assert (split / "a.py").read_text() == "changed"
+    assert not (split / "a.b52.py").exists()
+    write(split, "a.b52.py", "explicit variant")
+    write(edited, "a.py", "variant edit")
     merged = tmp_path / "merged"
-    merge_exports(split, {"b45": edited}, merged)
+    merge_exports(split, {"b52": edited}, merged)
     assert (merged / "a.py").read_text() == "changed"
-    assert not (merged / "a.b52.py").exists()
+    assert (merged / "a.b52.py").read_text() == "variant edit"
 
 
-def test_b52_only_stays_specialized_and_digest_detects_source_changes(tmp_path):
+def test_new_assets_are_shared_and_digest_detects_source_changes(tmp_path):
     base = tmp_path / "base"
     base.mkdir()
     edited = tmp_path / "edited"
     write(edited, "new.py", "new")
     output = tmp_path / "output"
     merge_exports(base, {"b52": edited}, output)
-    assert not (output / "new.py").exists()
-    assert (output / "new.b52.py").read_text() == "new"
+    assert (output / "new.py").read_text() == "new"
+    assert not (output / "new.b52.py").exists()
     before = source_digest(output)
-    write(output, "new.b52.py", "modified")
+    write(output, "new.py", "modified")
     assert before != source_digest(output)
 
 
@@ -70,7 +72,7 @@ def test_shared_resources_require_matching_edits_in_both_versions(tmp_path):
     write(base, "resources/images.json", "original")
     old = tmp_path / "old"
     new = tmp_path / "new"
-    write(old, "resources/images.json", "original")
+    write(old, "resources/images.json", "different edit")
     write(new, "resources/images.json", "changed")
     with pytest.raises(ValueError, match="Shared resource conflict"):
         merge_exports(base, {"b45": old, "b52": new}, tmp_path / "rejected")
@@ -87,5 +89,5 @@ def test_shared_resource_can_change_when_project_only_declares_one_target(tmp_pa
     edited = tmp_path / "edited"
     write(edited, "resources/images.json", "new")
     output = tmp_path / "output"
-    merge_exports(base, {"b45": edited}, output, targets=("b45",))
+    merge_exports(base, {"b45": edited}, output)
     assert (output / "resources/images.json").read_text() == "new"

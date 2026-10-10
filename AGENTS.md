@@ -89,8 +89,8 @@ uv run nodes dump path/to/O_Library.blend -o nodes/O_Library
 ## Blender 资产开发规范
 
 - OmooNodes 使用 Blender 原生 Asset Library；正式节点脚本位于 `nodes/`，人工编辑库位于 `workspaces/b45/`、`workspaces/b52/`，本地发布输出使用 `contents/<版本>/`，远程发布输出使用 `dist/b52/`。
-- 每个资产库保留一个源目录。无后缀 `.py` 是最低支持 b45 的通用实现，`.b52.py` 是 b52 专用完整实现；临时编辑库均包含完整目标内容。
-- 目标 Python/bpy 版本统一配置在 `pyproject.toml` 的 `tool.nodes.targets`，由 uv 自动准备隔离环境；独立 nodebpy 后端负责 build/dump，各目标负责检查、转存和发布清理，本地与 CI 复用同一流程。
+- 每个资产库保留一个源目录。无后缀 `.py` 是适配项目最低配置目标的通用实现，`.b52.py` 是 b52 专用完整实现；临时编辑库均包含完整目标内容。
+- 支持目标配置在 `pyproject.toml` 的 `tool.nodes.targets` 列表，精确版本由 `tool.nodes.versions` 覆盖，由 uv 自动准备隔离环境；独立 nodebpy 后端负责 build/dump，各目标负责检查、转存和发布清理，本地与 CI 复用同一流程。
 - 保持资产库间的相对路径与公共节点依赖有效。本地构建先处理 `O_Essentials`，再处理依赖它的资产库，并使用同一输出父目录。
 - 通用 CLI 在 `tools/nodes/` 维护，读取调用项目配置；后台 worker 使用隔离的 Blender 用户目录。
 - 构建在临时目录完成组合、清理与校验，全部成功后替换目标目录；备份文件、旧 Remote listing 和临时文件不进入产物。
