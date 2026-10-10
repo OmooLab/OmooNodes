@@ -10,7 +10,7 @@ class OProject(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         geometry = tree.inputs.geometry('Geometry')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         source = tree.inputs.geometry('Source')
         menu = tree.inputs.menu('Menu', 'Minimum Distance', optional_label=True)
         positive_weight = tree.inputs.float('Positive Weight', 1.0, description='Amount of mixing between the A and B inputs', min_value=0.0, max_value=1.0, subtype='FACTOR')

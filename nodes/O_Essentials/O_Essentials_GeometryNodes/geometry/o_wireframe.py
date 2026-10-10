@@ -9,7 +9,7 @@ class OWireframe(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         mesh = tree.inputs.geometry('Mesh')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         resolution = tree.inputs.integer('Resolution', 4, description='Number of points on the circle', min_value=3, max_value=16)
         radius = tree.inputs.float('Radius', 1.0, description='Distance of the points from the origin', min_value=0.009999999776482582, max_value=10.0)
         mesh_1 = tree.outputs.geometry('Mesh')

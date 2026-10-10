@@ -11,7 +11,7 @@ class OResampleEdge(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         edge = tree.inputs.geometry('Edge')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         length = tree.inputs.float('Length', 0.10000000149011612, min_value=0.009999999776482582, subtype='DISTANCE')
         with tree.inputs.panel('Options', default_closed=True):
             _merge_distance = tree.inputs.float('Merge Distance', 0.0010000000474974513, min_value=0.0, subtype='DISTANCE')

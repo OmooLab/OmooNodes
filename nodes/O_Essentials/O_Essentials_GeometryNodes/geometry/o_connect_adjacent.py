@@ -10,7 +10,7 @@ class OConnectAdjacent(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         geometry = tree.inputs.geometry('Geometry', description='Geometry whose elements are iterated over')
-        selection = tree.inputs.boolean('Selection', True, description='Selection on the iteration domain', hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, description='Selection on the iteration domain', hide_value=True, hide_in_modifier=True)
         range = tree.inputs.float('Range', 0.5, min_value=0.0, max_value=1.0, subtype='DISTANCE')
         geometry_1 = tree.outputs.geometry('Geometry')
         for_each = g.ForEachGeometryElementZone(geometry=geometry, selection=selection)

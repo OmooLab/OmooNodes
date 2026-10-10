@@ -10,7 +10,7 @@ class OTransform(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         geometry = tree.inputs.geometry('Geometry')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         mode = tree.inputs.menu('Mode', 'Components', optional_label=True)
         translation = tree.inputs.vector('Translation', (0.0, 0.0, 0.0), subtype='TRANSLATION')
         rotation = tree.inputs.rotation('Rotation', (0.0, 0.0, 0.0))

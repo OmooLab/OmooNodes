@@ -10,7 +10,7 @@ class OSmooth(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         geometry = tree.inputs.geometry('Geometry')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         iterations = tree.inputs.integer('Iterations', 5, description='How many times to blur the values for all elements', min_value=1, max_value=20)
         pin_sharp = tree.inputs.float('Pin Sharp', 0.0, description='Relative mix weight of neighboring elements', min_value=0.0, max_value=1.0, subtype='FACTOR')
         pin_boundary = tree.inputs.float('Pin Boundary', 0.0, description='Relative mix weight of neighboring elements', min_value=0.0, max_value=0.9998999834060669, subtype='FACTOR')

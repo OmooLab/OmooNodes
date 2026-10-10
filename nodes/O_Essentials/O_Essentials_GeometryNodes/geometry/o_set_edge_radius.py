@@ -9,7 +9,7 @@ class OSetEdgeRadius(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         edge = tree.inputs.geometry('Edge')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         radius = tree.inputs.float('Radius', 0.10000000149011612, min_value=0.0, subtype='DISTANCE')
         edge_1 = tree.outputs.geometry('Edge')
         edge >> g.StoreNamedAttribute.point.float(selection=selection, name='radius', value=radius) >> edge_1

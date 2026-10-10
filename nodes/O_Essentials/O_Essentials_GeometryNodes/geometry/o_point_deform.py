@@ -9,7 +9,7 @@ class OPointDeform(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         geometry = tree.inputs.geometry('Geometry')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         source = tree.inputs.geometry('Source')
         rest_positon = tree.inputs.vector('Rest Positon', (0.0, 0.0, 0.0), hide_value=True, default_input='POSITION')
         with tree.inputs.panel('Options', default_closed=True):

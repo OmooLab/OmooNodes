@@ -9,7 +9,7 @@ class OShortestPaths(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         edge = tree.inputs.geometry('Edge')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         root = tree.inputs.boolean('Root', False, hide_value=True)
         cost = tree.inputs.float('Cost', 1.0, min_value=0.0, max_value=1.0)
         merged = tree.inputs.boolean('Merged', True)

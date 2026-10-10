@@ -9,7 +9,7 @@ class OSmoothAttributes(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         mesh = tree.inputs.geometry('Mesh')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         float = tree.inputs.string('Float', '', description='Separate with commas')
         vector = tree.inputs.string('Vector', '', description='Separate with commas')
         color = tree.inputs.string('Color', '', description='Separate with commas')

@@ -9,7 +9,7 @@ class OTransferAttributes(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         mesh = tree.inputs.geometry('Mesh')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         source = tree.inputs.geometry('Source')
         float = tree.inputs.string('Float', '', description='Separate with commas')
         integer = tree.inputs.string('Integer', '', description='Separate with commas')

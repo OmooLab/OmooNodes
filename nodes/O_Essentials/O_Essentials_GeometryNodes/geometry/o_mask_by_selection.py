@@ -10,7 +10,7 @@ class OMaskBySelection(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         geometry = tree.inputs.geometry('Geometry')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         method = tree.inputs.menu('Method', 'Distance', optional_label=True)
         max_distance = tree.inputs.float('Max Distance', 1.0, min_value=0.0, max_value=10000.0)
         menu = tree.inputs.menu('Menu', 'Point', optional_label=True)

@@ -9,7 +9,7 @@ class OCurveDeform(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         geometry = tree.inputs.geometry('Geometry')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         curve = tree.inputs.geometry('Curve')
         offset = tree.inputs.float('Offset', 0.0, min_value=0.0, max_value=1.0, subtype='FACTOR')
         tilt = tree.inputs.float('Tilt', 0.0, subtype='ANGLE')

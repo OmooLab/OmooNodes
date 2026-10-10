@@ -9,7 +9,7 @@ class ODisplace(CustomGeometryGroup):
 
     def _build_group(self, tree: TreeBuilder[GeometryNodeTree]) -> None:
         geometry = tree.inputs.geometry('Geometry')
-        selection = tree.inputs.boolean('Selection', True, hide_value=True)
+        selection = tree.inputs.boolean('Selection', True, hide_value=True, hide_in_modifier=True)
         strength = tree.inputs.float('Strength', 1.0, min_value=-10000.0, max_value=10000.0)
         direction = tree.inputs.menu('Direction', 'Normal', expanded=True, optional_label=True)
         height = tree.inputs.float('Height', 1.0, subtype='DISTANCE')
