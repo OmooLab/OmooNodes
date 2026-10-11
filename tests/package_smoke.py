@@ -13,7 +13,7 @@ assert not Path(omoonodes.__file__).resolve().is_relative_to(
 
 with tempfile.TemporaryDirectory() as directory:
     project = Path(directory)
-    (project / "pyproject.toml").write_text('[tool.omoonodes]\ntargets = ["b45"]\n')
+    (project / "pyproject.toml").write_text('[project]\nname = "consumer"\n')
     source = project / "nodes/Probe"
     source.mkdir(parents=True)
     (source / "collection.json").write_text(

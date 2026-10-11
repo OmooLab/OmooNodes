@@ -22,3 +22,12 @@ def test_commands_resolve_project_sources_and_user_paths(tmp_path, monkeypatch, 
     assert calls[0][:2] == (source, working / destination)
     if action == "build":
         assert calls[0][2:] == ("b45", False, True)
+
+
+def test_build_defaults_to_nodes_without_tool_configuration(tmp_path, monkeypatch):
+    (tmp_path / "pyproject.toml").write_text("[project]\nname = 'consumer'\n")
+    monkeypatch.chdir(tmp_path)
+    calls = []
+    monkeypatch.setattr(cli.libraries, "build", lambda *args: calls.append(args))
+    cli.main(["build"])
+    assert calls == [(tmp_path / "nodes", tmp_path / "dist", None, False, False)]

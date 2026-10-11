@@ -42,10 +42,15 @@ p=g.interface.new_panel('Settings');g.interface.new_socket('Value',in_out='INPUT
 g.interface.new_socket('Color',in_out='OUTPUT',socket_type='NodeSocketColor')
 m=g.nodes.new('ShaderNodeMix');m.data_type='RGBA';next(s for s in m.inputs if s.identifier=='A_Color').default_value=(0.3,0.4,0.5,0.2)
 out=g.nodes.new('NodeGroupOutput');g.links.new(next(s for s in m.outputs if s.identifier=='Result_Color'),out.inputs['Color'])
+g.interface.new_socket('Mode',in_out='INPUT',socket_type='NodeSocketMenu')
+menu=g.nodes.new('GeometryNodeMenuSwitch');menu.data_type='BOOLEAN'
+menu.enum_items[0].name='First';menu.enum_items[1].name='Second'
+g.links.new(g.nodes.new('NodeGroupInput').outputs['Mode'],menu.inputs['Menu'])
 r=g.nodes.new('FunctionNodeRandomValue');r.data_type='FLOAT'
 math=g.nodes.new('ShaderNodeMath');math.operation='MULTIPLY'
 g.links.new(next(s for s in r.outputs if s.type=='VALUE' and not s.is_unavailable),math.inputs[0])
 for kind, prop, old, port, new in [
+    ('GeometryNodeRemoveAttribute', 'pattern_mode', 'WILDCARD', 'Pattern Mode', 'Wildcard'),
     ('GeometryNodeResampleCurve', 'mode', 'LENGTH', 'Mode', 'Length'),
     ('GeometryNodeMergeByDistance', 'mode', 'CONNECTED', 'Mode', 'Connected'),
     ('GeometryNodeSetCurveNormal', 'mode', 'FREE', 'Mode', 'Free'),
@@ -68,6 +73,7 @@ child=bpy.data.node_groups.new('Child UV','GeometryNodeTree');child.nodes.new('S
 g.nodes.new('GeometryNodeGroup').node_tree=child
 mat=bpy.data.materials.new('Material');mat.use_nodes=True
 mat.use_backface_culling=True
+mat.node_tree.nodes.new('ShaderNodeNormalMap').space='OBJECT'
 mat['yp']={{'active_ypaint_node': '', 'expand_content': 0}}
 image=bpy.data.images.new('Pixel',width=1,height=1);image.pixels[:]=(0.2,0.3,0.4,1);image.pack()
 mat.node_tree.nodes.new('ShaderNodeTexImage').image=image
@@ -93,6 +99,12 @@ bpy.data.libraries.write({str(blend)!r},{{g,c}},fake_user=True,compress=True)
         blend = tmp_path / f"cycle-{cycle}.blend"
         built = run_worker(config, tmp_path, "build", version=version, input=str(source), output=str(blend))
         assert exported['graphs'] == built['graphs']
+        native(config, tmp_path, f'''
+import bpy
+bpy.ops.wm.open_mainfile(filepath={str(blend)!r})
+menu = next(n for n in bpy.data.node_groups['Probe'].nodes if n.bl_idname == 'GeometryNodeMenuSwitch')
+assert [s.identifier for s in menu.inputs if s.identifier.startswith('Item_')] == ['Item_0', 'Item_1']
+''', version)
     other = "b52" if version == "b45" else "b45"
     with pytest.raises(subprocess.CalledProcessError):
         run_worker(config, tmp_path, "dump", version=other, input=str(blend), output=str(tmp_path / "wrong"))

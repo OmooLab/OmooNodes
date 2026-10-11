@@ -71,15 +71,15 @@ def ensure_runtime(cache: Path, target: str, settings: dict[str, str]) -> str:
 def project_root():
     for directory in (Path.cwd(), *Path.cwd().parents):
         path = directory / "pyproject.toml"
-        if path.is_file() and tomllib.loads(path.read_text(encoding="utf8")).get("tool", {}).get("omoonodes"):
+        if path.is_file():
             return directory
-    raise ValueError("No [tool.omoonodes] project configuration found")
+    raise ValueError("No pyproject.toml project found")
 
 
 def configuration(target=None, prepare_targets=True, development=False):
     root = project_root()
-    settings = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf8"))["tool"]["omoonodes"]
-    declared = settings.get("targets")
+    settings = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf8")).get("tool", {}).get("omoonodes", {})
+    declared = settings.get("targets", ["b45"])
     if (not isinstance(declared, list) or not declared
             or any(not isinstance(label, str) or label not in TARGETS for label in declared)
             or len(set(declared)) != len(declared)):

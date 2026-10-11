@@ -1,8 +1,9 @@
-"""Blender API differences behind the nodebpy authoring API."""
+"""Adapt node creation and export across Blender versions."""
 
 import bpy
 
 PORT_PROPERTIES = {
+    'GeometryNodeRemoveAttribute': {'Pattern Mode': 'pattern_mode'},
     'CompositorNodeSetAlpha': {'Type': 'mode'},
     'GeometryNodeResampleCurve': {'Mode': 'mode'},
     'GeometryNodeSetCurveNormal': {'Mode': 'mode'},
@@ -48,6 +49,8 @@ def create_node(tree, kind):
 
 def set_property(node, key, value):
     if not hasattr(node, key):
+        if node.bl_idname == 'ShaderNodeNormalMap' and (key, value) in {('convention', 'OPENGL'), ('base', 'DISPLACED')}:
+            return
         if (key, value) in {('realize_to_point_domain', False), ('vector_dimensions', 3), ('ui_shortcut', 0)}:
             return
     setattr(node, key, value)

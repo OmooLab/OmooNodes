@@ -643,9 +643,15 @@ class _MenuSwitchBase(ItemsMixin, BaseNode):
     def __init__(self, menu: InputMenu=None, items: MenuItems[InputAny] | None=None, *, data_type: SOCKET_TYPES='FLOAT'):
         super().__init__()
         self.data_type = data_type
-        self.node.enum_items.clear()
+        # Reuse Blender's first items so modifier menu values keep their IDs.
+        self._initial_items = list(self.node.enum_items)
         self._explicit_selection = isinstance(menu, str)
         self.items._add_all(items)
+        for item in self._initial_items:
+            self.node.enum_items.remove(item)
+        self._initial_items.clear()
+        if self.node.enum_items and not self._explicit_selection:
+            self._default_selection_to_first()
         if isinstance(menu, str) and (not self.node.enum_items):
             assert self.node.inputs is not None
             self.tree._menu_defaults.append(_MenuDefault(self.node.inputs['Menu'], menu))
@@ -669,6 +675,10 @@ class _MenuSwitchBase(ItemsMixin, BaseNode):
         return ('VALUE' if self.data_type == 'FLOAT' else self.data_type,)
 
     def _new_item(self, name: str, type: str) -> bpy.types.NodeEnumItem:
+        if self._initial_items:
+            item = self._initial_items.pop(0)
+            item.name = name
+            return item
         return self._items.new(name)
 
     def item(self, name: str, value: InputAny | tuple[InputAny, str]=None, *, description: str | None=None) -> MenuItem[T]:

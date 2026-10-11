@@ -86,3 +86,44 @@ def apply_changes(source, before, after, version):
             path.write_bytes(new[relative])
         changed.add(relative)
     return changed
+
+
+def comparison_source(source):
+    """Normalize independent node assignments while keeping interface and mutation order."""
+    module = ast.parse(source)
+    for definition in ast.walk(module):
+        if not isinstance(definition, ast.FunctionDef) or definition.name != "_build_group":
+            continue
+        body, pending = [], {}
+
+        def flush():
+            while pending:
+                ready = [name for name, statement in pending.items()
+                         if not ({node.id for node in ast.walk(statement.value)
+                                  if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load)}
+                                 & (pending.keys() - {name}))]
+                if not ready:
+                    body.extend(pending.values())
+                    pending.clear()
+                    break
+                body.append(pending.pop(min(ready)))
+
+        for statement in definition.body:
+            assignment = (isinstance(statement, ast.Assign) and len(statement.targets) == 1
+                          and isinstance(statement.targets[0], ast.Name))
+            boundary = any(
+                isinstance(node, ast.Name) and node.id == "tree"
+                or isinstance(node, ast.Attribute) and node.attr in {"items", "mapping", "color_ramp"}
+                for node in ast.walk(statement)
+            )
+            if not assignment or boundary:
+                flush()
+                body.append(statement)
+                continue
+            name = statement.targets[0].id
+            if name in pending:
+                flush()
+            pending[name] = statement
+        flush()
+        definition.body = body
+    return ast.unparse(module)

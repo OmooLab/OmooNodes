@@ -43,7 +43,7 @@ def main(argv=None):
             importing.dump_sources(args.input.resolve(), args.output.resolve(), args.target)
             return
         root = project_root()
-        settings = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf8"))["tool"]["omoonodes"]
+        settings = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf8")).get("tool", {}).get("omoonodes", {})
         source = (args.source or root / settings.get("source", "nodes")).resolve()
         if args.command == "dev":
             if args.sync:

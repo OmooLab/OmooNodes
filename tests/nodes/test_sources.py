@@ -71,3 +71,19 @@ def test_sync_keeps_authored_filename(tmp_path):
     apply_changes(source, before, after, "b52")
     assert "Edited" in (source / "authored.py").read_text()
     assert list(source.rglob("*.py")) == [source / "authored.py"]
+
+
+def test_graph_comparison_preserves_dependencies_and_mutation_order():
+    from omoonodes.sources import comparison_source
+
+    def program(lines):
+        return "class Probe:\n    def _build_group(self, tree):\n" + "".join("        " + line + "\n" for line in lines)
+
+    first = ["a = g.Position()", "b = g.Value(2)", "c = a + b", "c >> result"]
+    second = ["b = g.Value(2)", "a = g.Position()", "c = a + b", "c >> result"]
+    assert comparison_source(program(first)) == comparison_source(program(second))
+    assert comparison_source(program(first)) != comparison_source(program([*second[:2], "c = a - b", second[-1]]))
+    for declarations in (["a = tree.inputs.float('A')", "b = tree.inputs.float('B')"],
+                         ["a = zone.items.float('A')", "b = zone.items.float('B')"],
+                         ["a.node.operation = 'ADD'", "a.node.operation = 'MULTIPLY'"]):
+        assert comparison_source(program(declarations)) != comparison_source(program(list(reversed(declarations))))

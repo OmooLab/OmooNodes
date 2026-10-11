@@ -78,8 +78,8 @@ def test_runtime_keeps_virtual_environment_python_symlink(tmp_path, monkeypatch)
     assert runtimes.ensure_runtime(tmp_path, "b45", settings) == str(python)
 
 
-@pytest.mark.parametrize("targets", ["", "targets = []\n"])
-def test_targets_must_be_explicit_and_nonempty(tmp_path, monkeypatch, targets):
+@pytest.mark.parametrize("targets", ["targets = []\n", "targets = \"b45\"\n"])
+def test_explicit_targets_must_be_a_nonempty_list(tmp_path, monkeypatch, targets):
     monkeypatch.chdir(tmp_path)
     (tmp_path / "pyproject.toml").write_text('[tool.omoonodes]\nsource = "nodes"\n' + targets)
     monkeypatch.setattr(runtimes, "ensure_runtime", lambda *args: pytest.fail("Invalid configuration prepared a runtime"))
@@ -147,3 +147,14 @@ def test_worker_uses_requested_runtime_and_reports_failure(tmp_path, monkeypatch
     with pytest.raises(subprocess.CalledProcessError):
         runtimes.run_worker(config, tmp_path, action)
     assert capsys.readouterr().out == "Worker diagnostic\n" + error
+
+
+@pytest.mark.parametrize("content", ["[project]\nname = 'consumer'\n", "[tool.omoonodes]\n"])
+def test_default_configuration_uses_b45(tmp_path, monkeypatch, content):
+    (tmp_path / "pyproject.toml").write_text(content)
+    nested = tmp_path / "nested"
+    nested.mkdir()
+    monkeypatch.chdir(nested)
+    config = runtimes.configuration(prepare_targets=False)
+    assert config["versions"] == {"b45": runtimes.TARGETS["b45"]["bpy"]}
+    assert config["cache"] == tmp_path / ".cache/nodes"

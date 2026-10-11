@@ -23,7 +23,7 @@ import bpy
 from omoonodes.assets import build_library
 from omoonodes.blend import check_version
 from omoonodes.export import dump_library, tree_source, library_data
-from omoonodes.sources import definitions
+from omoonodes.sources import comparison_source, definitions
 from omoonodes.files import write_json
 from omoonodes.publication import publish_library, release_compositor_storage
 
@@ -35,8 +35,8 @@ def snapshot():
         code = tree_source(value if value.id_type == "NODETREE" else value.node_tree,
                            value if value.id_type == "MATERIAL" else None)
         # Import paths can change when a library is moved; node references cannot.
-        result[f"{value.id_type}:{value.name}"] = '\n'.join(
-            line for line in code.splitlines() if not line.startswith('from nodes.'))
+        result[f"{value.id_type}:{value.name}"] = comparison_source('\n'.join(
+            line for line in code.splitlines() if not line.startswith('from nodes.')))
     for image in images:
         if image.packed_file is None:
             raise ValueError(f"Expected packed image: {image.name}")
