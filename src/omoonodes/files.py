@@ -26,11 +26,12 @@ def replace_directories(replacements):
             if target.exists():
                 target.rename(backup)
                 backups.append((backup, target))
-            source.rename(target)
             installed.append(target)
+            shutil.move(str(source), str(target))
     except Exception:
         for target in reversed(installed):
-            shutil.rmtree(target)
+            if target.exists():
+                shutil.rmtree(target)
         for backup, target in reversed(backups):
             backup.rename(target)
         raise

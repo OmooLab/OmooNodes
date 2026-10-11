@@ -55,9 +55,9 @@ Builds use temporary directories, save and reload in the target Blender, then re
 
 ## Publishing the Python package
 
-`.github/workflows/test.yml` runs tests on pushes to main and pull requests targeting main.
+`.github/workflows/test.yml` runs tests and builds packages on pushes to main and pull requests targeting main, then checks both the wheel and sdist by building, exporting, and rebuilding a minimal node.
 
-`.github/workflows/publish.yml` runs on `cli-v*` tags, tests the source, builds and checks the sdist and wheel, and publishes `omoonodes` through PyPI Trusted Publishing. The package version comes from `pyproject.toml`.
+`.github/workflows/publish.yml` runs on `cli-v*` tags, tests the source, and builds the sdist and wheel. Each package is installed and checked by building, exporting, and rebuilding a minimal node in a temporary project before publishing `omoonodes` through PyPI Trusted Publishing. The package version comes from `pyproject.toml`.
 
 Before the first release, create a GitHub environment named `pypi` and add a pending publisher at [PyPI Publishing](https://pypi.org/manage/account/publishing/) with project `omoonodes`, owner `OmooLab`, repository `OmooNodes`, workflow `publish.yml`, and environment `pypi`. The first successful upload creates the PyPI project; no API token is needed.
 

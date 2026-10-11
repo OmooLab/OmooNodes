@@ -30,7 +30,7 @@ jobs:
         run: uv build
       - name: Check installed packages
         run: |
-          uv run --isolated --no-project --with dist/*.whl omoonodes --help
-          uv run --isolated --no-project --with dist/*.tar.gz omoonodes --help
+          uv run --isolated --no-project --with dist/*.whl python tests/package_smoke.py
+          uv run --isolated --no-project --with dist/*.tar.gz python tests/package_smoke.py
       - name: Publish
         run: uv publish

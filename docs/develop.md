@@ -57,9 +57,9 @@ uv run omoonodes build --target b52 --remote -o dist
 
 ## 发布 Python 包
 
-`.github/workflows/test.yml` 在推送 main 或提交面向 main 的 PR 时运行测试。
+`.github/workflows/test.yml` 在推送 main 或提交面向 main 的 PR 时运行测试、打包，并验证 wheel 和源码包的最小节点构建、导出和重新构建。
 
-`.github/workflows/publish.yml` 在推送 `cli-v*` 标签时运行测试、构建并检查源码包和 wheel，通过 PyPI Trusted Publishing 发布 `omoonodes`。包版本读取 `pyproject.toml`。
+`.github/workflows/publish.yml` 在推送 `cli-v*` 标签时运行测试、构建源码包和 wheel，分别安装后在临时项目中验证最小节点的构建、导出和重新构建，再通过 PyPI Trusted Publishing 发布 `omoonodes`。包版本读取 `pyproject.toml`。
 
 首次发布前，在 GitHub 仓库创建 `pypi` environment，再到 [PyPI Publishing](https://pypi.org/manage/account/publishing/) 添加 pending publisher：
 

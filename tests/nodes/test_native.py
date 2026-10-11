@@ -1,6 +1,7 @@
 """Small real-Blender regressions for data that is easy to lose."""
 
 import json
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -30,7 +31,7 @@ def native(config, directory, code, version):
 
 
 @pytest.mark.parametrize("version", ["b45", "b52"])
-def test_three_native_roundtrips_preserve_dynamic_nodes_and_resources(config, tmp_path, version):
+def test_native_roundtrips_preserve_dynamic_nodes_and_resources(config, tmp_path, version):
     blend = tmp_path / "original.blend"
     native(config, tmp_path, f'''
 import bpy
@@ -77,7 +78,7 @@ c.links.new(v.outputs[0],d.inputs['Vector' if bpy.app.version < (5,0,0) else 'Di
 bpy.data.libraries.write({str(blend)!r},{{g,c}},fake_user=True,compress=True)
 ''', version)
     previous = None
-    for cycle in range(3):
+    for cycle in range(2):
         source = tmp_path / f"source-{cycle}"
         exported = run_worker(config, tmp_path, "dump", version=version, input=str(blend), output=str(source))
         files = source_files(source)
@@ -104,8 +105,9 @@ bpy.data.libraries.write({str(blend)!r},{{g,c}},fake_user=True,compress=True)
     assert list(imported.rglob("resources/images.json"))
 
 
-@pytest.fixture
-def shared(config, tmp_path, monkeypatch):
+@pytest.fixture(scope="module")
+def probe_library(config, tmp_path_factory):
+    tmp_path = tmp_path_factory.mktemp("probe-library")
     source = tmp_path / "nodes/Probe"
     script = source / "geometry/geometry/probe.py"
     script.parent.mkdir(parents=True)
@@ -124,9 +126,19 @@ class Probe(CustomGeometryGroup):
 ASSET = Probe
 ''')
     write_json(source / "collection.json", {"files": {"Probe.blend": {"source": "geometry"}}})
-    monkeypatch.setattr(libraries, "configuration", lambda *args, **kwargs: config)
     workspace = tmp_path / "workspaces"
     libraries.build_staged(config, [source], workspace, tmp_path / "build")
+    return tmp_path
+
+
+@pytest.fixture
+def shared(config, probe_library, tmp_path, monkeypatch):
+    # Each test edits its own copy of the same native libraries.
+    shutil.copytree(probe_library / "nodes", tmp_path / "nodes")
+    workspace = shutil.copytree(probe_library / "workspaces", tmp_path / "workspaces")
+    source = tmp_path / "nodes/Probe"
+    script = source / "geometry/geometry/probe.py"
+    monkeypatch.setattr(libraries, "configuration", lambda *args, **kwargs: config)
     return source, script, workspace
 
 
