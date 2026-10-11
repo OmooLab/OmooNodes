@@ -3,53 +3,37 @@ name: Release
 on:
   push:
     tags:
-      - "v*"
-
-permissions:
-  contents: write
+      - "nodes-v*"
 
 jobs:
-  package:
-    name: Package node libraries
+  release:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        include:
+          - target: b45
+            options: ""
+          - target: b52
+            options: --remote
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v5
       - name: Install uv
-        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
-        with:
-          enable-cache: true
-
-      - name: Install project dependencies
-        run: uv sync --locked --dev
-
+        uses: astral-sh/setup-uv@v7
       - name: Install bpy system libraries
         run: |
           sudo apt-get update
           sudo apt-get install -y libegl1 libgl1 libxi6 libxfixes3 libxrender1 libxxf86vm1 libxkbcommon0 libsm6
-
-      - name: Run tests
-        run: uv run --no-sync pytest tests
-
       - name: Build and package nodes
-        env:
-          RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          uv run --no-sync omoonodes build --target b45 -o "$RUNNER_TEMP/nodes"
-          uv run --no-sync omoonodes build --target b52 --remote -o "$RUNNER_TEMP/nodes"
-          mkdir -p "$RUNNER_TEMP/release"
-          for target in b45 b52; do
-            (cd "$RUNNER_TEMP/nodes/$target" && zip -r "$RUNNER_TEMP/release/OmooNodes.$RELEASE_TAG.$target.zip" .)
-          done
-
+          uv run --no-dev --locked omoonodes build --target ${{ matrix.target }} ${{ matrix.options }} -o dist
+          cd dist/${{ matrix.target }}
+          zip -r "../OmooNodes.${GITHUB_REF_NAME#nodes-}.${{ matrix.target }}.zip" .
       - name: Publish release
-        uses: akkuman/gitea-release-action@v1
+        uses: softprops/action-gh-release@v3
         with:
-          server_url: ${{ github.server_url }}
-          token: ${{ github.token }}
-          tag_name: ${{ github.ref_name }}
-          name: ${{ github.ref_name }}
-          body: Node asset libraries built from nodes/ for Blender 4.5 and 5.2.
-          files: ${{ runner.temp }}/release/*.zip
+          files: dist/*.zip
+          generate_release_notes: true

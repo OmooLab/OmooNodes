@@ -57,9 +57,9 @@ uv run omoonodes build --target b52 --remote -o dist
 
 ## 发布 Python 包
 
-`.github/workflows/push-main.yml` 在推送 main 或提交面向 main 的 PR 时运行测试、构建包并检查独立安装。
+`.github/workflows/test.yml` 在推送 main 或提交面向 main 的 PR 时运行测试。
 
-`.github/workflows/publish.yml` 在推送 `v*` 标签时运行测试、构建并检查源码包和 wheel，通过 PyPI Trusted Publishing 发布 `omoonodes`。包版本读取 `pyproject.toml`。
+`.github/workflows/publish.yml` 在推送 `cli-v*` 标签时运行测试、构建并检查源码包和 wheel，通过 PyPI Trusted Publishing 发布 `omoonodes`。包版本读取 `pyproject.toml`。
 
 首次发布前，在 GitHub 仓库创建 `pypi` environment，再到 [PyPI Publishing](https://pypi.org/manage/account/publishing/) 添加 pending publisher：
 
@@ -74,11 +74,18 @@ uv run omoonodes build --target b52 --remote -o dist
 首次成功上传会自动创建 PyPI 项目，无需配置 API token。提交版本和锁文件后，推送对应标签，例如：
 
 ```bash
-git tag v0.1.0
-git push github v0.1.0
+git tag cli-v0.1.0
+git push github cli-v0.1.0
 ```
 
-同一标签也会触发现有的节点资产库发布流程。
+节点库独立使用 `nodes-v*` 标签，触发 `.github/workflows/release.yml`，通过 matrix 并行构建 b45 本地库和 b52 远程库，各自完成后将压缩包上传同一个 GitHub Release：
+
+```bash
+git tag nodes-v0.1.0
+git push github nodes-v0.1.0
+```
+
+节点库版本由标签决定，压缩包沿用 `OmooNodes.v0.1.0.b45.zip` 格式；两类发布分别触发、独立版本。
 
 ## 文档
 

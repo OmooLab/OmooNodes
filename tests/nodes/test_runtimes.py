@@ -60,6 +60,24 @@ def test_wrong_python_is_rejected_before_package_install(tmp_path, monkeypatch):
         runtimes.ensure_runtime(tmp_path, "b52", settings)
 
 
+def test_runtime_keeps_virtual_environment_python_symlink(tmp_path, monkeypatch):
+    settings = {"python": "3.11", "bpy": "4.5.14"}
+    base = tmp_path / "base-python"
+    base.touch()
+    python = tmp_path / "runtimes/b45/4.5.14-py3.11" / (
+        "Scripts/python.exe" if runtimes.os.name == "nt" else "bin/python")
+    python.parent.mkdir(parents=True)
+    try:
+        python.symlink_to(base)
+    except OSError:
+        if runtimes.os.name == "nt":
+            pytest.skip("Windows requires permission to create symbolic links")
+        raise
+    monkeypatch.setattr(runtimes.shutil, "which", lambda name: "uv")
+    monkeypatch.setattr(runtimes.subprocess, "check_output", lambda *a, **kw: json.dumps(settings))
+    assert runtimes.ensure_runtime(tmp_path, "b45", settings) == str(python)
+
+
 @pytest.mark.parametrize("targets", ["", "targets = []\n"])
 def test_targets_must_be_explicit_and_nonempty(tmp_path, monkeypatch, targets):
     monkeypatch.chdir(tmp_path)

@@ -55,20 +55,27 @@ Builds use temporary directories, save and reload in the target Blender, then re
 
 ## Publishing the Python package
 
-`.github/workflows/push-main.yml` tests the source, builds the package, and checks isolated installations on pushes to main and pull requests targeting main.
+`.github/workflows/test.yml` runs tests on pushes to main and pull requests targeting main.
 
-`.github/workflows/publish.yml` runs on `v*` tags, tests the source, builds and checks the sdist and wheel, and publishes `omoonodes` through PyPI Trusted Publishing. The package version comes from `pyproject.toml`.
+`.github/workflows/publish.yml` runs on `cli-v*` tags, tests the source, builds and checks the sdist and wheel, and publishes `omoonodes` through PyPI Trusted Publishing. The package version comes from `pyproject.toml`.
 
 Before the first release, create a GitHub environment named `pypi` and add a pending publisher at [PyPI Publishing](https://pypi.org/manage/account/publishing/) with project `omoonodes`, owner `OmooLab`, repository `OmooNodes`, workflow `publish.yml`, and environment `pypi`. The first successful upload creates the PyPI project; no API token is needed.
 
 Commit the version and lockfile, then push the matching tag, for example:
 
 ```bash
-git tag v0.1.0
-git push github v0.1.0
+git tag cli-v0.1.0
+git push github cli-v0.1.0
 ```
 
-The same tag also triggers the existing node asset library release workflow.
+Node libraries use separate `nodes-v*` tags to trigger `.github/workflows/release.yml`. A matrix builds b45 local and b52 remote libraries in parallel; each uploads its ZIP archive to the same GitHub Release when complete:
+
+```bash
+git tag nodes-v0.1.0
+git push github nodes-v0.1.0
+```
+
+Library versions come from the tag, with archives named `OmooNodes.v0.1.0.b45.zip`. Package and asset releases have independent triggers and versions.
 
 ## Documentation
 

@@ -51,7 +51,7 @@ def ensure_runtime(cache: Path, target: str, settings: dict[str, str]) -> str:
     environment_variables = runtime_environment()
     uv = shutil.which("uv")
     if uv is None:
-        raise ValueError("Install uv before running nodes")
+        raise ValueError("Install uv before running omoonodes")
     environment = cache / "runtimes" / target / f"{settings['bpy']}-py{settings['python']}"
     python = environment / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
     if not python.is_file():
@@ -64,7 +64,8 @@ def ensure_runtime(cache: Path, target: str, settings: dict[str, str]) -> str:
         print(f"Installing {target} ...", flush=True)
         packages = [f"bpy=={settings['bpy']}"]
         subprocess.run([uv, "pip", "install", "--python", str(python), *packages], check=True, env=environment_variables)
-    return str(python.resolve())
+    # Resolving a venv symlink selects the base interpreter and loses its packages.
+    return str(python.absolute())
 
 
 def project_root():

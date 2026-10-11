@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     tags:
-      - "v*"
+      - "cli-v*"
 
 jobs:
   publish:
@@ -19,18 +19,18 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v7
       - name: Sync dependencies
-        run: uv sync --python 3.11 --locked
+        run: uv sync --locked
       - name: Install bpy system libraries
         run: |
           sudo apt-get update
           sudo apt-get install -y libegl1 libgl1 libxi6 libxfixes3 libxrender1 libxxf86vm1 libxkbcommon0 libsm6
       - name: Test source
-        run: uv run --python 3.11 pytest tests
+        run: uv run pytest tests
       - name: Build
         run: uv build
       - name: Check installed packages
         run: |
-          uv run --python 3.11 --isolated --no-project --with dist/*.whl omoonodes --help
-          uv run --python 3.11 --isolated --no-project --with dist/*.tar.gz omoonodes --help
+          uv run --isolated --no-project --with dist/*.whl omoonodes --help
+          uv run --isolated --no-project --with dist/*.tar.gz omoonodes --help
       - name: Publish
         run: uv publish

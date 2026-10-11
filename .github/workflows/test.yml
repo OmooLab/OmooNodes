@@ -1,4 +1,4 @@
-name: Push Main
+name: Test
 
 on:
   push:
@@ -26,4 +26,4 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libegl1 libgl1 libxi6 libxfixes3 libxrender1 libxxf86vm1 libxkbcommon0 libsm6
       - name: Test source
-        run: uv run --no-sync pytest tests
+        run: uv run pytest tests
