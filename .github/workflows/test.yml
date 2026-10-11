@@ -1,0 +1,29 @@
+name: Push Main
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Sync dependencies
+        run: uv sync --locked
+      - name: Install bpy system libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libgl1 libxi6 libxfixes3 libxrender1 libxxf86vm1 libxkbcommon0 libsm6
+      - name: Test source
+        run: uv run --no-sync pytest tests
