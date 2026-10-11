@@ -1,13 +1,13 @@
 # O Essentials 节点参考
 
-本页收录 86 个资产节点，重点说明节点能做什么、参数如何影响结果，以及值得尝试的用法。
+本页收录 87 个资产节点，重点说明节点能做什么、参数如何影响结果，以及值得尝试的用法。
 
 机器接口信息由 `node-catalog.json` 单独维护。同名输入属于不同模式时，会用「面板 / 参数」标明它所在的位置。
 
 ## 快速索引
 
 - 合成节点：`O Image Info`、`O Relight`、`O Stroke`
-- 几何节点：`O Align Edge Ends`、`O Blend`、`O Capsule`、`O Center`、`O Center Line`、`O Connect Adjacent`、`O Curve Deform`、`O Curve Distance Texture`、`O Curve Flow Texture`、`O Curve to Edge`、`O Debug Direction`、`O Debug Direction Field`、`O Debug Edge`、`O Debug Field`、`O Debug Integer`、`O Debug UV`、`O Delete Small Parts`、`O Displace`、`O Edge to Curve`、`O Exploded View`、`O Fast Remesh`、`O Geometry Info`、`O Grid Distribute`、`O Helix`、`O ID Selection`、`O Index Selection`、`O Is Edge Boundary`、`O Is UV Split`、`O Mask by Distance`、`O Mask by Selection`、`O Match Size`、`O Mesh Boolean`、`O Mesh Distance Texture`、`O Mesh Flow Texture`、`O Mix Color`、`O Nearby Selection`、`O Noise Texture`、`O Normalize Attribute`、`O Object to Tangent Space`、`O Pick Instance`、`O Point Deform`、`O Point Grid`、`O Points Distance Texture`、`O Points Flow Texture`、`O Position Selection`、`O Project`、`O Quad Sphere`、`O Random Direction`、`O Random Instance Index`、`O Random Selection`、`O Region Selection`、`O Relax`、`O Resample Edge`、`O Rest Position`、`O Scene Time`、`O Screw`、`O Selection`、`O Set Edge Radius`、`O Shortest Paths`、`O Smooth`、`O Smooth Attributes`、`O Solidfy`、`O Store Selection`、`O Symmetry`、`O Tension`、`O Timing`、`O Torus`、`O Transfer Attributes`、`O Transfer Material`、`O Transfer UV`、`O Transform`、`O Tube`、`O UV Island`、`O UV Tangent`、`O Voxel Remesh`、`O Wireframe`
+- 几何节点：`O Align Edge Ends`、`O Blend`、`O Capsule`、`O Center`、`O Center Line`、`O Connect Adjacent`、`O Curve Deform`、`O Curve Distance Texture`、`O Curve Flow Texture`、`O Curve to Edge`、`O Debug Direction`、`O Debug Direction Field`、`O Debug Edge`、`O Debug Field`、`O Debug Integer`、`O Debug UV`、`O Delete Small Parts`、`O Displace`、`O Edge to Curve`、`O Exploded View`、`O Fast Remesh`、`O Geometry Info`、`O Grid Distribute`、`O Helix`、`O ID Selection`、`O Index Selection`、`O Is Edge Boundary`、`O Is UV Split`、`O Mask by Distance`、`O Mask by Selection`、`O Match Size`、`O Mesh Boolean`、`O Mesh Distance Texture`、`O Mesh Flow Texture`、`O Mix Color`、`O Nearby Selection`、`O Noise Texture`、`O Normalize Attribute`、`O Object to Tangent Space`、`O Pick Instance`、`O Point Deform`、`O Point Grid`、`O Points Distance Texture`、`O Points Flow Texture`、`O Position Selection`、`O Project`、`O Quad Sphere`、`O Random Direction`、`O Random Instance Index`、`O Random Selection`、`O Region Selection`、`O Relax`、`O Resample Edge`、`O Rest Position`、`O Scene Time`、`O Screw`、`O Selection`、`O Set Edge Radius`、`O Sharpen`、`O Shortest Paths`、`O Smooth`、`O Smooth Attributes`、`O Solidfy`、`O Store Selection`、`O Symmetry`、`O Tension`、`O Timing`、`O Torus`、`O Transfer Attributes`、`O Transfer Material`、`O Transfer UV`、`O Transform`、`O Tube`、`O UV Island`、`O UV Tangent`、`O Voxel Remesh`、`O Wireframe`
 - 着色器节点：`O Background`、`O Circle`、`O Ensure UV`、`O Grid`、`O Linear`、`O Pixelate`、`O Square`
 
 ## 合成节点
@@ -1101,6 +1101,30 @@
 #### 输出
 
 - `Edge`：输出处理或筛选后的边。
+
+
+### O Sharpen
+
+根据网格曲率，将顶点向高曲率邻点聚拢，使圆润的棱线和转折变锐。分类为 Deform，保持原有拓扑。
+
+#### 输入
+
+- `Geometry`：提供要锐化的网格。
+- `Selection`：限制顶点作用范围，未选中的顶点保持原位。
+- `Iterations`：锐化迭代次数，默认 5，范围 1–20。
+- `Pin Boundary`：边界固定程度，默认 1，范围 0–1；0 正常锐化边界，1 完全固定，中间值渐变减弱边界位移。
+- `Options / Weight`：每次移动比例，默认 0.5，范围 0–1。
+- `Options / Curvature Type`：Gaussian、Mean、Principal 或 Curvedness，默认 Mean。使用角度亏损和边长、二面角估算离散曲率。
+- `Options / Report`：Principal 使用 Smaller 或 Larger 主曲率。
+- `Options / Sign`：Principal 使用 Signed 或 Absolute；锐化权重最终取曲率绝对值。
+- `Options / Make Scale Independent`：按顶点分摊面积归一化曲率，默认开启。
+- `Options / Curvature Exponent`：曲率权重指数，默认 1；越大越集中于高曲率区域。
+
+#### 输出
+
+- `Geometry`：输出锐化后的网格。
+
+曲率权重在迭代前计算并保留。效果取决于输入网格密度和分布；较高的 Weight 或迭代次数可能增加体积损失。
 
 
 ### O Shortest Paths

@@ -98,5 +98,8 @@ uv run omoonodes dump path/to/O_Library.blend -o nodes/O_Library
 - 修改资产或版本合并逻辑后，使用目标 Blender 构建受影响资产库并验证结果；根据改动检查节点接口、依赖和目标版本行为。
 - 修改节点接口或功能后，检查目标库接口、依赖与保存重载，运行相关测试；具体步骤见 [开发](docs/develop.md)。
 - 节点树使用原生节点，保持布局清楚、接口与数据生命周期明确；复用已有公共节点，避免重复实现。
-- 新增或修改 Blender 类型时，检查注册与逆序注销；声明式消费者引用类型的 `bl_idname`，`bpy.ops` 执行调用保持原生命名空间写法。
-- 操作 Blender 节点效果时遵循项目中的 [use-omoo-nodes skill](.agents/skills/use-omoo-nodes/SKILL.md)。
+- 节点名称使用简洁的 `O <功能>`，沿用已有节点术语；类名、源码文件名与资产名保持一致。
+- 核心参数直接放在接口顶层；次要调节项放入默认折叠的 `Options` 面板。
+- 迭代变形节点的 `Iterations` 默认 5、范围 1–20，优先与 `O Smooth` 等同类节点保持一致。
+- 每步作用比例使用 `Options / Weight`，Socket 为 Float、subtype 为 `FACTOR`、范围 0–1；默认值按效果选择。
+- 用于限制作用范围的 `Selection` 默认 True，设置 `hide_value=True` 和 `hide_in_modifier=True`。
