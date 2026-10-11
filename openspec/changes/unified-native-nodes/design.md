@@ -2,12 +2,12 @@
 
 ## 核心
 
-`src/nodes_tool/` 是独立安装包，提供原生 `.py ↔ .blend` 和现有 nodes CLI。OmooNodes 的 `nodes/` 是消费项目，不随工具分发。
+`src/omoonodes/` 是独立安装包，提供原生 `.py ↔ .blend` 和 `omoonodes` CLI。本仓库同时维护工具和节点资产库，`nodes/` 不随工具包分发。其他项目通过固定 Git 提交依赖本仓库，开发机与 CI 使用同一份锁文件。
 
 构建器、节点包装和表达式导出器改编自 nodebpy 520.34.1，保留 `CustomGeometryGroup._build_group`、`g.Raycast.float(...)`、Socket 运算和 `>>`。接口兼容 Python 3.11；不依赖 nodebpy 运行时。保留现有布局、库归属、资源和发布实现。
 
 ```python
-from nodes_tool.builder import CustomGeometryGroup
+from omoonodes.builder import CustomGeometryGroup
 
 class Example(CustomGeometryGroup):
     _name = 'Example'

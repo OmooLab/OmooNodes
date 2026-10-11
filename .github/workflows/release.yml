@@ -37,8 +37,8 @@ jobs:
         env:
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          uv run --no-sync nodes build --target b45 -o "$RUNNER_TEMP/nodes"
-          uv run --no-sync nodes build --target b52 --remote -o "$RUNNER_TEMP/nodes"
+          uv run --no-sync omoonodes build --target b45 -o "$RUNNER_TEMP/nodes"
+          uv run --no-sync omoonodes build --target b52 --remote -o "$RUNNER_TEMP/nodes"
           mkdir -p "$RUNNER_TEMP/release"
           for target in b45 b52; do
             (cd "$RUNNER_TEMP/nodes/$target" && zip -r "$RUNNER_TEMP/release/OmooNodes.$RELEASE_TAG.$target.zip" .)

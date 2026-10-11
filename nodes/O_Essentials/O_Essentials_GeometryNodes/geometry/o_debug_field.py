@@ -1,7 +1,7 @@
 import bpy
 from bpy.types import GeometryNodeTree
-from nodes_tool import geometry as g, TreeBuilder
-from nodes_tool.builder import CustomGeometryGroup
+from omoonodes import geometry as g, TreeBuilder
+from omoonodes.builder import CustomGeometryGroup
 from .o_point_grid import OPointGrid
 
 

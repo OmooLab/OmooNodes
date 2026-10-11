@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-from nodes_tool.publication import (
+from omoonodes.publication import (
     copy_sidecar_files,
     update_library_metadata,
 )

@@ -1,6 +1,6 @@
 from bpy.types import GeometryNodeTree
-from nodes_tool import TreeBuilder
-from nodes_tool.builder import CustomGeometryGroup
+from omoonodes import TreeBuilder
+from omoonodes.builder import CustomGeometryGroup
 
 
 class OSpherizationCorrection(CustomGeometryGroup):

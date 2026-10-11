@@ -1,8 +1,8 @@
 from nodes.O_Essentials.O_Essentials_ShaderNodes.shader.o_background import OBackground as OBackground
 from nodes.O_Essentials.O_Essentials_ShaderNodes.shader.o_linear import OLinear as OLinear
 from bpy.types import ShaderNodeTree
-from nodes_tool import geometry as g, shader as s, TreeBuilder
-from nodes_tool.builder import CustomShaderGroup
+from omoonodes import geometry as g, shader as s, TreeBuilder
+from omoonodes.builder import CustomShaderGroup
 
 class OGradientBackground(CustomShaderGroup):
     _name = 'O Gradient Background'

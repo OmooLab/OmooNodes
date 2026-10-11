@@ -1,7 +1,7 @@
 import bpy
 from bpy.types import GeometryNodeTree
-from nodes_tool import geometry as g, TreeBuilder
-from nodes_tool.builder import CustomGeometryGroup
+from omoonodes import geometry as g, TreeBuilder
+from omoonodes.builder import CustomGeometryGroup
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_displace import ODisplace as ODisplace
 
 class OOutline(CustomGeometryGroup):

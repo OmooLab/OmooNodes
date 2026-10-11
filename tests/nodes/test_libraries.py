@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from nodes_tool import libraries
+from omoonodes import libraries
 
 
 @pytest.mark.parametrize(("markers", "target", "message"), [

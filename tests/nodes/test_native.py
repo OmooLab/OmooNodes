@@ -6,10 +6,10 @@ from pathlib import Path
 
 import pytest
 
-from nodes_tool import importing, libraries
-from nodes_tool.files import write_json
-from nodes_tool.runtimes import configuration, run_worker, runtime_environment
-from nodes_tool.sources import source_files
+from omoonodes import importing, libraries
+from omoonodes.files import write_json
+from omoonodes.runtimes import configuration, run_worker, runtime_environment
+from omoonodes.sources import source_files
 
 
 @pytest.fixture(scope="module")
@@ -109,8 +109,8 @@ def shared(config, tmp_path, monkeypatch):
     source = tmp_path / "nodes/Probe"
     script = source / "geometry/geometry/probe.py"
     script.parent.mkdir(parents=True)
-    script.write_text('''from nodes_tool import geometry as g
-from nodes_tool.builder import CustomGeometryGroup
+    script.write_text('''from omoonodes import geometry as g
+from omoonodes.builder import CustomGeometryGroup
 
 class Probe(CustomGeometryGroup):
     _name = 'Probe'
@@ -186,8 +186,8 @@ bpy.data.libraries.write({str(blend)!r},{{g}},fake_user=True,compress=True)
     assert script.read_bytes() == original
     assert "ReverseString" in variant.read_text()
     variant.write_text("DISABLED = True\n")
-    (script.parent / "consumer.py").write_text('''from nodes_tool import geometry as g
-from nodes_tool.builder import CustomGeometryGroup
+    (script.parent / "consumer.py").write_text('''from omoonodes import geometry as g
+from omoonodes.builder import CustomGeometryGroup
 class Consumer(CustomGeometryGroup):
     _name = 'Consumer'
     def _build_group(self, tree):
@@ -229,7 +229,7 @@ def test_imported_classes_keep_links_target_selection_and_sync(config, tmp_path,
     owner = root / 'Owner'
     owner_script = owner / 'defs/custom.py'
     owner_script.parent.mkdir(parents=True)
-    definition = '''from nodes_tool.builder import CustomGeometryGroup
+    definition = '''from omoonodes.builder import CustomGeometryGroup
 class SharedRecipe(CustomGeometryGroup):
     _name = 'Shared UV'
     def _build_group(self, tree):
@@ -245,7 +245,7 @@ ASSET = SharedRecipe
     script = extra / 'recipes/geometry/probe.py'
     script.parent.mkdir(parents=True)
     script.write_text('''from nodes.Owner.defs.custom import SharedRecipe
-from nodes_tool.builder import CustomGeometryGroup
+from omoonodes.builder import CustomGeometryGroup
 class UsesShared(CustomGeometryGroup):
     _name = 'Uses Shared'
     def _build_group(self, tree):

@@ -1,6 +1,6 @@
 from bpy.types import ShaderNodeTree
-from nodes_tool import shader as s, TreeBuilder
-from nodes_tool.builder import CustomShaderGroup
+from omoonodes import shader as s, TreeBuilder
+from omoonodes.builder import CustomShaderGroup
 
 
 class ODebugColor(CustomShaderGroup):

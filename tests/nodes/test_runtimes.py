@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from nodes_tool import runtimes
+from omoonodes import runtimes
 
 
 @pytest.mark.parametrize(("target", "version", "python"), [("b45", "4.5.14", "3.11"), ("b52", "5.2.2", "3.13")])
@@ -63,7 +63,7 @@ def test_wrong_python_is_rejected_before_package_install(tmp_path, monkeypatch):
 @pytest.mark.parametrize("targets", ["", "targets = []\n"])
 def test_targets_must_be_explicit_and_nonempty(tmp_path, monkeypatch, targets):
     monkeypatch.chdir(tmp_path)
-    (tmp_path / "pyproject.toml").write_text('[tool.nodes]\nsource = "nodes"\n' + targets)
+    (tmp_path / "pyproject.toml").write_text('[tool.omoonodes]\nsource = "nodes"\n' + targets)
     monkeypatch.setattr(runtimes, "ensure_runtime", lambda *args: pytest.fail("Invalid configuration prepared a runtime"))
     with pytest.raises(ValueError, match="nonempty list"):
         runtimes.configuration()
@@ -72,14 +72,14 @@ def test_targets_must_be_explicit_and_nonempty(tmp_path, monkeypatch, targets):
 def test_dev_defaults_to_lowest_target_and_versions_only_override_declared_targets(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     path = tmp_path / "pyproject.toml"
-    path.write_text('[tool.nodes]\ntargets = ["b52", "b45"]\n[tool.nodes.versions]\nb45 = "4.5.13"\n')
+    path.write_text('[tool.omoonodes]\ntargets = ["b52", "b45"]\n[tool.omoonodes.versions]\nb45 = "4.5.13"\n')
     prepared = {}
     monkeypatch.setattr(runtimes, "ensure_runtime", lambda cache, name, settings: prepared.setdefault(name, settings))
     config = runtimes.configuration(development=True)
     assert config["versions"] == {"b45": "4.5.13"}
     assert set(prepared) == {"b45"}
     assert set(runtimes.configuration()["versions"]) == {"b45", "b52"}
-    path.write_text('[tool.nodes]\ntargets = ["b45"]\n[tool.nodes.versions]\nb52 = "5.2.2"\n')
+    path.write_text('[tool.omoonodes]\ntargets = ["b45"]\n[tool.omoonodes.versions]\nb52 = "5.2.2"\n')
     with pytest.raises(ValueError, match="only override declared"):
         runtimes.configuration()
 

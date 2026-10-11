@@ -1,6 +1,6 @@
 from bpy.types import GeometryNodeTree
-from nodes_tool import geometry as g, TreeBuilder
-from nodes_tool.builder import CustomGeometryGroup
+from omoonodes import geometry as g, TreeBuilder
+from omoonodes.builder import CustomGeometryGroup
 from .o_edge_to_curve import OEdgeToCurve
 from .o_resample_edge import OResampleEdge
 from .o_smooth import OSmooth

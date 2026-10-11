@@ -3,7 +3,7 @@ import gzip
 import pytest
 import zstandard
 
-from nodes_tool.blend import check_version, file_version
+from omoonodes.blend import check_version, file_version
 
 
 @pytest.mark.parametrize("header,version", [(b"BLENDER-v405", (4, 5)), (b"BLENDER17-01v0502", (5, 2))])

@@ -2,10 +2,10 @@
 
 ### Requirement: Standalone tool package
 
-系统 SHALL 将原生构建/导出核心及现有 CLI 放入 `src/nodes_tool/`，形成一个独立可安装的工具包。命令 SHALL 保持为 `nodes`，Python API SHALL 使用 `nodes_tool`。安装产物和运行依赖 SHALL 不包含 OmooNodes 资产、文档工具或专用业务规则，不保留旧 tools.nodes 转发。
+系统 SHALL 将原生构建/导出核心及 CLI 放入 `src/omoonodes/`，形成独立可安装的 `omoonodes` 工具包。命令 SHALL 为 `omoonodes`，Python API SHALL 使用 `omoonodes`。安装产物和运行依赖 SHALL 不包含 OmooNodes 资产、文档工具或专用业务规则，不保留旧入口或转发。
 
 #### Scenario: Installed use outside this repository
-- **WHEN** 在独立环境安装工具，并从含自身 `nodes/` 和 `tool.nodes` 配置的外部项目执行命令
+- **WHEN** 在独立环境安装工具，并从含自身 `nodes/` 和 `tool.omoonodes` 配置的外部项目执行命令
 - **THEN** 使用该项目的配置、源码与输出位置，不读取 OmooNodes 工作区、不依赖源码仓库路径、不与项目 `nodes` Python 包冲突
 
 #### Scenario: Lightweight command startup
@@ -21,7 +21,7 @@
 系统 SHALL 用所选目标的 bpy 完成构建、导出、保存和校验，隔离 Blender 用户目录。源码和运行核心由同一 nodes 工具提供；运行时 SHALL 不依赖 nodebpy 或独立 builder 环境。
 
 #### Scenario: Build a b45 development library
-- **WHEN** 执行 `nodes dev nodes/O_Extra --target b45 -o workspaces`
+- **WHEN** 执行 `omoonodes dev nodes/O_Extra --target b45 -o workspaces`
 - **THEN** O_Essentials 与 O_Extra 按依赖顺序在 4.5 中构建、保存、重开校验并输出完整开发库，全程不在 5.2 中载入节点
 
 ### Requirement: Explicit import version

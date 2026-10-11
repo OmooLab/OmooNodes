@@ -1,6 +1,6 @@
 from bpy.types import CompositorNodeTree
-from nodes_tool import geometry as g, compositor as c, TreeBuilder
-from nodes_tool.builder import CustomCompositorGroup
+from omoonodes import geometry as g, compositor as c, TreeBuilder
+from omoonodes.builder import CustomCompositorGroup
 from .o_image_info import OImageInfo
 
 

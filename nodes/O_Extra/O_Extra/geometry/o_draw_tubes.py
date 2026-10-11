@@ -16,8 +16,8 @@ from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_edge_to_curve impo
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_curve_to_edge import OCurveToEdge as OCurveToEdge
 import bpy
 from bpy.types import GeometryNodeTree
-from nodes_tool import geometry as g, TreeBuilder
-from nodes_tool.builder import CustomGeometryGroup
+from omoonodes import geometry as g, TreeBuilder
+from omoonodes.builder import CustomGeometryGroup
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_displace import ODisplace as ODisplace
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_is_edge_boundary import OIsEdgeBoundary as OIsEdgeBoundary
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_relax import ORelax as ORelax

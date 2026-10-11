@@ -25,6 +25,10 @@ The assets are organized into libraries by purpose:
 
 All nodes use Blender's native Asset Library system, with no add-on required.
 
+The repository also provides the `omoonodes` Python package and its `omoonodes` CLI to
+convert Python definitions to and from `.blend` files and build node libraries for
+Blender 4.5 and 5.2. Other projects can use the same tool with their own node sources.
+
 ## Installation
 
 Choose an installation method based on your Blender version and preferred workflow:
@@ -53,3 +57,16 @@ asset library folders unchanged after extraction.
 
 If Blender requests network permission, allow Online Access. Blender first loads the
 asset listings and thumbnails, then downloads and caches individual assets on demand.
+
+### Python Package and CLI
+
+In a consuming project, install a fixed commit from this repository:
+
+```bash
+uv add --dev "omoonodes @ git+https://github.com/OmooLab/OmooNodes.git@<commit>"
+```
+
+Replace `<commit>` with the full commit SHA and commit `pyproject.toml` and `uv.lock`.
+CI installs the same version with `uv sync --locked`. See the
+[package guide](src/omoonodes/README.md) for configuration and usage, and the
+[development guide](docs/develop.en.md) for this repository's workflow.

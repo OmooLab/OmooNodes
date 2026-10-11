@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from nodes_tool.sources import apply_changes, select_sources
+from omoonodes.sources import apply_changes, select_sources
 
 
 def write(root: Path, name: str, content: str) -> None:

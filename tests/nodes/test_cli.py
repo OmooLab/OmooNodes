@@ -1,6 +1,6 @@
 import pytest
 
-from nodes_tool import cli
+from omoonodes import cli
 
 
 @pytest.mark.parametrize(("arguments", "action", "destination"), [
@@ -10,7 +10,7 @@ from nodes_tool import cli
     (["dump", "input.blend", "-o", "imported"], "dump_sources", "imported"),
 ])
 def test_commands_resolve_project_sources_and_user_paths(tmp_path, monkeypatch, arguments, action, destination):
-    (tmp_path / "pyproject.toml").write_text('[tool.nodes]\nsource = "assets"\ntargets = ["b45"]\n')
+    (tmp_path / "pyproject.toml").write_text('[tool.omoonodes]\nsource = "assets"\ntargets = ["b45"]\n')
     working = tmp_path / "nested"
     working.mkdir()
     monkeypatch.chdir(working)

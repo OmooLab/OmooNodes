@@ -5,11 +5,11 @@
 - [x] 1.3 在 b45、b52 分别对 Mix、Displace、嵌套组、动态接口实现最小 Python 导出/重建，各连续三轮比较源码与语义图。
 - [x] 1.4 验证压缩及未压缩 blend 的保存版本检查、目标选择和依赖版本诊断，记录所需依赖。
 - [x] 1.5 根据原型结果确认核心依赖闭包及剩余工作；若无法保持结构或规模不可控，修订设计后再迁移正式资产。
-- [x] 1.6 确定 src/nodes_tool 的独立安装元数据、nodes 命令入口及必要运行依赖；在仓库外且带 nodes/__init__.py 的最小项目验证导入和 --help，不导入 bpy 或依赖 OmooNodes 路径。
+- [x] 1.6 确定 src/omoonodes 的独立安装元数据、omoonodes 命令入口及必要运行依赖；在仓库外且带 nodes/__init__.py 的最小项目验证导入和 --help，不导入 bpy 或依赖 OmooNodes 路径。
 
 ## 2. 构建与导出核心
 
-- [x] 2.1 在 src/nodes_tool 中实现三类原生树的构建、接口面板、Socket 默认值、Socket 运算和表达式连线，兼容 Python 3.11；Python API 与 CLI 复用同一实现。
+- [x] 2.1 在 src/omoonodes 中实现三类原生树的构建、接口面板、Socket 默认值、Socket 运算和表达式连线，兼容 Python 3.11；Python API 与 CLI 复用同一实现。
 - [x] 2.2 实现确定性的 Python 导出，保留节点、有效 RNA 属性和自定义属性；不支持的数据给出具体错误。
 - [x] 2.3 补齐现有资产所需的 Zone、动态 Socket、菜单、multi-input 顺序、Curve Mapping 与 Color Ramp 的读写。
 - [x] 2.4 接入嵌套组、跨库引用、图像、材质和 Asset 元数据，复用现有库归属与资源约定。
@@ -47,6 +47,7 @@
 
 ## 验收记录
 
+- 包名与导入统一为 `omoonodes`，CLI 为 `omoonodes`；源码包、wheel 和独立消费项目的 dev/sync/build/dump 验证通过，发布 CI 使用新命令。
 - 全量 66 项测试通过，正常退出；独立安装后的 help、dev、sync、build、dump 和按组名载入通过。
 - 正式源码保留 nodebpy 的变量、显式 Socket、连线、字段顺序和共享文件路径；使用保持 Blender 精度的简短浮点数，不记录节点位置和布局开关。
 - Blender 4.5.14、5.2.2 完整构建及 dev/sync 通过，未编辑源码保持不变；动态节点、非默认模式和资源通过三轮原生往返。

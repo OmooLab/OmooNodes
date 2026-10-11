@@ -3,7 +3,7 @@ from contextlib import redirect_stdout
 
 import pytest
 
-from nodes_tool.console import done, progress
+from omoonodes.console import done, progress
 
 
 @pytest.mark.parametrize("failed", [False, True])

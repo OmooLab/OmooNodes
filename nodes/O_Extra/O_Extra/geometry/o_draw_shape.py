@@ -2,8 +2,8 @@ from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_transfer_attribute
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_voxel_remesh import OVoxelRemesh as OVoxelRemesh
 import bpy
 from bpy.types import GeometryNodeTree
-from nodes_tool import geometry as g, TreeBuilder
-from nodes_tool.builder import CustomGeometryGroup
+from omoonodes import geometry as g, TreeBuilder
+from omoonodes.builder import CustomGeometryGroup
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_displace import ODisplace as ODisplace
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_relax import ORelax as ORelax
 from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_smooth import OSmooth as OSmooth

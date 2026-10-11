@@ -1,6 +1,6 @@
 from bpy.types import CompositorNodeTree
-from nodes_tool import geometry as g, TreeBuilder
-from nodes_tool.builder import CustomCompositorGroup
+from omoonodes import geometry as g, TreeBuilder
+from omoonodes.builder import CustomCompositorGroup
 
 
 class ORelight(CustomCompositorGroup):

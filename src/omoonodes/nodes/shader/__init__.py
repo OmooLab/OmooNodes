@@ -1,0 +1,24 @@
+# Adapted from nodebpy 520.34.1, Brady Johnston; GPL-3.0-or-later.
+from __future__ import annotations
+from omoonodes.native import set_property
+import typing
+from ..geometry.color import Gamma, RGBCurves
+from ..geometry.converter import Blackbody, Clamp, CombineBundle, CombineXYZ, JoinBundle, MapRange, Math, SeparateBundle, SeparateXYZ
+from ..geometry.input import Boolean, Integer, SceneTime, Vector
+from ..geometry.interface import GroupInput, GroupOutput
+from ..geometry.manual import ClosureInput, ClosureOutput, ColorRamp, EvaluateClosure, FloatCurve, Menu, Value
+from ..geometry.texture import BrickTexture, CheckerTexture, GaborTexture, GradientTexture, MagicTexture, NoiseTexture, VoronoiTexture, WaveTexture, WhiteNoiseTexture
+from ..geometry.utilities import Reroute
+from ..geometry.vector import RadialTiling, VectorCurves, VectorMath, VectorRotate
+from .color import BrightnessContrast, HueSaturationValue, InvertColor, LightFalloff
+from .converter import CombineColor, ImplicitConversion, Mix, RGBToBW, SeparateColor, ShaderToRGB, Wavelength
+from .grid import PrincipledVolume, VolumeAbsorption, VolumeCoefficients, VolumeInfo, VolumeScatter
+from .group import Group
+from .input import AmbientOcclusion, Bevel, CameraData, Color, ColorAttribute, CurvesInfo, Fresnel, Geometry, LayerWeight, LightPath, ObjectInfo, ParticleInfo, PointInfo, Raycast, Tangent, TextureCoordinate, UVAlongStroke, UVMap, Wireframe
+from .manual import Attribute, Float, Frame, MenuSwitch, RepeatInput, RepeatOutput, RepeatZone, material, tree
+from .output import AOVOutput, LightOutput, LineStyleOutput, MaterialOutput, WorldOutput
+from .script import Script
+from .shader import AddShader, Background, DiffuseBSDF, Emission, GlassBSDF, GlossyBSDF, HairBSDF, Holdout, MetallicBSDF, MixShader, PrincipledBSDF, PrincipledHairBSDF, RayPortalBSDF, RefractionBSDF, SheenBSDF, SpecularBSDF, SubsurfaceScattering, ToonBSDF, TranslucentBSDF, TransparentBSDF
+from .texture import EnvironmentTexture, IESTexture, ImageTexture, SkyTexture
+from .vector import Bump, Displacement, Mapping, Normal, NormalMap, VectorDisplacement, VectorTransform
+__all__ = ('AOVOutput', 'AddShader', 'AmbientOcclusion', 'Attribute', 'Background', 'Bevel', 'Blackbody', 'Boolean', 'BrickTexture', 'BrightnessContrast', 'Bump', 'CameraData', 'CheckerTexture', 'Clamp', 'ClosureInput', 'ClosureOutput', 'Color', 'ColorAttribute', 'ColorRamp', 'CombineBundle', 'CombineColor', 'CombineCylindrical', 'CombineSpherical', 'CombineXYZ', 'CurvesInfo', 'DiffuseBSDF', 'Displacement', 'Emission', 'EnvironmentTexture', 'EvaluateClosure', 'Float', 'FloatCurve', 'Frame', 'Fresnel', 'GaborTexture', 'Gamma', 'Geometry', 'GlassBSDF', 'GlossyBSDF', 'GradientTexture', 'Group', 'GroupInput', 'GroupOutput', 'HairBSDF', 'Holdout', 'HueSaturationValue', 'IESTexture', 'ImageTexture', 'ImplicitConversion', 'Integer', 'InvertColor', 'JoinBundle', 'LayerWeight', 'LightFalloff', 'LightOutput', 'LightPath', 'LineStyleOutput', 'MagicTexture', 'MapRange', 'Mapping', 'MaterialOutput', 'Math', 'Menu', 'MenuSwitch', 'MetallicBSDF', 'Mix', 'MixShader', 'NoiseTexture', 'Normal', 'NormalMap', 'ObjectInfo', 'ParticleInfo', 'PointInfo', 'PrincipledBSDF', 'PrincipledHairBSDF', 'PrincipledVolume', 'RGBCurves', 'RGBToBW', 'RadialTiling', 'RayPortalBSDF', 'Raycast', 'RefractionBSDF', 'RepeatInput', 'RepeatOutput', 'RepeatZone', 'Reroute', 'SceneTime', 'Script', 'SeparateBundle', 'SeparateColor', 'SeparateCylindrical', 'SeparateSpherical', 'SeparateXYZ', 'ShaderToRGB', 'SheenBSDF', 'SkyTexture', 'SpecularBSDF', 'SubsurfaceScattering', 'Tangent', 'TextureCoordinate', 'ToonBSDF', 'TranslucentBSDF', 'TransparentBSDF', 'UVAlongStroke', 'UVMap', 'Value', 'Vector', 'VectorCurves', 'VectorDisplacement', 'VectorMath', 'VectorRotate', 'VectorTransform', 'VolumeAbsorption', 'VolumeCoefficients', 'VolumeInfo', 'VolumeScatter', 'VoronoiTexture', 'WaveTexture', 'Wavelength', 'WhiteNoiseTexture', 'Wireframe', 'WorldOutput', 'material', 'tree')
