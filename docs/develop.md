@@ -55,6 +55,31 @@ uv run omoonodes build --target b52 --remote -o dist
 构建在临时目录完成，目标 Blender 保存、重载检查后替换输出；CI 再压缩发布。
 
 
+## 发布 Python 包
+
+`.github/workflows/push-main.yml` 在推送 main 或提交面向 main 的 PR 时运行测试、构建包并检查独立安装。
+
+`.github/workflows/publish.yml` 在推送 `v*` 标签时运行测试、构建并检查源码包和 wheel，通过 PyPI Trusted Publishing 发布 `omoonodes`。包版本读取 `pyproject.toml`。
+
+首次发布前，在 GitHub 仓库创建 `pypi` environment，再到 [PyPI Publishing](https://pypi.org/manage/account/publishing/) 添加 pending publisher：
+
+| 字段 | 值 |
+| --- | --- |
+| PyPI Project Name | `omoonodes` |
+| Owner | `OmooLab` |
+| Repository name | `OmooNodes` |
+| Workflow name | `publish.yml` |
+| Environment name | `pypi` |
+
+首次成功上传会自动创建 PyPI 项目，无需配置 API token。提交版本和锁文件后，推送对应标签，例如：
+
+```bash
+git tag v0.1.0
+git push github v0.1.0
+```
+
+同一标签也会触发现有的节点资产库发布流程。
+
 ## 文档
 
 ```bash
