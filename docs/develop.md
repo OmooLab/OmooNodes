@@ -55,6 +55,43 @@ uv run omoonodes build --target b52 --remote -o dist
 构建在临时目录完成，目标 Blender 保存、重载检查后替换输出；CI 再压缩发布。
 
 
+## 测试
+
+`tests/cli/` 验证工具包，`tests/nodes/<资产库>/<树类型>/test_o_<节点名>.py` 验证单个节点的输入与输出。
+
+```bash
+uv run pytest tests
+uv run pytest tests/cli
+uv run pytest tests/nodes
+uv run pytest tests/nodes --node-target b45 -k o_mix_color
+uv run pytest tests/nodes/O_Essentials/geometry/test_o_blend.py
+```
+
+每个节点一个普通 pytest 文件，直接写输入、调用和断言；需要多组输入时使用 `pytest.mark.parametrize`。新增测试文件即可被发现。当前覆盖 14 个节点，其中 Deform 类 9 个全部覆盖，目录检查防止漏测。
+
+`conftest.py` 负责双目标启动：复用现有 bpy 环境和目标源码选择，在目标环境准备 pytest；每个节点独立进程执行，每项测试前清空 Blender 数据并直接创建被测节点及依赖。失败直接显示原生 pytest 输出；单节点执行超时为 120 秒，CI 保留日志和图像。
+
+共用的 `evaluation.py` 仅提供小型输入数据、实际求值和数值比较。几何与字段读取 depsgraph 输出，Shader 和 Compositor 读取 CPU 求值的线性 EXR。期望值来自独立计算或明确的节点约定，浮点比较声明容差。
+
+| 节点 | 已测行为 | 待补范围 |
+| --- | --- | --- |
+| O Mix Color | RGBA 插值端点、中点和逐点 Factor | 越界 Factor |
+| O Resample Edge | 整除及非整除间距、端点、独立曲线选择 | 闭合边、分叉和属性传递 |
+| O Smooth | 中心凸起平滑、对称性、拓扑计数、零权重和局部选择 | 多次迭代、Pin Sharp、Pin Boundary |
+| O Project | 最近点、双向射线命中、距离外未命中、半权重和局部选择 | Radius Offset、Source/Normal 方向和方向权重 |
+| O Linear | 已知向量渐变、0.5 阈值两侧和旋转 | 隐式坐标输入 |
+| O Stroke | Matte 描边、平方 Alpha、全透明、光照下的 Alpha、关闭描边和位移恢复 | Depth/Normal 边缘及光照调色的 RGB |
+| O Random Jitter | 零强度、有效位移、固定帧重复性和跨库依赖 | 时间步进与参数范围 |
+| O Blend | 按索引半权重混合、局部选择、零系数和拓扑保持 | 不同点数的源几何 |
+| O Curve Deform | 沿折线拟合、半权重、局部选择、零权重和拓扑保持 | 截面朝向、Tilt、多曲线及闭合曲线 |
+| O Displace | 法线及向量位移、Midlevel、局部选择、零强度和拓扑保持 | 逐点位移场 |
+| O Point Deform | Rest Positon 位移传递、半权重、局部选择、零权重和拓扑保持 | 非均匀源变形和平滑参数 |
+| O Relax | 平面不均匀网格松弛、局部选择、零权重和拓扑保持 | 自定义投射面、多岛及多次迭代 |
+| O Sharpen | 曲率对称网格的非零位移、固定边界、零权重和拓扑保持 | 曲率菜单、局部选择及多次迭代 |
+| O Transform | 缩放、旋转、平移组合、局部选择、空选择和拓扑保持 | Matrix 与软选择 |
+
+O Resample Edge 沿用 Blender 的 [Length 重采样语义](https://docs.blender.org/manual/en/4.0/modeling/geometry_nodes/curve/operations/resample_curve.html)：Length 为近似间距，样本均匀分布。长 2、Length=0.75 的直线得到位置 0、1、2。
+
 ## 发布 Python 包
 
 `.github/workflows/test.yml` 在推送 main 或提交面向 main 的 PR 时运行测试、打包，并验证 wheel 和源码包的最小节点构建、导出和重新构建。
