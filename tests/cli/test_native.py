@@ -31,6 +31,40 @@ def native(config, directory, code, version):
 
 
 @pytest.mark.parametrize("version", ["b45", "b52"])
+def test_arrangement_frame_moves_internal_reroutes(config, tmp_path, version):
+    native(config, tmp_path, f'''
+import sys
+sys.path.insert(0, {str(Path(__file__).resolve().parents[2] / 'src')!r})
+''' + '''
+import bpy
+from unittest.mock import patch
+from omoonodes.arrangement.arrange import arrange_nodes
+
+tree = bpy.data.node_groups.new('Frame routes', 'GeometryNodeTree')
+nodes = [tree.nodes.new('ShaderNodeMath') for _ in range(5)]
+tree.links.new(nodes[0].outputs[0], nodes[-1].inputs[0])
+positions = {i: (i * 200, 100) for i in range(5)}
+blocks = [{'members': list(range(5)), 'title': 'Branch', 'box': (0, 0, 1000, 300)}]
+routes = {0: [(100, 100), (300, 50), (700, 400), (800, 100)]}
+with patch('omoonodes.arrangement.arrange.calculation_blocks', return_value=(blocks, set())), patch(
+    'omoonodes.arrangement.arrange.plan_layout', return_value=(positions, routes)
+):
+    arrange_nodes(tree)
+frame = next(node for node in tree.nodes if node.bl_idname == 'NodeFrame')
+internal, external = [node for node in tree.nodes if node.bl_idname == 'NodeReroute']
+assert internal.parent == frame
+assert external.parent is None
+assert tuple(internal.location_absolute) == (292, -42)
+assert tuple(external.location_absolute) == (692, -392)
+before = internal.location_absolute.copy()
+frame.location.x += 120
+frame.location.y += 60
+assert tuple(internal.location_absolute - before) == (120, 60)
+assert tuple(external.location_absolute) == (692, -392)
+''', version)
+
+
+@pytest.mark.parametrize("version", ["b45", "b52"])
 def test_native_roundtrips_preserve_dynamic_nodes_and_resources(config, tmp_path, version):
     blend = tmp_path / "original.blend"
     native(config, tmp_path, f'''

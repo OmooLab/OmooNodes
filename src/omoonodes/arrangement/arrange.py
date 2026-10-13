@@ -124,8 +124,15 @@ def arrange_nodes(node_group):
         frame.location = (left - 28, -top + 48)
         frame.width = right - left + 56
         frame.height = bottom - top + 76
-        for i in block["members"]:
-            absolute = nodes[i].location.copy()
-            nodes[i].parent = frame
-            nodes[i].location = absolute - frame.location
+        children = [nodes[i] for i in block["members"]]
+        children.extend(
+            reroute for reroute in cache.values()
+            if reroute.parent is None
+            and frame.location.x <= reroute.location.x <= frame.location.x + frame.width
+            and frame.location.y - frame.height <= reroute.location.y <= frame.location.y
+        )
+        for child in children:
+            absolute = child.location.copy()
+            child.parent = frame
+            child.location = absolute - frame.location
     prepare_node_group(node_group)
