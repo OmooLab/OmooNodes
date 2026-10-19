@@ -1,6 +1,6 @@
 [project]
 name = "omoonodes"
-version = "0.1.1"
+version = "0.1.2"
 description = "Python/Blender node conversion and asset library builds"
 authors = [{ name = "Nan", email = "icrdr2010@outlook.com" }]
 requires-python = ">=3.11"
