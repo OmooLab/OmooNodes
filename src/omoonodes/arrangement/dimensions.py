@@ -22,8 +22,6 @@ def visible_socket(socket):
 
 def estimate_node_dimensions(node):
     """Reserve socket rows, expanded vector values, and node-specific controls."""
-    if node.bl_idname == "NodeFrame":
-        return NodeDimensions(node.width, node.height, {})
     if node.bl_idname == "NodeReroute":
         return NodeDimensions(16, 16, {socket: 8 for socket in (*node.inputs, *node.outputs)})
     inputs = [s for s in node.inputs if visible_socket(s)]

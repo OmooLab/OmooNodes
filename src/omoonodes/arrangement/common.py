@@ -21,6 +21,29 @@ def socket_links(socket):
     return sorted(socket.links, key=lambda link: link.multi_input_sort_id, reverse=True)
 
 
+def merge_group_inputs(tree):
+    """Normalize interface reads while preserving repeated multi-input links."""
+    inputs = [node for node in tree.nodes if node.bl_idname == "NodeGroupInput"]
+    if not inputs:
+        return
+    first = inputs[0]
+    outputs = {socket.identifier: socket for socket in first.outputs}
+    for node in inputs[1:]:
+        for edge in list(tree.links):
+            if edge.from_node != node:
+                continue
+            source = outputs[edge.from_socket.identifier]
+            if edge.to_socket.is_multi_input and any(
+                link.from_socket == source for link in edge.to_socket.links
+            ):
+                duplicate = tree.nodes.new("NodeReroute")
+                tree.links.new(source, duplicate.inputs[0])
+                source = duplicate.outputs[0]
+            replace_link_source(tree, edge, source)
+        tree.nodes.remove(node)
+    first.name = "Group Input"
+
+
 def origin_socket(socket):
     while socket.node.bl_idname == "NodeReroute" and socket.node.inputs[0].is_linked:
         socket = socket.node.inputs[0].links[0].from_socket

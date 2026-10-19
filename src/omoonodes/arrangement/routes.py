@@ -30,7 +30,7 @@ def _intersects(start, end, box):
 
 
 def plan_routes(endpoints, edge_nodes, ranks, columns, widths, boxes, sources, preferred):
-    """Use one level per source channel, with two anchors on every long wire."""
+    """Keep clear wires direct and route obstructed or shared long wires in channels."""
     routes = {}
     channels = defaultdict(list)
     for edge, (a, b) in enumerate(edge_nodes):
@@ -39,11 +39,20 @@ def plan_routes(endpoints, edge_nodes, ranks, columns, widths, boxes, sources, p
             channels[sources[edge]].append(edge)
             continue
         routes[edge] = [start, end]
-        if start[0] < columns[ranks[a]] + widths[ranks[a]]:
+        if start[0] < columns[ranks[a]] + widths[ranks[a]] and any(
+            _intersects(start, end, box) for i, box in boxes.items() if i not in {a, b}
+        ):
             routes[edge].insert(1, (columns[ranks[a]] + widths[ranks[a]] + 60, start[1]))
 
     occupied = []
     for edges in channels.values():
+        if len(edges) == 1:
+            edge = edges[0]
+            a, b = edge_nodes[edge]
+            start, end = endpoints[edge]
+            if not any(_intersects(start, end, box) for i, box in boxes.items() if i not in {a, b}):
+                routes[edge] = [start, end]
+                continue
         a = edge_nodes[edges[0]][0]
         left = columns[ranks[a]] + widths[ranks[a]] + 60
         right = max(columns[ranks[edge_nodes[e][1]]] - 60 for e in edges)

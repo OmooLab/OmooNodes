@@ -365,6 +365,4 @@ def plan_layout(nodes, edges, size, blocks, core):
         [endpoint(edge, positions) for edge in edges], edge_ids, planned["ranks"],
         planned["columns"], planned["column_widths"], boxes, source_keys, preferred,
     )
-    for block in blocks:
-        block["box"] = bounds({i: positions[i] for i in block["members"]})
     return positions, routes

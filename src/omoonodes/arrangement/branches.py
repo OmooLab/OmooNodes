@@ -33,7 +33,7 @@ def calculation_blocks(nodes, edges):
     for i in fields:
         groups[destinations[i]].add(i)
     blocks = []
-    for targets, members in groups.items():
+    for members in groups.values():
         pending = set(members)
         while pending:
             component = set()
@@ -45,25 +45,7 @@ def calculation_blocks(nodes, edges):
                 pending.remove(i)
                 component.add(i)
                 queue.extend((parents[i] | children[i]) & pending)
-            target = min(targets) if targets else None
-            ports = list(
-                dict.fromkeys(
-                    e.to_socket.name
-                    for e in edges
-                    if ids[e.from_node] in component and ids[e.to_node] == target
-                )
-            )
-            if ports:
-                title = nodes[target].name + " · " + ", ".join(ports)
-            else:
-                outlets = [i for i in component if children[i] - component]
-                source = (
-                    max(outlets, key=lambda i: (len(children[i] - component), i))
-                    if outlets
-                    else max(component)
-                )
-                title = "共享 · " + nodes[source].name + " → " + str(len(targets)) + " 处计算"
-            blocks.append(dict(title=title, members=sorted(component), targets=sorted(targets)))
+            blocks.append(dict(members=sorted(component)))
     block_of = {i: k for k, b in enumerate(blocks) for i in b["members"]}
     # Keep one local original read; additional consumers receive local copies later.
     for i in sorted(inputs):

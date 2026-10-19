@@ -31,7 +31,7 @@ def native(config, directory, code, version):
 
 
 @pytest.mark.parametrize("version", ["b45", "b52"])
-def test_arrangement_frame_moves_internal_reroutes(config, tmp_path, version):
+def test_arrangement_removes_frames_and_keeps_routes_unparented(config, tmp_path, version):
     native(config, tmp_path, f'''
 import sys
 sys.path.insert(0, {str(Path(__file__).resolve().parents[2] / 'src')!r})
@@ -40,27 +40,138 @@ import bpy
 from unittest.mock import patch
 from omoonodes.arrangement.arrange import arrange_nodes
 
-tree = bpy.data.node_groups.new('Frame routes', 'GeometryNodeTree')
-nodes = [tree.nodes.new('ShaderNodeMath') for _ in range(5)]
-tree.links.new(nodes[0].outputs[0], nodes[-1].inputs[0])
-positions = {i: (i * 200, 100) for i in range(5)}
-blocks = [{'members': list(range(5)), 'title': 'Branch', 'box': (0, 0, 1000, 300)}]
-routes = {0: [(100, 100), (300, 50), (700, 400), (800, 100)]}
-with patch('omoonodes.arrangement.arrange.calculation_blocks', return_value=(blocks, set())), patch(
-    'omoonodes.arrangement.arrange.plan_layout', return_value=(positions, routes)
-):
+for kind in ['GeometryNodeTree', 'ShaderNodeTree', 'CompositorNodeTree']:
+    tree = bpy.data.node_groups.new('Old frames ' + kind, kind)
+    nodes = [tree.nodes.new('ShaderNodeMath') for _ in range(5)]
+    tree.links.new(nodes[0].outputs[0], nodes[-1].inputs[0])
+    frame = tree.nodes.new('NodeFrame')
+    frame['arrangement_frame'] = True
+    nested = tree.nodes.new('NodeFrame')
+    nested.parent = frame
+    for node in nodes:
+        node.parent = nested
+    positions = {i: (i * 200, 100) for i in range(5)}
+    blocks = [{'members': list(range(5))}]
+    routes = {0: [(100, 100), (300, 50), (700, 400), (800, 100)]}
+    with patch('omoonodes.arrangement.arrange.calculation_blocks', return_value=(blocks, set())), patch(
+        'omoonodes.arrangement.arrange.plan_layout', return_value=(positions, routes)
+    ):
+        arrange_nodes(tree)
+    assert not any(node.bl_idname == 'NodeFrame' for node in tree.nodes), kind
+    assert all(node.parent is None for node in tree.nodes), kind
+    assert [tuple(node.location) for node in nodes] == [(i * 200, -100) for i in range(5)]
+    assert [tuple(node.location) for node in tree.nodes if node.bl_idname == 'NodeReroute'] == [(292, -42), (692, -392)]
+    assert nodes[-1].inputs[0].links[0].from_node.bl_idname == 'NodeReroute'
+''', version)
+
+
+@pytest.mark.parametrize("version", ["b45", "b52"])
+def test_arrangement_local_inputs_preserve_asset_links_on_reload(config, tmp_path, version):
+    native(config, tmp_path, f'''
+import sys
+sys.path[:0] = [{str(Path(__file__).resolve().parents[2])!r}, {str(Path(__file__).resolve().parents[2] / 'src')!r}]
+''' + '''
+import bpy
+from omoonodes.arrangement.arrange import arrange_nodes
+from omoonodes.arrangement.common import origin_socket, socket_links
+from nodes.O_Essentials.O_Essentials_CompositingNodes.compositor.o_stroke import OStroke
+from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_tube import OTube
+
+shader = bpy.data.node_groups.new('Shader input reads', 'ShaderNodeTree')
+shader.interface.new_socket('Value', in_out='INPUT', socket_type='NodeSocketFloat')
+shader.interface.new_socket('Shader', in_out='OUTPUT', socket_type='NodeSocketShader')
+inp = shader.nodes.new('NodeGroupInput')
+add = shader.nodes.new('ShaderNodeAddShader')
+for socket in add.inputs:
+    bsdf = shader.nodes.new('ShaderNodeBsdfPrincipled')
+    shader.links.new(inp.outputs['Value'], bsdf.inputs['Roughness'])
+    shader.links.new(bsdf.outputs[0], socket)
+shader.links.new(add.outputs[0], shader.nodes.new('NodeGroupOutput').inputs[0])
+
+def links(tree):
+    result = []
+    for edge in tree.links:
+        if edge.to_node.bl_idname == 'NodeReroute':
+            continue
+        source = origin_socket(edge.from_socket)
+        name = 'Input' if source.node.bl_idname == 'NodeGroupInput' else source.node.name
+        result.append((name, source.identifier, edge.to_node.name, edge.to_socket.identifier))
+    return sorted(result)
+
+trees = [OStroke.create_group(), OTube.create_group(), shader]
+expected = {tree.name: links(tree) for tree in trees}
+for tree in trees:
     arrange_nodes(tree)
-frame = next(node for node in tree.nodes if node.bl_idname == 'NodeFrame')
-internal, external = [node for node in tree.nodes if node.bl_idname == 'NodeReroute']
-assert internal.parent == frame
-assert external.parent is None
-assert tuple(internal.location_absolute) == (292, -42)
-assert tuple(external.location_absolute) == (692, -392)
-before = internal.location_absolute.copy()
-frame.location.x += 120
-frame.location.y += 60
-assert tuple(internal.location_absolute - before) == (120, 60)
-assert tuple(external.location_absolute) == (692, -392)
+    assert not any(node.bl_idname == 'NodeFrame' for node in tree.nodes), tree.name
+    reads = [node for node in tree.nodes if node.bl_idname == 'NodeGroupInput']
+    assert len(reads) > 1, tree.name
+    assert all(any(socket.is_linked for socket in node.outputs) for node in reads)
+    assert links(tree) == expected[tree.name], tree.name
+    positions = {node.name: tuple(node.location_absolute) for node in tree.nodes if node.bl_idname not in {'NodeFrame', 'NodeReroute'}}
+    arrange_nodes(tree)
+    assert links(tree) == expected[tree.name], tree.name
+    assert positions == {node.name: tuple(node.location_absolute) for node in tree.nodes if node.bl_idname not in {'NodeFrame', 'NodeReroute'}}, tree.name
+
+# Distinct interface reads can intentionally repeat the same geometry input.
+repeated = bpy.data.node_groups.new('Repeated interface geometry', 'GeometryNodeTree')
+repeated.interface.new_socket('Geometry', in_out='INPUT', socket_type='NodeSocketGeometry')
+repeated.interface.new_socket('Geometry', in_out='OUTPUT', socket_type='NodeSocketGeometry')
+join = repeated.nodes.new('GeometryNodeJoinGeometry')
+for index in range(3):
+    read = repeated.nodes.new('NodeGroupInput')
+    repeated.links.new(read.outputs[0], join.inputs[0])
+    if index == 1:
+        cube = repeated.nodes.new('GeometryNodeMeshCube')
+        repeated.links.new(cube.outputs[0], join.inputs[0])
+repeated.links.new(join.outputs[0], repeated.nodes.new('NodeGroupOutput').inputs[0])
+def input_order():
+    return [origin_socket(edge.from_socket).node.bl_idname for edge in socket_links(join.inputs[0])]
+order = input_order()
+before = links(repeated)
+for _ in range(2):
+    arrange_nodes(repeated)
+    assert links(repeated) == before
+    assert input_order() == order
+from omoonodes.arrangement.source import clear_layout
+clear_layout(repeated)
+assert links(repeated) == before
+assert input_order() == order
+trees.append(repeated)
+expected[repeated.name] = before
+
+for kind in ['GeometryNodeTree', 'ShaderNodeTree', 'CompositorNodeTree']:
+    tree = bpy.data.node_groups.new(kind + ' local reads', kind)
+    tree.interface.new_socket('Value', in_out='INPUT', socket_type='NodeSocketFloat')
+    tree.interface.new_socket('Result', in_out='OUTPUT', socket_type='NodeSocketFloat')
+    read = tree.nodes.new('NodeGroupInput')
+    math = [tree.nodes.new('ShaderNodeMath') for _ in range(5)]
+    for node in math[:2]:
+        for socket in node.inputs:
+            tree.links.new(read.outputs[0], socket)
+    for source, socket in zip(math[:2], math[2].inputs):
+        tree.links.new(source.outputs[0], socket)
+    for socket in math[3].inputs:
+        tree.links.new(math[2].outputs[0], socket)
+    tree.links.new(math[3].outputs[0], math[4].inputs[0])
+    tree.links.new(read.outputs[0], math[4].inputs[1])
+    tree.links.new(math[4].outputs[0], tree.nodes.new('NodeGroupOutput').inputs[0])
+    expected[tree.name] = links(tree)
+    arrange_nodes(tree)
+    assert math[0].inputs[0].links[0].from_node == math[1].inputs[0].links[0].from_node, kind
+    assert math[0].inputs[0].links[0].from_node != math[4].inputs[1].links[0].from_node, kind
+    assert links(tree) == expected[tree.name], kind
+    trees.append(tree)
+
+''' + f'''
+path = {str(tmp_path / 'arranged.blend')!r}
+bpy.data.libraries.write(path, set(trees), fake_user=True, compress=True)
+bpy.ops.wm.open_mainfile(filepath=path)
+for name, edges in expected.items():
+    tree = bpy.data.node_groups[name]
+    assert not any(node.bl_idname == 'NodeFrame' for node in tree.nodes), name
+    assert links(tree) == edges, name
+    if name != 'Repeated interface geometry':
+        assert sum(node.bl_idname == 'NodeGroupInput' for node in tree.nodes) > 1, name
 ''', version)
 
 
