@@ -99,6 +99,8 @@ def module_path(value):
 def tree_source(tree, material=None, references=None):
     import bpy
     from ..arrangement.source import clear_layout
+    from ..native import validate_menus
+    validate_menus(tree)
     value = material or tree
     copied = tree.copy()
     try:

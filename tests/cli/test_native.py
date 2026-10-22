@@ -31,6 +31,98 @@ def native(config, directory, code, version):
 
 
 @pytest.mark.parametrize("version", ["b45", "b52"])
+def test_menu_dependency_rebuild_preserves_selections_and_rejects_stale_export(config, tmp_path, monkeypatch, version):
+    root = tmp_path / "nodes"
+    owner = root / "Owner"
+    script = owner / "geometry/menu.py"
+    script.parent.mkdir(parents=True)
+    definition = '''from omoonodes import geometry as g
+from omoonodes.builder import CustomGeometryGroup
+class Menu(CustomGeometryGroup):
+    _name = 'Menu'
+    def _build_group(self, tree):
+        mode = tree.inputs.menu('Mode', 'A')
+        result = tree.outputs.float('Result')
+        switch = tree.tree.nodes.new('GeometryNodeMenuSwitch')
+        switch.data_type = 'FLOAT'
+        switch.enum_items.clear()
+        for name in ['A', 'B', 'C']:
+            switch.enum_items.new(name)
+        for name, value in [('A', 1), ('B', 2), ('C', 3)]:
+            switch.inputs[name].default_value = value
+        tree.tree.links.new(mode.socket, switch.inputs['Menu'])
+        tree.tree.links.new(switch.outputs[0], result.socket)
+ASSET = Menu
+'''
+    script.write_text(definition)
+    write_json(owner / "collection.json", {"files": {"Owner.blend": {"source": "geometry"}}})
+    extra = root / "Extra"
+    consumer = extra / "geometry/consumer.py"
+    consumer.parent.mkdir(parents=True)
+    consumer.write_text('''from nodes.Owner.geometry.menu import Menu
+from omoonodes import geometry as g
+from omoonodes.builder import CustomGeometryGroup
+class Consumer(CustomGeometryGroup):
+    _name = 'Consumer'
+    def _build_group(self, tree):
+        geometry = tree.inputs.geometry('Geometry')
+        result = tree.outputs.geometry('Geometry')
+        offset = g.CombineXYZ(x=Menu(Mode='A'), y=Menu(Mode='B'))
+        g.SetPosition(geometry=geometry, offset=offset) >> result
+ASSET = Consumer
+''')
+    write_json(extra / "collection.json", {"dependencies": ["Owner"], "files": {
+        "Extra.blend": {"source": "geometry", "links": {"Menu": {"library": "Owner", "file": "Owner.blend"}}}}})
+    selected = {**config, "versions": {version: config["targets"][version]}}
+    monkeypatch.setattr(libraries, "configuration", lambda *args, **kwargs: selected)
+    workspace = tmp_path / "workspace"
+    libraries.dev(root, workspace, version)
+    old_owner = workspace / version / "Owner/Owner.blend"
+    old_consumer = workspace / version / "Extra/Extra.blend"
+    before = old_owner.read_bytes(), old_consumer.read_bytes()
+    # Rebuilding the same labels with native IDs shifts 2/3/4 to 0/1/2.
+    script.write_text(definition.replace("        switch.enum_items.clear()\n        for name in ['A', 'B', 'C']:\n            switch.enum_items.new(name)\n",
+                                        "        switch.enum_items[0].name = 'A'\n        switch.enum_items[1].name = 'B'\n        switch.enum_items.new('C')\n"))
+    with pytest.raises(ValueError, match="Extra depends on Owner"):
+        libraries.dev(owner, workspace, version)
+    assert (old_owner.read_bytes(), old_consumer.read_bytes()) == before
+
+    # Simulate an external dependency replacement to exercise dump/inspect validation.
+    candidate = tmp_path / "candidate"
+    libraries.build_staged(selected, [owner], candidate, tmp_path / "build")
+    shutil.copy2(candidate / version / "Owner/Owner.blend", old_owner)
+    native(config, tmp_path, f'''
+import bpy
+bpy.ops.wm.open_mainfile(filepath={str(old_consumer)!r}, load_ui=False)
+nodes = [node for node in bpy.data.node_groups['Consumer'].nodes if node.bl_idname == 'GeometryNodeGroup']
+assert [node.inputs['Mode'].default_value for node in nodes] == ['C', '']
+''', version)
+    for action in ["inspect", "dump"]:
+        with pytest.raises(subprocess.CalledProcessError) as failure:
+            run_worker(config, tmp_path, action, version=version, input=str(old_consumer), output=str(tmp_path / "dump"))
+        assert "Invalid menu selection: Consumer/" in failure.value.stdout
+    assert not (tmp_path / "dump").exists()
+    with pytest.raises(subprocess.CalledProcessError) as failure:
+        run_worker(config, tmp_path, "publish", version=version, input=str(old_consumer.parent),
+                   output=str(tmp_path / "published"), self_contained=True)
+    assert "Invalid menu selection: Consumer/" in failure.value.stdout
+    assert not (tmp_path / "published/Extra.blend").exists()
+
+    libraries.dev(root, workspace, version)
+    native(config, tmp_path, f'''
+import sys
+sys.path.insert(0, {str(Path(__file__).resolve().parents[1] / 'nodes')!r})
+import bpy
+from evaluation import geometry_group, coordinates
+bpy.ops.wm.open_mainfile(filepath={str(old_consumer)!r}, load_ui=False)
+nodes = [node for node in bpy.data.node_groups['Consumer'].nodes if node.bl_idname == 'GeometryNodeGroup']
+assert [node.inputs['Mode'].default_value for node in nodes] == ['A', 'B']
+obj, _, _ = geometry_group('Consumer', [(0, 0, 0)])
+assert coordinates(obj) == [(1, 2, 0)]
+''', version)
+
+
+@pytest.mark.parametrize("version", ["b45", "b52"])
 def test_arrangement_removes_frames_and_keeps_routes_unparented(config, tmp_path, version):
     native(config, tmp_path, f'''
 import sys
@@ -179,7 +271,10 @@ for name, edges in expected.items():
 def test_native_roundtrips_preserve_dynamic_nodes_and_resources(config, tmp_path, version):
     blend = tmp_path / "original.blend"
     native(config, tmp_path, f'''
+import sys
+sys.path.insert(0, {str(Path(__file__).resolve().parents[2] / 'src')!r})
 import bpy
+from omoonodes.native import validate_menus
 bpy.ops.wm.read_factory_settings(use_empty=True)
 g=bpy.data.node_groups.new('Probe','GeometryNodeTree');g.is_modifier=True;g.asset_mark()
 g.asset_data.author='Tester';g.asset_data.tags.new('test')
@@ -191,6 +286,14 @@ g.interface.new_socket('Mode',in_out='INPUT',socket_type='NodeSocketMenu')
 menu=g.nodes.new('GeometryNodeMenuSwitch');menu.data_type='BOOLEAN'
 menu.enum_items[0].name='First';menu.enum_items[1].name='Second'
 g.links.new(g.nodes.new('NodeGroupInput').outputs['Mode'],menu.inputs['Menu'])
+g.interface_update(bpy.context)
+try:
+    validate_menus(g)
+except ValueError as error:
+    assert 'Probe/interface/Mode' in str(error)
+else:
+    raise AssertionError('An unset interface menu was accepted')
+g.interface.items_tree['Mode'].default_value='Second'
 r=g.nodes.new('FunctionNodeRandomValue');r.data_type='FLOAT'
 math=g.nodes.new('ShaderNodeMath');math.operation='MULTIPLY'
 g.links.new(next(s for s in r.outputs if s.type=='VALUE' and not s.is_unavailable),math.inputs[0])
@@ -249,6 +352,7 @@ import bpy
 bpy.ops.wm.open_mainfile(filepath={str(blend)!r})
 menu = next(n for n in bpy.data.node_groups['Probe'].nodes if n.bl_idname == 'GeometryNodeMenuSwitch')
 assert [s.identifier for s in menu.inputs if s.identifier.startswith('Item_')] == ['Item_0', 'Item_1']
+assert bpy.data.node_groups['Probe'].interface.items_tree['Mode'].default_value == 'Second'
 ''', version)
     other = "b52" if version == "b45" else "b45"
     with pytest.raises(subprocess.CalledProcessError):

@@ -37,6 +37,21 @@ INPUT_ALIASES = {
 }
 
 
+def validate_menus(tree):
+    """Reject unresolved menu selections before export or publication."""
+    for item in tree.interface.items_tree:
+        if (getattr(item, 'socket_type', None) == 'NodeSocketMenu'
+                and item.in_out == 'INPUT' and not item.default_value):
+            raise ValueError(f'Invalid menu selection: {tree.name}/interface/{item.name} ({item.identifier})')
+    for node in tree.nodes:
+        if node.bl_idname == 'NodeReroute':
+            continue
+        for socket in node.inputs:
+            if (socket.type == 'MENU' and not socket.is_linked
+                    and not socket.is_unavailable and not socket.default_value):
+                raise ValueError(f'Invalid menu selection: {tree.name}/{node.name}/{socket.name} ({socket.identifier})')
+
+
 def create_node(tree, kind):
     if bpy.app.version < (5, 0, 0) and tree.bl_idname == 'CompositorNodeTree' and kind == 'ShaderNodeGamma':
         kind = 'CompositorNodeGamma'

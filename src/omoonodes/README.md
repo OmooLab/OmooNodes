@@ -52,5 +52,6 @@ ASSET = Example
 材质类的 `_name` 与 `MATERIAL_NAME` 使用实际材质名。`MATERIAL_PROPERTIES` 按字段换行，记录 Blender 原生材质设置；插件附加的自定义属性不参与回写。
 
 跨库也使用类导入，例如 `from nodes.Library.geometry.example import Example`。`nodes` 指向当前目标选出的源码根目录；`collection.json` 的 dependencies、links 指定构建顺序和外部链接，调用导入的类时复用已链接的节点组。
+更新公共库时，输出目录中已有的引用库须一并重建；`dev`、`build` 会检查依赖并提示选择共同的源码目录。人工编辑后先同步源码，再重建相关库。
 
 `.py` 是共享基础，`.b52.py` 是完整专用实现，`DISABLED = True` 表示停用。同步跳过未修改的内容；共享修改必须通过所有继承目标的原生构建验证，失败时保留源码。验证结构保真，效果由项目验证。

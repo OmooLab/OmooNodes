@@ -65,12 +65,35 @@ def build_staged(config, sources, destination, temporary, quiet=False):
                 shutil.copy2(catalog, library_out)
 
 
+def check_dependents(sources, destination, versions):
+    """Keep existing consumers in the same rebuild as their dependencies."""
+    selected = set(sources)
+    root = sources[0].parent
+    for manifest in sorted(root.glob("*/collection.json")):
+        consumer = manifest.parent
+        if consumer in selected:
+            continue
+        existing = [version for version in versions
+                    if any((destination / version / consumer.name).rglob("*.blend"))]
+        if not existing:
+            continue
+        affected = selected.intersection(libraries(consumer))
+        if not affected:
+            continue
+        names = ", ".join(sorted(path.name for path in affected))
+        raise ValueError(
+            f"{existing[0]}/{consumer.name} depends on {names}; rebuild these collections together "
+            f"by selecting {root}. Sync any workspace edits to sources first."
+        )
+
+
 def dev(source, workspace, target=None):
     if source.is_relative_to(workspace) or workspace.is_relative_to(source):
         raise ValueError("Source and editing workspace must not overlap")
     with progress("Checking runtimes"):
         config = configuration(target, development=True)
     closure = libraries(source)
+    check_dependents(closure, workspace, config["versions"])
     cache = config["cache"]
     cache.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=cache) as directory:
@@ -155,6 +178,7 @@ def build(source, output, target=None, remote=False, self_contained=False):
                       for value in config["versions"].values()):
         raise ValueError("Remote libraries require a configured Blender 5.2+ target")
     closure = libraries(source)
+    check_dependents(closure, output, config["versions"])
     cache = config["cache"]
     cache.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=cache) as directory:

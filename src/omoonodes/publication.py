@@ -167,6 +167,7 @@ def library_paths(blend_data: Any) -> tuple[str, ...]:
 
 def validate_saved_file(bpy: Any, destination: Path, expected_assets: int, expected_library_paths: tuple[str, ...] | None) -> None:
     bpy.ops.wm.open_mainfile(filepath=str(destination), load_ui=False)
+    validate_library_menus(bpy)
     if len(bpy.data.scenes) != 1 or bpy.data.scenes[0].name != 'Scene':
         raise BuildError(f'Saved file does not contain one clean scene: {destination}')
     clean_scene = bpy.data.scenes[0]
@@ -202,8 +203,15 @@ def release_compositor_storage(bpy: Any, cleanup: Path) -> None:
     cleanup.unlink()
 
 
+def validate_library_menus(bpy: Any) -> None:
+    from .native import validate_menus
+    for tree in [*bpy.data.node_groups, *(material.node_tree for material in bpy.data.materials if material.use_nodes)]:
+        validate_menus(tree)
+
+
 def clean_blend_file(bpy: Any, source: Path, destination: Path, keep_linked: bool) -> int:
     bpy.ops.wm.open_mainfile(filepath=str(source), load_ui=False)
+    validate_library_menus(bpy)
     reset_scenes(bpy)
     if not keep_linked:
         make_linked_data_local(bpy.data)

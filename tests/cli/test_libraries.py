@@ -6,6 +6,28 @@ import pytest
 from omoonodes import libraries
 
 
+@pytest.mark.parametrize("command", ["dev", "build"])
+def test_partial_rebuild_rejects_existing_transitive_consumers(tmp_path, monkeypatch, command):
+    root = tmp_path / "nodes"
+    for name, dependencies in (("Owner", []), ("Extra", ["Owner"]), ("Consumer", ["Extra"]), ("Other", [])):
+        directory = root / name
+        directory.mkdir(parents=True)
+        (directory / "collection.json").write_text(json.dumps({"dependencies": dependencies}))
+    output = tmp_path / "output"
+    consumer = output / "b45/Consumer/Consumer.blend"
+    consumer.parent.mkdir(parents=True)
+    consumer.write_bytes(b"keep")
+    config = {"versions": {"b45": "4.5.14"}}
+    monkeypatch.setattr(libraries, "configuration", lambda *args, **kwargs: config)
+    monkeypatch.setattr(libraries, "build_staged", lambda *args: pytest.fail("Unsafe rebuild started"))
+    with pytest.raises(ValueError, match="b45/Consumer depends on Owner"):
+        getattr(libraries, command)(root / "Owner", output)
+    assert consumer.read_bytes() == b"keep"
+    libraries.check_dependents([root / "Owner"], output, ["b52"])
+    libraries.check_dependents([root / "Other"], output, ["b45"])
+    libraries.check_dependents(libraries.libraries(root), output, ["b45"])
+
+
 @pytest.mark.parametrize(("markers", "target", "message"), [
     ([], None, "No development libraries found"),
     (["b45"], "b52", "No development libraries found"),
