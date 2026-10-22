@@ -117,7 +117,7 @@ git tag cli-v0.1.0
 git push github cli-v0.1.0
 ```
 
-节点库独立使用 `nodes-v*` 标签，触发 `.github/workflows/release.yml`，通过 matrix 并行构建 b45 本地库和 b52 远程库，各自完成后将压缩包上传同一个 GitHub Release：
+节点库独立使用 `nodes-v*` 标签，触发 `.github/workflows/release.yml`，通过 matrix 并行构建 b45 本地库和 b52 远程库；两个构建都成功后，由一个发布任务收集压缩包并统一发布 GitHub Release。同一标签的发布流程串行执行。
 
 ```bash
 git tag nodes-v0.1.0

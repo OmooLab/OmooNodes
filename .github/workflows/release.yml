@@ -5,11 +5,16 @@ on:
     tags:
       - "nodes-v*"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: nodes-release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  release:
+  build:
     runs-on: ubuntu-24.04
-    permissions:
-      contents: write
     strategy:
       matrix:
         include:
@@ -36,8 +41,29 @@ jobs:
           cd dist/${{ matrix.target }}
           zip -r "../OmooNodes.${GITHUB_REF_NAME#nodes-}.${{ matrix.target }}.zip" .
       
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: nodes-${{ matrix.target }}
+          path: dist/*.zip
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Download packages
+        uses: actions/download-artifact@v4
+        with:
+          pattern: nodes-*
+          merge-multiple: true
+          path: dist
+
       - name: Publish release
         uses: softprops/action-gh-release@v3
         with:
           files: dist/*.zip
+          fail_on_unmatched_files: true
           generate_release_notes: true
