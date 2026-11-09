@@ -46,15 +46,16 @@ flowchart TD
 概念上的存储划分如下，具体模块名与目录沿用 nodebpy 的导出命名：
 
 ```text
-nodes/O_Essentials/
-  library.json
-  geometry/
-    node_a.py          # b45、b52 共用
-    node_b.py          # 通用完整实现，至少支持 b45
-    node_b.b52.py      # 同名组的完整 b52 专用实现
-    node_c.b52.py      # 仅 b52
-    _shared/
-      helper.py
+nodes/O/
+  collection.json
+  O_Base_Geometry/
+    geometry/
+      node_a.py          # b45、b52 共用
+      node_b.py          # 通用完整实现，至少支持 b45
+      node_b.b52.py      # 同名组的完整 b52 专用实现
+      node_c.b52.py      # 仅 b52
+      _shared/
+        helper.py
 ```
 
 `node_a.py` 表示尽可能通用的完整实现，最低支持 b45；在当前两个目标中，b45 选择它，b52 没有专用文件时也选择它并验证兼容。`node_a.b52.py` 表示仅用于 b52 的完整实现，不用于 b45，也不自动用于未来版本。
@@ -71,9 +72,9 @@ nodebpy 原生 import 处理资产嵌套和共用辅助组；项目层只负责�
 
 每次构建使用干净、独立的 Blender 进程，避免 nodebpy 按名字复用旧组。跨文件、跨资产库依赖也必须在目标完整编辑库内解析到正确版本；不能指向另一版本、旧源库或发布产物。
 
-O_Extra 依赖 O_Essentials 时，构建自动先准备同版本 O_Essentials，然后将 Extra 中的公共组引用恢复为指向同级 Essentials 文件的相对 linked 引用。nodebpy 的 Python import 只负责创建逻辑，不自动等于 Blender 跨文件 link；恢复链接属于项目工具的必要后处理。
+构建先准备合成、几何和着色文件，再生成 `O_Extra.blend`。公共组通过相对路径链接到同目录的所属文件。
 
-公共组只有一个编辑归属：修改它时打开 O_Essentials 的所属文件；在 O_Extra 中它是 linked 数据，不生成第二份可编辑来源。构建依赖不能覆盖已有未同步修改。sync 从所属文件提取，按资产库回写；依赖库也有修改时一并检查和同步，不能从 Extra 引用副本反写 Essentials。
+公共组在所属文件中编辑，效果文件持有相对链接。同步时从各所属文件提取并一起验证。
 
 ### 3. nodebpy build 后由 AnyImage 整理
 
@@ -112,24 +113,22 @@ O_Extra 依赖 O_Essentials 时，构建自动先准备同版本 O_Essentials，
 
 实际试验已发现这条路径不能稳定用于全部资产：`O Mix Color` 连续两次 dump/build 后，b45 逻辑节点数为 13、16，跨版本颜色转换持续增加节点。Compositor 的配置和连接也出现变化。必须先解决 b45 转换后端或编译规则，再将此路径用于正式迁移；不能仅凭可打开或一次构建成功交付。
 
-Granules 按用户决定暂缓迁移：原库引用的 `O Center Geometry` 在其目标 Essentials 文件中缺失，保留诊断，不自动猜测替换。
+Granules 按用户决定暂缓迁移：原库引用的 `O Center Geometry` 在其目标基础节点文件中缺失，保留诊断，不自动猜测替换。
 
 版本适配由完整节点组及依赖的实际验证确定，不只检查是否使用新节点。确定的能力限制允许拆分；后端不可用、崩溃、提取遗漏或行为失败阻止同步，不能为了继续写回而标成仅适配 b52。
 
 ### 6. CLI 只保留 build 与 sync
 
 ```bash
-nodes build nodes/O_Essentials -o workspaces
-nodes build nodes/O_Extra -o workspaces
-nodes sync nodes/O_Essentials -s workspaces
-nodes sync nodes/O_Extra -s workspaces
+omoonodes dev nodes/O -o workspaces
+omoonodes dev nodes/O -s workspaces
 ```
 
 `build` 自动处理 b45、b52，按依赖顺序组织临时源码、调用 nodebpy、整理、恢复跨库链接并验证完整编辑库。`sync` 从指定工作区自动识别现有版本及依赖归属，临时 dump、比较、验证并合并到正式来源。变化报告与必要检查内置，不提供独立 diff、check 命令。目标 bpy 环境由工具自动准备，不需要配置 Blender executable。CLI 不实现第二套节点转换器。
 
 `--apply-to GROUP_ID=b45,b52` 显式统一指定目标的实现；`--delete GROUP_ID` 只删除参与编辑版本的组并检查剩余依赖。删除 b45 而保留 b52 时，将保留的完整实现存为 `.b52.py`；删除 b52 而保留通用文件会触发通用回退，因此此类请求必须报告冲突，不能宣称已从 b52 删除。bootstrap 从旧完整库执行同样的临时导出与验证，建立首次来源。
 
-`build_assets.py` 接收已验证的完整版本工作区，继续执行现有本地、独立本地和远程发布。它仍仅依赖 bpy 和标准库。节点转换与整理属于前置步骤，删除旧 overlay 合并执行路径。
+`omoonodes build` 从源码构建并验证完整目标库，再生成本地、独立本地或远程发布目录。
 
 ### 7. 本地与 CI 的运行环境
 
@@ -138,8 +137,7 @@ nodes sync nodes/O_Extra -s workspaces
 自动准备独立缓存环境，所有目标统一执行检查、保存、重载和发布清理。
 构建后端升级不改变目标环境；worker 在处理资产前检查实际完整 bpy 版本。
 
-release workflow 复用相同调度，从 nodes 构建全部已迁移库，再调用 build_assets.py
-生成完整本地发布库并按版本打包。本地使用同一个 tools.nodes.release 入口。
+release workflow 与本地共用 `omoonodes build`，从 `nodes/O` 构建 b45 本地库和 b52 远程库，再按版本打包。
 当前跨版本 Mix 转换行为仍属未完成事项。
 
 ## Risks / Trade-offs

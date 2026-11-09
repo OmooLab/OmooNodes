@@ -1,0 +1,18 @@
+# This is an Asset Catalog Definition file for Blender.
+#
+# Empty lines and lines starting with `#` will be ignored.
+# The first non-ignored line should be the version indicator.
+# Other lines are of the format "UUID:catalog/path/for/assets:simple catalog name"
+
+VERSION 1
+
+304de8ab-a7d3-4df3-b6b2-4674d8814339:O Attribute:O Attribute
+3aee6aa4-2dd5-4adb-9bed-3676454cdeff:O Debug:O Debug
+f223bfa5-ce4b-4f80-838a-eff17d3cf085:O Deform:O Deform
+925722af-3fbd-4bb1-8247-dfe9a1ecd480:O Edge:O Edge
+2cd36519-46ee-428e-a751-5c3d0312efb2:O Filter:O Filter
+0218b41f-9d3f-4dd0-9491-5c56e57678db:O Generate:O Generate
+99c91009-1ea6-4fc1-bf33-6351786a8df1:O Read:O Read
+4dd41edf-4431-4f79-a357-c6b444a4416f:O Shader:O Shader
+2e34744f-a050-4efb-a7b7-c052b449fc5d:O Texture:O Texture
+1f098c57-6187-4e3a-95ba-d7e3d187c6d5:O Utilities:O Utilities

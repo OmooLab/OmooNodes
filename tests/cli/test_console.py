@@ -26,5 +26,5 @@ def test_terminal_progress_keeps_diagnostics_and_marks_only_success(failed):
 
 def test_done_lists_output_directories(tmp_path, monkeypatch, capsys):
     monkeypatch.chdir(tmp_path)
-    done([tmp_path / "workspaces/b45/O_Essentials", tmp_path / "workspaces/b45/O_Extra"])
-    assert capsys.readouterr().out == "Done\n  - workspaces/b45/O_Essentials\n  - workspaces/b45/O_Extra\n"
+    done([tmp_path / "workspaces/b45/First", tmp_path / "workspaces/b45/Second"])
+    assert capsys.readouterr().out == "Done\n  - workspaces/b45/First\n  - workspaces/b45/Second\n"

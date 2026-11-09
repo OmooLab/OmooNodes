@@ -1,18 +1,17 @@
-site_name: OmooNodes Docs
+site_name: Omoo Nodes Docs
 site_url: https://docs.omoolab.xyz/omoonodes/
 site_author: OmooLab
-site_description: Extra geometry nodes for Blender
+site_description: Native node assets for Blender
 
 repo_name: OmooLab/OmooNodes
 repo_url: https://github.com/OmooLab/OmooNodes
 
 nav:
-  - OmooNodes:
+  - Omoo Nodes:
       - index.md
       - asset-libraries.md
   - 节点:
-      - O Essentials: nodes/o-essentials.md
-      - O Extra: nodes/o-extra.md
+      - O: nodes/omoo-nodes.md
   - 开发者:
       - develop.md
 

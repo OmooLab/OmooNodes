@@ -5,7 +5,7 @@
 - [x] 1.1 在临时副本中标记 AnyImage 公开根，验证 nodebpy dump/build 可处理未标记 Asset 的源，保留原文件摘要
 - [x] 1.2 对 Depth Cutout 验证完整 nodebpy 往返、水平布局、目标保存与结构逻辑，不以此前直接排列试验替代转换验证
 - [x] 1.3 用固定 bpy 5.2 的官方 listing 模块生成真实远程库，检查 schema、metadata、资产数量与 SHA-256，确认无自定义预览时的合法结果
-- [x] 1.4 完成 O_Essentials/O_Extra 的跨版本结构、元数据、资源、双向覆盖与构建失败恢复验收；保留既有 Mix 行为诊断及 Granules 延期，不恢复效果验证
+- [x] 1.4 完成基础和扩展节点的跨版本结构、元数据、资源、双向覆盖与构建失败恢复验收；保留既有 Mix 行为诊断及 Granules 延期，不恢复效果验证
 
 ## 2. 在 OmooNodes 维护通用工具
 
@@ -34,7 +34,7 @@
 
 ## 验证记录
 
-- 全量测试通过；当前范围为 O_Essentials/O_Extra 共 92 个资产，b52 完整导出覆盖与重建一致，远程库原生 listing 与摘要通过。
+- 全量测试通过；该次验收覆盖 92 个资产，b52 完整导出覆盖与重建一致，远程库原生 listing 与摘要通过。
 - b52 后端读取 b45 文件时迁移节点，O Stroke、O Mix Color 及其依赖的往返结构存在差异。
 - 目标列表决定支持范围，最低目标为默认 dev 与通用基础版本；单版本工作区可自动识别，旧多版本工作区须显式选目标。
 - Python 3.11 控制进程可调度独立 3.13 SDK 与 b52 环境；清除继承的 PYTHONHOME/PYTHONPATH，worker 使用隔离 Blender 用户目录。

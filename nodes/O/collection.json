@@ -1,0 +1,78 @@
+{
+  "dependencies": [],
+  "files": {
+    "O_Base_Compositor.blend": {
+      "source": "O_Base_Compositor",
+      "links": {}
+    },
+    "O_Base_Geometry.blend": {
+      "source": "O_Base_Geometry",
+      "links": {}
+    },
+    "O_Base_Shader.blend": {
+      "source": "O_Base_Shader",
+      "links": {}
+    },
+    "O_Extra.blend": {
+      "source": "O_Extra",
+      "links": {
+        "O Align Edge Ends": {
+          "library": "O",
+          "file": "O_Base_Geometry.blend"
+        },
+        "O Background": {
+          "library": "O",
+          "file": "O_Base_Shader.blend"
+        },
+        "O Curve to Edge": {
+          "library": "O",
+          "file": "O_Base_Geometry.blend"
+        },
+        "O Displace": {
+          "library": "O",
+          "file": "O_Base_Geometry.blend"
+        },
+        "O Fast Remesh": {
+          "library": "O",
+          "file": "O_Base_Geometry.blend"
+        },
+        "O Linear": {
+          "library": "O",
+          "file": "O_Base_Shader.blend"
+        },
+        "O Noise Texture": {
+          "library": "O",
+          "file": "O_Base_Geometry.blend"
+        },
+        "O Scene Time": {
+          "library": "O",
+          "file": "O_Base_Geometry.blend"
+        },
+        "O Smooth": {
+          "library": "O",
+          "file": "O_Base_Geometry.blend"
+        },
+        "O Smooth Attributes": {
+          "library": "O",
+          "file": "O_Base_Geometry.blend"
+        },
+        "O Symmetry": {
+          "library": "O",
+          "file": "O_Base_Geometry.blend"
+        },
+        "O Transfer Attributes": {
+          "library": "O",
+          "file": "O_Base_Geometry.blend"
+        },
+        "O Tube": {
+          "library": "O",
+          "file": "O_Base_Geometry.blend"
+        },
+        "O Voxel Remesh": {
+          "library": "O",
+          "file": "O_Base_Geometry.blend"
+        }
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 ### Requirement: 两个 CLI 编排原生转换流程
 
-系统 SHALL 仅提供 nodes build SOURCE -o WORKSPACE 和 nodes sync SOURCE -s WORKSPACE，自动准备目标 bpy 环境，识别版本及依赖。build SHALL 组织临时源码并调用 nodebpy build、AnyImage 整理、跨库链接恢复和目标验证；sync SHALL 临时 dump、报告变化、验证后合并到 nodes。差异和必要检查 MUST 内置，不提供独立 diff、check 命令。CLI MUST 不维护另一套节点转换器。
+系统 SHALL 通过 `omoonodes dev SOURCE -o WORKSPACE` 构建开发库，通过 `omoonodes dev SOURCE -s WORKSPACE` 回写源码，自动准备目标 bpy 环境并识别版本及依赖。构建 SHALL 组织临时源码、整理节点、恢复跨库链接并验证目标库。回写 SHALL 比较临时导出结果、报告变化并验证，再合并到源码目录。
 
 #### Scenario: 双版本同步
 - **WHEN** sync SOURCE -s workspaces 发现 b45 和 b52 工作区
@@ -24,9 +24,9 @@
 
 系统 SHALL 从每个组的所属文件提取本地实现，过滤引用库的 linked 副本，按稳定归属回写对应 nodes 资产库。sync 指定库时 SHALL 同时检查其依赖库的变化，存在依赖修改时一并按归属验证和同步。所有涉及库 MUST 使用一致基线并原子提交，不允许从引用副本覆盖公共来源。
 
-#### Scenario: 同步 Extra 及修改过的 Essentials
-- **WHEN** 执行 nodes sync nodes/O_Extra -s workspaces 且两个所属文件均有修改
-- **THEN** Extra 组回写 nodes/O_Extra，公共组从 Essentials 所属文件提取并回写 nodes/O_Essentials，全部验证后一起提交
+#### Scenario: 同步 O 库中多个文件的修改
+- **WHEN** 执行 `omoonodes dev nodes/O -s workspaces` 且两个所属文件均有修改
+- **THEN** 各节点按文件归属回写 `nodes/O` 下的源目录，全部验证后一起提交
 
 #### Scenario: 引用副本无法确认归属
 - **WHEN** 用户本地化 linked 公共组而产生与所属组冲突的副本

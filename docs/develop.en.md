@@ -24,27 +24,26 @@ Commands show `...` while working, `✔` on completion, and output directories a
 
 `nodes/<library>/` contains Python, resources, catalogs, and `collection.json` describing files and dependencies.
 Sources use nodebpy-style node classes, Socket expressions, and `>>` links, imported from `omoonodes`. `dev` and `build` arrange nodes automatically; sources contain no node positions or layout options.
-Cross-library references import node classes through `nodes.<library>.<source>...`. The CLI loads sources for the selected target and reuses external links declared in `collection.json`.
+Cross-file references import node classes through `nodes.<library>.<source>...`. The CLI loads sources for the selected target and uses relative links declared in `collection.json`.
 Shared implementations use `.py`; b52-specific implementations use `.b52.py`. Related libraries share one target parent directory.
+
+`nodes/O/` contains the `O` asset library. Three `O_Base_*.blend` files and `O_Extra.blend` hold compositing, geometry, shader, and effects assets. Shared nodes are linked from their owning files. Local publishing saves linked files before the files that reference them. Blender's Add menu shows catalogs such as `O Deform` directly.
 
 ```bash
 # Import assets and dependencies into a new source directory
 uv run omoonodes dump path/to/O_Library.blend -o nodes/O_Library
 
 # Build and overwrite development libraries
-uv run omoonodes dev nodes/O_Extra -o workspaces
+uv run omoonodes dev nodes/O -o workspaces
 
 # Export development libraries, overwriting Python sources and resources
-uv run omoonodes dev nodes/O_Extra -s workspaces
+uv run omoonodes dev nodes/O -s workspaces
 
-# Build local libraries and dependencies
-uv run omoonodes build nodes/O_Extra --target b45 -o contents
-
-# Standalone local libraries with embedded dependencies
-uv run omoonodes build nodes/O_Extra --target b45 --self-contained -o contents
+# Build the local library
+uv run omoonodes build nodes/O --target b45 -o contents
 
 # Remote libraries with dependencies, native listings, metadata, thumbnails, and SHA-256
-uv run omoonodes build --target b52 --remote -o dist
+uv run omoonodes build nodes/O --target b52 --remote -o dist
 ```
 
 People edit development libraries in Blender; AI edits sources directly. The operator chooses the overwrite direction. Export also removes sources for deleted assets.
@@ -68,14 +67,16 @@ git tag cli-v0.1.0
 git push github cli-v0.1.0
 ```
 
-Node libraries use separate `nodes-v*` tags to trigger `.github/workflows/release.yml`. A matrix builds b45 local and b52 remote libraries in parallel; each uploads its ZIP archive to the same GitHub Release when complete:
+## Publishing the node asset library
+
+Annotated `nodes-v*` tags trigger `.github/workflows/release.yml`. The workflow builds the b45 local and b52 remote libraries in parallel, then publishes both archives in one GitHub Release. The tag annotation supplies the release notes.
 
 ```bash
-git tag nodes-v0.1.0
-git push github nodes-v0.1.0
+git tag -a --cleanup=verbatim -F path/to/release-notes.md nodes-v0.2.0
+git push github nodes-v0.2.0
 ```
 
-Library versions come from the tag, with archives named `OmooNodes.v0.1.0.b45.zip`. Package and asset releases have independent triggers and versions.
+Library versions come from the tag. Archives named like `OmooNodes.v0.2.0.b45.zip` extract to `O/`. The b52 remote library uses `b52/O/` on the asset server.
 
 ## Documentation
 

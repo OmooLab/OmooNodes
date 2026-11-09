@@ -25,7 +25,7 @@
 - [总览](README.md)：项目用途与安装方式。
 - [资产库](docs/asset-libraries.md)：资产库使用说明。
 - [开发](docs/develop.md)：资产构建、节点往返与文档开发流程。
-- [O Essentials](docs/nodes/o-essentials.md)、[O Extra](docs/nodes/o-extra.md)：节点参考。
+- [Omoo Nodes](docs/nodes/omoo-nodes.md)：节点参考。
 
 ## 常见命令
 
@@ -37,29 +37,26 @@ uv sync
 uv run pytest tests
 
 # 从正式节点脚本准备人工编辑库
-uv run omoonodes dev nodes/O_Essentials -o workspaces
-uv run omoonodes dev nodes/O_Essentials -s workspaces
+uv run omoonodes dev nodes/O -o workspaces
+uv run omoonodes dev nodes/O -s workspaces
 
 # 测试文档
-uv run docs test
+uv run python -m tools.docs test
 
 # 构建版本文档到本地 gh-pages
-uv run docs build
+uv run python -m tools.docs build
 
 # 本地预览文档
-uv run docs dev
+uv run python -m tools.docs dev
 
 # 部署版本文档到 GitHub gh-pages
-uv run docs deploy
+uv run python -m tools.docs deploy
 
 # 构建本地资产库
-uv run omoonodes build --target b45 -o contents
-
-# 构建独立本地资产库
-uv run omoonodes build nodes/O_Extra --target b45 --self-contained -o contents
+uv run omoonodes build nodes/O --target b45 -o contents
 
 # 构建远程资产库
-uv run omoonodes build --target b52 --remote -o dist
+uv run omoonodes build nodes/O --target b52 --remote -o dist
 
 # 首次导入全部 Asset 节点组
 uv run omoonodes dump path/to/O_Library.blend -o nodes/O_Library
@@ -71,7 +68,7 @@ uv run omoonodes dump path/to/O_Library.blend -o nodes/O_Library
 - 函数的动作前缀应表达产物边界：`generate_*` 表示 AI 生成，`build_*` 表示代码层构建，`create_*` 表示 Blender 内创建。
 - 名称应说明业务职责，并与用户概念、公开协议和界面术语保持一致。
 - 文件和目录名表达稳定的业务分类和模块职责，不直接沿用函数名，也不按临时执行步骤命名；集合层使用复数，单项分类使用单数。
-- 资产库目录沿用 `O_Essentials`、`O_Extra` 等名称；节点名、Socket 名保留资产原始拼写，例如 `O Solidfy`、`Rest Positon`。
+- 资产库名为 `O`，目录为 `O`；节点名、Socket 名保留资产原始拼写，例如 `O Solidfy`、`Rest Positon`。
 - 资产库压缩包名使用大驼峰，需要标明 Blender 版本时使用 `b45` 等标识，例如 `OmooNodes.v0.1.0.b45.zip`。
 - 新增 Blender 类型时，Class 使用大驼峰且不加前缀；Operator 使用动宾结构，Menu、Panel、AddonPreferences、PropertyGroup 使用实际类型后缀。
 - 项目内 Blender 类型使用 `omoo` 前缀：Operator 如 `omoo.build_assets`，Menu 如 `OMOO_MT_assets`，Panel 如 `OMOO_PT_assets`，公共自定义 Property 如 `omoo_settings`。Operator 自身 Property 使用业务名称，不加项目前缀。
@@ -91,7 +88,7 @@ uv run omoonodes dump path/to/O_Library.blend -o nodes/O_Library
 - OmooNodes 使用 Blender 原生 Asset Library；正式节点脚本位于 `nodes/`，人工编辑库位于 `workspaces/b45/`、`workspaces/b52/`，本地发布输出使用 `contents/<版本>/`，远程发布输出使用 `dist/b52/`。
 - 每个资产库保留一个源目录。无后缀 `.py` 是适配项目最低配置目标的通用实现，`.b52.py` 是 b52 专用完整实现；临时编辑库均包含完整目标内容。
 - 支持目标配置在 `pyproject.toml` 的 `tool.omoonodes.targets` 列表，精确版本由 `tool.omoonodes.versions` 覆盖，由 uv 自动准备隔离环境；各目标使用原生 bpy 完成构建、导出与校验，本地与 CI 复用同一流程。
-- 保持资产库间的相对路径与公共节点依赖有效。本地构建先处理 `O_Essentials`，再处理依赖它的资产库，并使用同一输出父目录。
+- 保持资产库间的相对路径与公共节点依赖有效。同库文件按 `collection.json` 中的顺序构建，公共节点在所属文件中定义。
 - `src/omoonodes/` 是独立可安装的 Python 包，提供 `omoonodes` CLI，读取调用项目配置；后台 worker 使用隔离的 Blender 用户目录。
 - 构建在临时目录完成组合、清理与校验，全部成功后替换目标目录；备份文件、旧 Remote listing 和临时文件不进入产物。
 - `--self-contained` 用于独立本地资产库；`--remote` 本地化外部引用并生成 listing、metadata、缩略图与 SHA-256，同时传入时按 remote 执行。

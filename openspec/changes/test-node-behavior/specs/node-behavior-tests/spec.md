@@ -21,7 +21,7 @@
 节点测试 SHALL 默认运行全部配置目标，支持 `--node-target` 和按节点文件筛选。目标环境和源码 MUST 会话内复用，各节点独立进程执行，每项测试清空数据并重新创建节点。
 
 #### Scenario: 选择单个节点
-- **WHEN** 执行 `uv run pytest tests/nodes/O_Essentials/geometry/test_o_blend.py --node-target b45`
+- **WHEN** 执行 `uv run pytest tests/nodes/O/geometry/test_o_blend.py --node-target b45`
 - **THEN** 只在 b45 执行 O Blend 单元测试
 
 #### Scenario: 求值失败或进程异常

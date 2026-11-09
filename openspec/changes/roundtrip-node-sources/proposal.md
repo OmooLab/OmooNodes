@@ -9,10 +9,10 @@ OmooNodes 需要让人和代码共同维护节点，并以 nodebpy 导出的代�
 - AnyImage 作为 build 后处理，在 Blender 中整理节点树并保存完整编辑库。
 - 人工修改后，nodebpy dump 分别导出到 b45、b52 临时目录；比较基线、验证依赖与版本，合并后回写 `nodes/`。
 - 共享实现以无后缀文件存一份，同名不同实现保存为 `.py` 与 `.b52.py`，b52 特有实现仅保存 `.b52.py`；不使用增量补丁。
-- 仅提供 `nodes build nodes/O_Essentials -o workspaces` 和 `nodes sync nodes/O_Essentials -s workspaces` 两个命令；版本选择、临时目录与必要验证在命令内部完成，目标 bpy 环境自动准备。
+- 开发库通过 `omoonodes dev nodes/O -o workspaces` 构建，通过 `omoonodes dev nodes/O -s workspaces` 回写。命令内部准备目标 bpy 环境，完成版本选择、暂存与验证。
 - 构建自动按依赖顺序准备同版本资产库，恢复跨文件 linked 引用；公共组仅由所属资产库维护，sync 按归属从真实文件提取并回写，不能从引用副本覆盖来源。
 - **BREAKING**：正式来源迁移到 `nodes/`，`workspaces/b45/`、`workspaces/b52/` 是完整编辑库；保留资产库名称、文件划分和相对依赖。
-- `build_assets.py` 继续负责现有发布流程，输入改为已完成版本选择和验证的完整编辑库；临时源码、基线及 `.blend` 不进入 Git。
+- `omoonodes build` 从源码生成发布库，临时源码、基线及构建产物保存在本地。
 
 ## Capabilities
 
@@ -29,8 +29,8 @@ OmooNodes 需要让人和代码共同维护节点，并以 nodebpy 导出的代�
 - 新增 `nodes/` 正式存储和 `tools/nodes/` 薄工具，在 `pyproject.toml` 注册 `nodes`。
 - 引入固定 nodebpy 后端及项目内 AnyImage 整理代码，保留来源和许可。
 - Python 3.13 开发环境将 nodebpy/bpy 纳入 dev，版本由 uv.lock 锁定；各目标 Python/bpy 版本统一写入 pyproject.toml，本地与 CI 使用相同 worker 校验。
-- release workflow 从 nodes 构建全部已迁移库，通过现有资产工具清理并按 b45、b52 打包；本地复用 tools.nodes.release 入口。
+- release workflow 使用 `omoonodes build` 从 `nodes/O` 构建并打包 b45、b52 资产，本地使用同一构建命令。
 - b45 路径需实际验证：没有现成的 nodebpy 450.x。优先验证 5.2 构建后由 4.5 检查并保存，再由支持的 Blender 执行 dump；不能把读取成功视为兼容通过。
-- 调整 `build_assets.py` 的完整库输入和相关测试，删除旧 overlay 合并路径，保持仅依赖 bpy 与标准库。
+- 验证 `omoonodes build` 的完整目标库输出及其依赖。
 - 实施时按需更新 AGENTS.md、docs/develop.md 和 Git 忽略；提案阶段不迁移资产、不构建发布产物。
 

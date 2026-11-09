@@ -1,10 +1,31 @@
 from pathlib import Path
 
-
+from omoonodes import blend, publication
 from omoonodes.publication import (
     copy_sidecar_files,
     update_library_metadata,
 )
+
+
+def test_publish_writes_linked_siblings_before_their_consumers(tmp_path, monkeypatch):
+    source = tmp_path / "source"
+    source.mkdir()
+    consumer = source / "Effects.blend"
+    owner = source / "Geometry.blend"
+    consumer.touch()
+    owner.touch()
+    external = tmp_path / "Other.blend"
+    monkeypatch.setattr(blend, "dependencies", lambda path: [owner, external] if path == consumer else [])
+    published = []
+
+    def clean(bpy, path, destination, keep_linked):
+        assert keep_linked
+        published.append(path)
+        return 1
+
+    monkeypatch.setattr(publication, "clean_blend_file", clean)
+    publication.publish_library(None, source, tmp_path / "output")
+    assert published == [owner, consumer]
 
 
 def test_copy_sidecar_files_excludes_generated_and_backup_files(

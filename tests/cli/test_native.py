@@ -166,8 +166,8 @@ sys.path[:0] = [{str(Path(__file__).resolve().parents[2])!r}, {str(Path(__file__
 import bpy
 from omoonodes.arrangement.arrange import arrange_nodes
 from omoonodes.arrangement.common import origin_socket, socket_links
-from nodes.O_Essentials.O_Essentials_CompositingNodes.compositor.o_stroke import OStroke
-from nodes.O_Essentials.O_Essentials_GeometryNodes.geometry.o_tube import OTube
+from nodes.O.O_Base_Compositor.compositor.o_stroke import OStroke
+from nodes.O.O_Base_Geometry.geometry.o_tube import OTube
 
 shader = bpy.data.node_groups.new('Shader input reads', 'ShaderNodeTree')
 shader.interface.new_socket('Value', in_out='INPUT', socket_type='NodeSocketFloat')

@@ -2,7 +2,7 @@
 
 现有 tools/nodes 已有源码版本选择、双目标 bpy 环境、布局、逻辑比较和原子替换。
 AnyImage 的 10 个公开组由手写 Python 构建，其主项目使用 Python 3.11；OmooNodes 项目环境同样使用 Python 3.11、bpy 4.5.14，nodebpy 仅安装在独立 Python 3.13 后端。
-两项目需要共用工具，保留自己的资产、运行时、测试和发布职责。当前目标是 b45/b52，仅管理 O_Essentials 与 O_Extra。
+两项目需要共用工具，保留自己的资产、运行时、测试和发布职责。OmooNodes 的目标是 b45/b52，源码位于 `nodes/O`。
 
 ## Goals / Non-Goals
 
@@ -102,11 +102,10 @@ dump 首次导入统一使用无版本后缀 .py，原始 .blend 的保存版本
 OmooNodes：
 
 ```bash
-uv run nodes dev nodes/O_Essentials -o workspaces
-uv run nodes dev nodes/O_Essentials -s workspaces
-uv run nodes build -o dist
-uv run nodes build nodes/O_Extra --target b45 -o dist
-uv run nodes build nodes/O_Extra --target b52 --remote -o dist
+uv run omoonodes dev nodes/O -o workspaces
+uv run omoonodes dev nodes/O -s workspaces
+uv run omoonodes build nodes/O --target b45 -o dist
+uv run omoonodes build nodes/O --target b52 --remote -o dist
 ```
 
 AnyImage：
@@ -142,10 +141,8 @@ remote 自动本地化外部数据，生成原生 listing、metadata 和 SHA-256
 CLI 输出库目录；压缩包由项目发布流程或插件打包程序负责。
 
 ```text
-dist/b45/O_Essentials/*.blend       本地库与 catalog
-dist/b45/O_Extra/*.blend            相对引用同级 Essentials
-dist/b52/O_Essentials/              独立资产、catalog、metadata、_v1 listing
-dist/b52/O_Extra/                   已本地化外部依赖
+dist/b45/O/   本地库与 catalog，保留文件间相对链接
+dist/b52/O/   本地化依赖后的资产、catalog、metadata、_v1 listing
 ```
 
 复用 build_assets.py 的清理、模式约束及验证后移入独立工具，删除 blend overlay 路径。

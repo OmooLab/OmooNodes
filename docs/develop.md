@@ -25,7 +25,9 @@ uv 在 `.cache/nodes/` 准备各目标环境；构建、导出、保存和校验
 `nodes/<资产库>/` 保存 Python、资源、catalog 和记录文件归属与依赖的 `collection.json`。
 通用实现使用 `.py`，b52 专用实现使用完整的 `.b52.py`；专用文件内 `DISABLED = True` 表示停用。同版本的依赖库放在同一父目录。
 源码沿用 nodebpy 的节点类、Socket 运算和 `>>` 连线写法，导入包名为 `omoonodes`；最小示例见工具包的 `src/omoonodes/README.md`。
-跨库节点通过 `from nodes.<库>.<源目录>... import 节点类` 引用；CLI 加载当前目标的源码，并按 `collection.json` 复用外部链接。
+跨文件节点通过 `from nodes.<库>.<源目录>... import 节点类` 引用。CLI 加载当前目标的源码，并按 `collection.json` 建立相对链接。
+
+`nodes/O/` 对应资产库 `O`。库内有 `O_Base_Compositor.blend`、`O_Base_Geometry.blend`、`O_Base_Shader.blend` 和 `O_Extra.blend`。公共节点链接到其所属文件，发布时先保存被引用的文件。Blender 的添加菜单直接显示 `O Deform` 等分类。
 `dev`、`build` 自动布局，统一使用无 Frame 的节点布局；源码不记录节点位置和布局开关。
 布局先排列计算节点，再按消费者的位置拆分 Group Input：同列相邻且整体紧凑的消费者共用输入，跨列或相距较远的消费者分别读取。几何、材质、合成树使用同一规则。无障碍的独立连线保持直连，共享长连线和避障连线使用 reroute。
 
@@ -34,19 +36,16 @@ uv 在 `.cache/nodes/` 准备各目标环境；构建、导出、保存和校验
 uv run omoonodes dump path/to/O_Library.blend -o nodes/O_Library
 
 # 从源码生成并覆盖开发库
-uv run omoonodes dev nodes/O_Extra -o workspaces
+uv run omoonodes dev nodes/O -o workspaces
 
 # 从开发库回写修改后的 Python 和资源
-uv run omoonodes dev nodes/O_Extra -s workspaces
+uv run omoonodes dev nodes/O -s workspaces
 
-# 构建本地库及依赖
-uv run omoonodes build nodes/O_Extra --target b45 -o contents
-
-# 独立本地库：嵌入外部依赖
-uv run omoonodes build nodes/O_Extra --target b45 --self-contained -o contents
+# 构建本地库
+uv run omoonodes build nodes/O --target b45 -o contents
 
 # 远程库：嵌入依赖并生成原生 listing、metadata、缩略图和 SHA-256
-uv run omoonodes build --target b52 --remote -o dist
+uv run omoonodes build nodes/O --target b52 --remote -o dist
 ```
 
 人用 Blender 编辑开发库，AI 直接修改源码，由操作者决定覆盖方向。同步跳过未修改内容，已有专用实现回写专用文件；共享修改通过所有继承目标的原生构建验证后覆盖基础文件，失败时保留源码。b52 删除共享节点时写入停用文件。
@@ -66,10 +65,10 @@ uv run pytest tests
 uv run pytest tests/cli
 uv run pytest tests/nodes
 uv run pytest tests/nodes --node-target b45 -k o_mix_color
-uv run pytest tests/nodes/O_Essentials/geometry/test_o_blend.py
+uv run pytest tests/nodes/O/geometry/test_o_blend.py
 ```
 
-每个节点一个普通 pytest 文件，直接写输入、调用和断言；需要多组输入时使用 `pytest.mark.parametrize`。新增测试文件即可被发现。当前覆盖 14 个节点，其中 Deform 类 9 个全部覆盖，目录检查防止漏测。
+每个节点一个普通 pytest 文件，直接写输入、调用和断言；需要多组输入时使用 `pytest.mark.parametrize`。新增测试文件即可被发现。当前覆盖 20 个节点，其中 Deform 类 10 个全部覆盖，目录检查防止漏测。
 
 `conftest.py` 负责双目标启动：复用现有 bpy 环境和目标源码选择，在目标环境准备 pytest；每个节点独立进程执行，每项测试前清空 Blender 数据并直接创建被测节点及依赖。失败直接显示原生 pytest 输出；单节点执行超时为 120 秒，CI 保留日志和图像。
 
@@ -83,7 +82,8 @@ uv run pytest tests/nodes/O_Essentials/geometry/test_o_blend.py
 | O Project | 最近点、双向射线命中、距离外未命中、半权重和局部选择 | Radius Offset、Source/Normal 方向和方向权重 |
 | O Linear | 已知向量渐变、0.5 阈值两侧和旋转 | 隐式坐标输入 |
 | O Stroke | Matte 描边、平方 Alpha、全透明、光照下的 Alpha、关闭描边和位移恢复 | Depth/Normal 边缘及光照调色的 RGB |
-| O Random Jitter | 零强度、有效位移、固定帧重复性和跨库依赖 | 时间步进与参数范围 |
+| O Random Jitter | 零强度、固定帧重复性、时间步进、独立的速度与密度、W 偏移 | 参数范围 |
+| O Scene Time | 单帧和多帧步进、负帧、零帧及非整数帧率 | 子帧 |
 | O Blend | 按索引半权重混合、局部选择、零系数和拓扑保持 | 不同点数的源几何 |
 | O Curve Deform | 沿折线拟合、半权重、局部选择、零权重和拓扑保持 | 截面朝向、Tilt、多曲线及闭合曲线 |
 | O Displace | 法线及向量位移、Midlevel、局部选择、零强度和拓扑保持 | 逐点位移场 |
@@ -91,6 +91,11 @@ uv run pytest tests/nodes/O_Essentials/geometry/test_o_blend.py
 | O Relax | 平面不均匀网格松弛、局部选择、零权重和拓扑保持 | 自定义投射面、多岛及多次迭代 |
 | O Sharpen | 曲率对称网格的非零位移、固定边界、零权重和拓扑保持 | 曲率菜单、局部选择及多次迭代 |
 | O Transform | 缩放、旋转、平移组合、局部选择、空选择和拓扑保持 | Matrix 与软选择 |
+| O Grid（几何） | 默认朝向、显式尺寸、长宽比细分、居中厚度与 UV 输出 | 零尺寸 |
+| O Pick Instance | 非空点云转实例、空点云输出为空 | 其他几何组件 |
+| O Exploded View | 连通块向外移动、零距离与自定义分组 | 不规则分组 |
+| O Tube | 修改器读取半径、默认半径、零半径和缩放 | 端点连接和壁厚 |
+| O Texture to Layer | 颜色、透明度、粗糙度、默认法线、发光阈值与上限 | 法线贴图和可选网格属性 |
 
 O Resample Edge 沿用 Blender 的 [Length 重采样语义](https://docs.blender.org/manual/en/4.0/modeling/geometry_nodes/curve/operations/resample_curve.html)：Length 为近似间距，样本均匀分布。长 2、Length=0.75 的直线得到位置 0、1、2。
 
@@ -117,14 +122,16 @@ git tag cli-v0.1.0
 git push github cli-v0.1.0
 ```
 
-节点库独立使用 `nodes-v*` 标签，触发 `.github/workflows/release.yml`，通过 matrix 并行构建 b45 本地库和 b52 远程库；两个构建都成功后，由一个发布任务收集压缩包并统一发布 GitHub Release。同一标签的发布流程串行执行。
+## 发布节点资产库
+
+节点库使用带注释的 `nodes-v*` 标签触发 `.github/workflows/release.yml`。b45 本地库和 b52 远程库并行构建，通过后由同一个任务发布到 GitHub Release。标签注释用作发布说明。
 
 ```bash
-git tag nodes-v0.1.0
-git push github nodes-v0.1.0
+git tag -a --cleanup=verbatim -F path/to/release-notes.md nodes-v0.2.0
+git push github nodes-v0.2.0
 ```
 
-节点库版本由标签决定，压缩包沿用 `OmooNodes.v0.1.0.b45.zip` 格式；两类发布分别触发、独立版本。
+节点库版本由标签决定。压缩包采用 `OmooNodes.v0.2.0.b45.zip` 格式，解压后得到 `O/`。b52 远程库发布到资产服务器时，目录为 `b52/O/`。
 
 ## 文档
 

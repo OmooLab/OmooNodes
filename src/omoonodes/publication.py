@@ -6,6 +6,7 @@ import json
 import re
 import shutil
 from collections.abc import Iterable, Iterator
+from graphlib import TopologicalSorter
 from pathlib import Path
 from typing import Any
 IGNORED_FILES = {"_asset-library-meta.json", "blender_assets.cats.txt~"}
@@ -309,10 +310,19 @@ def validate_listing(library_dir: Path) -> int:
 def publish_library(bpy, source, output, remote=False, self_contained=False, contact=None):
     output.mkdir(parents=True)
     copy_sidecar_files(source, output)
+    keep_linked = not (remote or self_contained)
+    files = sorted(source.rglob("*.blend"))
+    if keep_linked:
+        from .blend import dependencies
+
+        # Reloading a published file needs its linked siblings in the output.
+        local = {path.resolve(): path for path in files}
+        graph = {path: sorted({local[dep] for dep in dependencies(path) if dep in local}) for path in files}
+        files = list(TopologicalSorter(graph).static_order())
     expected_assets = 0
-    for path in sorted(source.rglob("*.blend")):
+    for path in files:
         relative = path.relative_to(source)
-        expected_assets += clean_blend_file(bpy, path, output / relative, keep_linked=not (remote or self_contained))
+        expected_assets += clean_blend_file(bpy, path, output / relative, keep_linked=keep_linked)
     if remote:
         # Blender's versioned module defines the native repository schema.
         from _bpy_internal.assets.remote_library.cli_listing_generator import cli_main

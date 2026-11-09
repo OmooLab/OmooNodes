@@ -37,9 +37,9 @@ jobs:
       
       - name: Build and package nodes
         run: |
-          uv run --no-dev --locked omoonodes build --target ${{ matrix.target }} ${{ matrix.options }} -o dist
+          uv run --no-dev --locked omoonodes build nodes/O --target ${{ matrix.target }} ${{ matrix.options }} -o dist
           cd dist/${{ matrix.target }}
-          zip -r "../OmooNodes.${GITHUB_REF_NAME#nodes-}.${{ matrix.target }}.zip" .
+          zip -r "../OmooNodes.${GITHUB_REF_NAME#nodes-}.${{ matrix.target }}.zip" O
       
       - name: Upload package
         uses: actions/upload-artifact@v4
@@ -54,6 +54,25 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.ref }}
+          persist-credentials: false
+
+      - name: Read release notes from tag
+        id: notes
+        run: |
+          echo "title=${GITHUB_REF_NAME#nodes-}" >> "$GITHUB_OUTPUT"
+          tag_type=$(git cat-file -t "$GITHUB_REF")
+          if [[ "$tag_type" == tag ]]; then
+            notes="$RUNNER_TEMP/release-notes.md"
+            git for-each-ref --format='%(contents)' "$GITHUB_REF" > "$notes"
+            if grep -q '[^[:space:]]' "$notes"; then
+              echo "body_path=$notes" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
       - name: Download packages
         uses: actions/download-artifact@v4
         with:
@@ -64,6 +83,10 @@ jobs:
       - name: Publish release
         uses: softprops/action-gh-release@v3
         with:
-          files: dist/*.zip
+          name: ${{ steps.notes.outputs.title }}
+          body_path: ${{ steps.notes.outputs.body_path }}
+          generate_release_notes: ${{ steps.notes.outputs.body_path == '' }}
+          files: |
+            dist/OmooNodes.*.b45.zip
+            dist/OmooNodes.*.b52.zip
           fail_on_unmatched_files: true
-          generate_release_notes: true

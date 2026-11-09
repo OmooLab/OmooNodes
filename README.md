@@ -2,7 +2,7 @@
 
 ![cover](docs/assets/cover.png)
 
-Omoo Nodes is a suite of practical node asset libraries created by OmooLab for
+Omoo Nodes provides `O`, a practical node asset library created by OmooLab for
 Blender. It turns frequently used workflows into reusable node groups, reducing the
 time spent rebuilding common functionality while making complex node trees clearer
 and easier to maintain.
@@ -13,15 +13,7 @@ rendering, scientific visualization, and annotation.
 
 ## Features
 
-The assets are organized into libraries by purpose:
-
-| Asset Library | Purpose |
-| --- | --- |
-| `O Essentials` | Core utility nodes and shared dependencies for other asset libraries |
-| `O Extra` | Procedural assets and specific artistic effects |
-| `O Granules` | Particle effects, simulations, and presets |
-| `O Growth` | Organic growth and life-simulation effects |
-| `O Annotation` | Scientific data visualization, labels, and annotations |
+The library groups utilities, procedural modeling nodes, and artistic effects into categories such as `O Deform` and `O Generate`.
 
 All nodes use Blender's native Asset Library system, with no add-on required.
 
@@ -33,18 +25,18 @@ Blender 4.5 and 5.2. Other projects can use the same tool with their own node so
 
 Choose an installation method based on your Blender version and preferred workflow:
 
-### Local Asset Libraries
+### Local Asset Library
 
-1. Get Omoo Nodes from [Gumroad](https://icrdr.gumroad.com/l/omoonodes).
-2. Extract the complete package to a permanent directory.
+1. Download the package for your Blender version from [GitHub Releases](https://github.com/OmooLab/OmooNodes/releases).
+2. Extract the `O` folder to a permanent location.
 3. Open `Edit > Preferences > Asset Libraries`.
-4. Click `+` on the right side of the list and select an asset library folder, such
-   as `O Essentials`.
+4. Click `+`, select the `O` folder, and name the library `O`.
 
-Some asset libraries depend on `O Essentials`. Keep the relative locations of the
-asset library folders unchanged after extraction.
+Keep the `.blend` files together inside the `O` folder.
 
-### Remote Asset Libraries (5.2)
+### Remote Asset Library (5.2)
+
+After the b52 archive has been deployed to the asset server, add the library at the URL below.
 
 1. Open `Edit > Preferences > Asset Libraries`.
 2. Click `+` on the right side of the list, select `Add Remote Asset Library`, and
@@ -52,8 +44,7 @@ asset library folders unchanged after extraction.
 
 | Asset Library | URL |
 | --- | --- |
-| `O Essentials` | `https://assets.omoolab.xyz/b52/O_Essentials` |
-| `O Extra` | `https://assets.omoolab.xyz/b52/O_Extra` |
+| `O` | `https://assets.omoolab.xyz/b52/O` |
 
 If Blender requests network permission, allow Online Access. Blender first loads the
 asset listings and thumbnails, then downloads and caches individual assets on demand.

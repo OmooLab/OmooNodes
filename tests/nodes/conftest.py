@@ -79,11 +79,12 @@ def node(request, tmp_path):
     from omoonodes.publication import release_compositor_storage
 
     owner, kind, filename = request.path.relative_to(ROOT / "tests/nodes").parts
-    category = {"geometry": "Geometry", "shader": "Shader", "compositor": "Compositing"}[kind]
-    collection = "O_Extra" if owner == "O_Extra" else f"{owner}_{category}Nodes"
+    source_name = filename.removeprefix("test_")
+    sources = list((Path(folder) / "nodes" / owner).glob(f"*/{kind}/{source_name}"))
+    assert len(sources) == 1, f"Expected one source for {request.path}, found {sources}"
     if folder not in sys.path:
         sys.path.insert(0, folder)
-    module = importlib.import_module(f"nodes.{owner}.{collection}.{kind}.{Path(filename).stem.removeprefix('test_')}")
+    module = importlib.import_module(".".join(sources[0].relative_to(folder).with_suffix("").parts))
     assert Path(module.__file__).is_relative_to(folder), f"Node did not load selected target sources: {module.__file__}"
     assert not getattr(module, "DISABLED", False), f"Tested node is disabled: {module.__name__}"
     bpy.ops.wm.read_factory_settings(use_empty=True)

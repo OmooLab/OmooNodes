@@ -21,8 +21,8 @@
 系统 SHALL 用所选目标的 bpy 完成构建、导出、保存和校验，隔离 Blender 用户目录。源码和运行核心由同一 nodes 工具提供；运行时 SHALL 不依赖 nodebpy 或独立 builder 环境。
 
 #### Scenario: Build a b45 development library
-- **WHEN** 执行 `omoonodes dev nodes/O_Extra --target b45 -o workspaces`
-- **THEN** O_Essentials 与 O_Extra 按依赖顺序在 4.5 中构建、保存、重开校验并输出完整开发库，全程不在 5.2 中载入节点
+- **WHEN** 执行 `omoonodes dev nodes/O --target b45 -o workspaces`
+- **THEN** 三个 `O_Base_*.blend` 文件和 `O_Extra.blend`按依赖顺序在 4.5 中构建、保存、重开校验并输出完整开发库
 
 ### Requirement: Explicit import version
 

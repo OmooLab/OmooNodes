@@ -22,8 +22,8 @@ remote SHALL 自动本地化外部引用，同时传入 --self-contained SHALL �
 - **THEN** 构建完整 b52 本地库，不生成远程 listing
 
 #### Scenario: 独立本地分发
-- **WHEN** build nodes/O_Extra --self-contained
-- **THEN** 外部依赖嵌入 O_Extra 本地库，不生成远程 listing，使用时无需另装依赖库
+- **WHEN** 执行 `omoonodes build nodes/O --self-contained`
+- **THEN** 外部依赖嵌入本地库，使用时无需另装依赖库
 
 #### Scenario: 错误远程目标
 - **WHEN** 显式 remote 选中不支持远程库的目标

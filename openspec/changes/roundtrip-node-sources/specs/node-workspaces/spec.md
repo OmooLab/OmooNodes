@@ -22,8 +22,8 @@ release workflow SHALL 复用本地 uv 环境调度，从 nodes 构建完整工�
 工作基线 MUST 不进入发布产物。
 
 #### Scenario: 标签触发资产发布
-- **WHEN** v* 标签触发 release
-- **THEN** 从 nodes 生成两个版本的资产压缩包，任何构建失败均阻止发布
+- **WHEN** 带注释的 `nodes-v*` 标签触发 release
+- **THEN** 从 `nodes/O` 生成两个版本的资产压缩包，任何构建失败均阻止发布
 
 ### Requirement: 分版本临时源码包含完整依赖
 
@@ -46,20 +46,20 @@ release workflow SHALL 复用本地 uv 环境调度，从 nodes 构建完整工�
 系统 SHALL 生成 workspaces/b45、workspaces/b52 的完整编辑库，保留资产库名、文件归属、分类与同版本跨库相对依赖。每个库 MUST 包含该目标的全部资产和完整依赖，不引用另一版本、旧源库或发布目录。每次 nodebpy build SHALL 使用干净独立 Blender 进程，避免同名缓存污染。
 
 #### Scenario: 编辑 b52 内部依赖
-- **WHEN** 人打开 b52 资产并进入其 O Essentials 依赖
+- **WHEN** 人打开 b52 资产并进入其基础节点依赖
 - **THEN** 能编辑完整正确版本的节点内容，不只有局部更新组
 
 ### Requirement: 跨库链接保留唯一编辑归属
 
 系统 SHALL 按依赖顺序准备目标版本资产库，构建后将跨库组引用恢复为指向同版本所属文件的相对 linked 引用。系统 MUST 不把 nodebpy 的 Python import 当作已恢复 Blender 文件链接。公共组 SHALL 仅在所属文件可编辑，引用库不生成第二份正式来源；依赖已有未同步逻辑时 MUST 拒绝覆盖。
 
-#### Scenario: 构建 Extra 自动准备 Essentials
-- **WHEN** 执行 nodes build nodes/O_Extra -o workspaces
-- **THEN** 自动准备同版本 Essentials 并保留 Extra 对它的相对链接，无需分别指定依赖路径
+#### Scenario: 按顺序构建 O 库的文件
+- **WHEN** 执行 `omoonodes dev nodes/O -o workspaces`
+- **THEN** 先构建同版本的合成、几何和着色文件，`O_Extra.blend` 通过相对路径链接公共组
 
 #### Scenario: 修改公共组
-- **WHEN** 用户需要修改 Extra 引用的 Essentials 公共组
-- **THEN** 在 Essentials 所属文件修改，Extra 保留 linked 引用
+- **WHEN** 用户需要修改 `O_Extra.blend` 引用的公共组
+- **THEN** 在公共组所属文件中修改，效果文件保留相对链接
 
 ### Requirement: AnyImage 是 build 后处理
 
@@ -91,7 +91,7 @@ release workflow SHALL 复用本地 uv 环境调度，从 nodes 构建完整工�
 
 ### Requirement: 发布继续使用完整目标库
 
-build_assets.py SHALL 接收已验证的完整工作区并检查其目标与执行 Blender 一致，沿用清理、本地依赖、独立本地化与远程 listing、metadata、缩略图和 SHA-256 检查。脚本 MUST 仅依赖 bpy 与标准库。旧 blend overlay 合并路径 MUST 被前置版本选择取代。
+`omoonodes build` SHALL 先构建并验证完整目标库，再清理发布文件。它 SHALL 验证本地依赖或本地化后的资产，并在远程发布时验证 listing、metadata、缩略图和 SHA-256。
 
 #### Scenario: b45 本地与 b52 远程发布
 - **WHEN** 分别用对应 Blender 发布已验证的完整目标工作区

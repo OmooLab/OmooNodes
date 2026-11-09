@@ -2,13 +2,13 @@
 
 ### Requirement: OmooNodes CI 按构建验收打包接入
 
-OmooNodes SHALL 用 nodes build 构建正式双版本库，由项目发布流程压缩产物，
+OmooNodes SHALL 用 `omoonodes build` 构建正式双版本库，由项目发布流程压缩产物，
 在上传前运行结构与依赖验收。scripts/ 保留功能 SHALL 合并到 tools/nodes/ 并删除旧入口，节点释义生成与效果验证 SHALL 移除；本次 MUST 不新增 docs nodes。
 通用逻辑和旧 blend overlay 路径 SHALL 在接入验证后删除。
 
 #### Scenario: 标签发布
-- **WHEN** v* 标签触发发布
-- **THEN** 从 nodes 构建完整 b45 本地库与 b52 远程库，由项目发布流程压缩，验收失败则不上传
+- **WHEN** 带注释的 `nodes-v*` 标签触发发布
+- **THEN** 从 `nodes/O` 构建完整 b45 本地库与 b52 远程库，由项目发布流程压缩，验收失败则不上传
 
 ### Requirement: AnyImage 先在临时目录验证迁移
 
