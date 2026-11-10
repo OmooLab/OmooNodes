@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Extra geometry nodes for Blender">
+        <meta name="description" content="Native node assets for Blender">
       
       
         <meta name="author" content="OmooLab">
@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://docs.omoolab.xyz/omoonodes/0.1.x/en/develop/">
       
       
-        <link rel="prev" href="../nodes/o-extra/">
+        <link rel="prev" href="../nodes/omoo-nodes/">
       
       
       
@@ -31,7 +31,7 @@
     
     
       
-        <title>Development - OmooNodes Docs</title>
+        <title>Development - Omoo Nodes Docs</title>
       
     
     
@@ -104,7 +104,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../" title="OmooNodes Docs" class="md-header__button md-logo" aria-label="OmooNodes Docs" data-md-component="logo">
+    <a href="../" title="Omoo Nodes Docs" class="md-header__button md-logo" aria-label="Omoo Nodes Docs" data-md-component="logo">
       
   <img src="../../assets/logo.png" alt="logo">
 
@@ -117,7 +117,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            OmooNodes Docs
+            Omoo Nodes Docs
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -272,7 +272,7 @@
   
     
   
-  OmooNodes
+  Omoo Nodes
 
         </a>
       </li>
@@ -288,7 +288,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../nodes/o-essentials/" class="md-tabs__link">
+        <a href="../nodes/omoo-nodes/" class="md-tabs__link">
           
   
   
@@ -354,12 +354,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../" title="OmooNodes Docs" class="md-nav__button md-logo" aria-label="OmooNodes Docs" data-md-component="logo">
+    <a href="../" title="Omoo Nodes Docs" class="md-nav__button md-logo" aria-label="Omoo Nodes Docs" data-md-component="logo">
       
   <img src="../../assets/logo.png" alt="logo">
 
     </a>
-    OmooNodes Docs
+    Omoo Nodes Docs
   </label>
   
     <div class="md-nav__source">
@@ -415,7 +415,7 @@
   <span class="md-ellipsis">
     
   
-    OmooNodes
+    Omoo Nodes
   
 
     
@@ -437,7 +437,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    OmooNodes
+    Omoo Nodes
   
 
           </label>
@@ -488,8 +488,6 @@
   
     
     
-      
-        
       
         
       
@@ -545,42 +543,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../nodes/o-essentials/" class="md-nav__link">
+      <a href="../nodes/omoo-nodes/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    O Essentials
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../nodes/o-extra/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    O Extra
+    O
   
 
     
@@ -729,10 +699,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#environment" class="md-nav__link">
+  <a href="#environment-and-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Environment
+        Environment and configuration
       
     </span>
   </a>
@@ -740,38 +710,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#directory-layout" class="md-nav__link">
+  <a href="#node-development" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Directory Layout
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Directory Layout">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#version-composition-rules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Version Composition Rules
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run-the-build-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Run the Build Script
+        Node development
       
     </span>
   </a>
@@ -779,10 +721,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-local-asset-libraries" class="md-nav__link">
+  <a href="#publishing-the-python-package" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Build Local Asset Libraries
+        Publishing the Python package
       
     </span>
   </a>
@@ -790,10 +732,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-remote-asset-libraries" class="md-nav__link">
+  <a href="#publishing-the-node-asset-library" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Build Remote Asset Libraries
+        Publishing the node asset library
       
     </span>
   </a>
@@ -801,10 +743,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#node-documentation-and-the-codex-skill" class="md-nav__link">
+  <a href="#documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Node Documentation and the Codex Skill
+        Documentation
       
     </span>
   </a>
@@ -854,10 +796,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#environment" class="md-nav__link">
+  <a href="#environment-and-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Environment
+        Environment and configuration
       
     </span>
   </a>
@@ -865,38 +807,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#directory-layout" class="md-nav__link">
+  <a href="#node-development" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Directory Layout
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Directory Layout">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#version-composition-rules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Version Composition Rules
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run-the-build-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Run the Build Script
+        Node development
       
     </span>
   </a>
@@ -904,10 +818,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-local-asset-libraries" class="md-nav__link">
+  <a href="#publishing-the-python-package" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Build Local Asset Libraries
+        Publishing the Python package
       
     </span>
   </a>
@@ -915,10 +829,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-remote-asset-libraries" class="md-nav__link">
+  <a href="#publishing-the-node-asset-library" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Build Remote Asset Libraries
+        Publishing the node asset library
       
     </span>
   </a>
@@ -926,10 +840,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#node-documentation-and-the-codex-skill" class="md-nav__link">
+  <a href="#documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Node Documentation and the Codex Skill
+        Documentation
       
     </span>
   </a>
@@ -957,169 +871,65 @@
 
 
 <h1 id="development">Development</h1>
-<p>This page documents the asset build and documentation workflows for OmooNodes.</p>
-<h2 id="environment">Environment</h2>
-<p>The project uses <code>uv</code> to manage its Python environment.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>sync
+<h2 id="environment-and-configuration">Environment and configuration</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="w"> </span>--dev
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests
 </span></code></pre></div>
-<p>Test, build, preview, and deploy the documentation with:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span><span class="nb">test</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span>build
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span>dev
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span>deploy
+<p>This repository contains the node asset libraries and the installable <code>omoonodes</code> package. <code>src/omoonodes/</code> provides the <code>omoonodes</code> command, configured by the calling project's <code>pyproject.toml</code>:</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">[tool.omoonodes]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">targets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;b45&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;b52&quot;</span><span class="p">]</span>
 </span></code></pre></div>
-<p><code>test</code> runs a strict build in a temporary directory to check errors and warnings;
-<code>dev</code> provides live preview. <code>build</code> uses the version in <code>pyproject.toml</code> to generate
-the <code>major.minor.x</code> series (currently <code>0.1.x</code>), updates <code>latest</code>, and commits to the
-local <code>gh-pages</code> branch. <code>deploy</code> builds the same version and pushes to <code>gh-pages</code>
-on the <code>github</code> remote. Configure GitHub Pages to publish from that branch's root.</p>
-<h2 id="directory-layout">Directory Layout</h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>subspaces   Blender asset sources
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>contents    Cleaned local Asset Libraries
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>dist        Deployable Remote Asset Libraries
+<p>Defaults: Python 3.11 / bpy 4.5.14 for b45; Python 3.13 / bpy 5.2.2 for b52.
+uv prepares native target environments in <code>.cache/nodes/</code>. Each target builds, exports, saves, and checks its own files.
+<code>tool.omoonodes.versions</code> overrides exact bpy versions. Input files and their dependencies must match the target major/minor version.</p>
+<p>Commands show <code>...</code> while working, <code>✔</code> on completion, and output directories at the end. Blender Info, Warning, read-path messages, and leak statistics on successful exit are hidden; other Error messages or unsuccessful exits stop the command.</p>
+<h2 id="node-development">Node development</h2>
+<p><code>nodes/&lt;library&gt;/</code> contains Python, resources, catalogs, and <code>collection.json</code> describing files and dependencies.
+Sources use nodebpy-style node classes, Socket expressions, and <code>&gt;&gt;</code> links, imported from <code>omoonodes</code>. <code>dev</code> and <code>build</code> arrange nodes automatically; sources contain no node positions or layout options.
+Cross-file references import node classes through <code>nodes.&lt;library&gt;.&lt;source&gt;...</code>. The CLI loads sources for the selected target and uses relative links declared in <code>collection.json</code>.
+Shared implementations use <code>.py</code>; b52-specific implementations use <code>.b52.py</code>. Related libraries share one target parent directory.</p>
+<p><code>nodes/O/</code> contains the <code>O</code> asset library. Three <code>O_Base_*.blend</code> files and <code>O_Extra.blend</code> hold compositing, geometry, shader, and effects assets. Shared nodes are linked from their owning files. Local publishing saves linked files before the files that reference them. Blender's Add menu shows catalogs such as <code>O Deform</code> directly.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Import assets and dependencies into a new source directory</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv<span class="w"> </span>run<span class="w"> </span>omoonodes<span class="w"> </span>dump<span class="w"> </span>path/to/O_Library.blend<span class="w"> </span>-o<span class="w"> </span>nodes/O_Library
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Build and overwrite development libraries</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>uv<span class="w"> </span>run<span class="w"> </span>omoonodes<span class="w"> </span>dev<span class="w"> </span>nodes/O<span class="w"> </span>-o<span class="w"> </span>workspaces
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Export development libraries, overwriting Python sources and resources</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>uv<span class="w"> </span>run<span class="w"> </span>omoonodes<span class="w"> </span>dev<span class="w"> </span>nodes/O<span class="w"> </span>-s<span class="w"> </span>workspaces
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Build the local library</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>uv<span class="w"> </span>run<span class="w"> </span>omoonodes<span class="w"> </span>build<span class="w"> </span>nodes/O<span class="w"> </span>--target<span class="w"> </span>b45<span class="w"> </span>-o<span class="w"> </span>contents
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1"># Remote libraries with dependencies, native listings, metadata, thumbnails, and SHA-256</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>uv<span class="w"> </span>run<span class="w"> </span>omoonodes<span class="w"> </span>build<span class="w"> </span>nodes/O<span class="w"> </span>--target<span class="w"> </span>b52<span class="w"> </span>--remote<span class="w"> </span>-o<span class="w"> </span>dist
 </span></code></pre></div>
-<p>Each Asset Library has one source directory. An unversioned <code>.blend</code> file is the base
-layer. A <code>.b&lt;major&gt;&lt;minor&gt;.blend</code> file is an overlay enabled from that Blender version
-onward. Same-named node groups override lower layers, while new names are added. The
-Blender running the build selects the overlays. Output paths have no version layer.</p>
-<p>For example:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>subspaces/O_Essentials/
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├─ O_Essentials_GeometryNodes.blend
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├─ O_Essentials_GeometryNodes.b52.blend
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├─ O_Essentials_ShaderNodes.blend
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>└─ blender_assets.cats.txt
+<p>People edit development libraries in Blender; AI edits sources directly. The operator chooses the overwrite direction. Export also removes sources for deleted assets.
+dev defaults to the lowest target; build defaults to all targets. Sync selects the unique workspace target, requiring --target when several exist.
+Omitted sources use <code>tool.omoonodes.source</code>, defaulting to <code>nodes</code>. Default outputs are <code>workspaces/&lt;target&gt;/&lt;library&gt;/</code> and <code>dist/&lt;target&gt;/&lt;library&gt;/</code>.
+Builds use temporary directories, save and reload in the target Blender, then replace outputs. CI archives the results for release.</p>
+<h2 id="publishing-the-python-package">Publishing the Python package</h2>
+<p><code>.github/workflows/test.yml</code> runs tests and builds packages on pushes to main and pull requests targeting main, then checks both the wheel and sdist by building, exporting, and rebuilding a minimal node.</p>
+<p><code>.github/workflows/publish.yml</code> runs on <code>cli-v*</code> tags, tests the source, and builds the sdist and wheel. Each package is installed and checked by building, exporting, and rebuilding a minimal node in a temporary project before publishing <code>omoonodes</code> through PyPI Trusted Publishing. The package version comes from <code>pyproject.toml</code>.</p>
+<p>Before the first release, create a GitHub environment named <code>pypi</code> and add a pending publisher at <a href="https://pypi.org/manage/account/publishing/">PyPI Publishing</a> with project <code>omoonodes</code>, owner <code>OmooLab</code>, repository <code>OmooNodes</code>, workflow <code>publish.yml</code>, and environment <code>pypi</code>. The first successful upload creates the PyPI project; no API token is needed.</p>
+<p>Commit the version and lockfile, then push the matching tag, for example:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>tag<span class="w"> </span>cli-v0.1.0
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>git<span class="w"> </span>push<span class="w"> </span>github<span class="w"> </span>cli-v0.1.0
 </span></code></pre></div>
-<p>Blender 4.5 builds only the base layer. Blender 5.2 composes the base and <code>.b52.blend</code>
-in order. An overlay may link common node groups from the base file. The build remaps
-those references to local data in the result and replaces base node groups with
-same-named overlay implementations.</p>
-<h3 id="version-composition-rules">Version Composition Rules</h3>
-<ul>
-<li>An unversioned file is the Blender 4.5 base layer. Do not create overlays older
-  than <code>b45</code>.</li>
-<li>The Blender running the script determines the target version. A filename such as
-  <code>.b52.blend</code> determines when an overlay is enabled; the file's saved version does
-  not control selection.</li>
-<li>The build loads the base first, then applies every compatible overlay from the
-  lowest version to the highest.</li>
-<li>New node groups are added. Same-named node groups replace lower-version
-  implementations.</li>
-</ul>
-<p>For example, Blender 5.3 composes <code>base → b52 → b53</code>, so a <code>b53</code> implementation wins
-when names match.</p>
-<h2 id="run-the-build-script">Run the Build Script</h2>
-<p>The target Blender must execute the script. These Git Bash examples store its
-executable in a variable:</p>
-<p><code>build_assets.py</code> is a single-file tool that depends only on Blender's bundled <code>bpy</code>
-and the Python standard library. The build environment does not need a separate
-Python, <code>uv</code>, or project dependencies; distributing the build tool requires only this
-script.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">BLENDER</span><span class="o">=</span><span class="s2">&quot;C:/path/to/blender.exe&quot;</span>
+<h2 id="publishing-the-node-asset-library">Publishing the node asset library</h2>
+<p>Annotated <code>nodes-v*</code> tags trigger <code>.github/workflows/release.yml</code>. The workflow builds the b45 local and b52 remote libraries in parallel, then publishes both archives in one GitHub Release. The tag annotation supplies the release notes.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>--cleanup<span class="o">=</span>verbatim<span class="w"> </span>-F<span class="w"> </span>path/to/release-notes.md<span class="w"> </span>nodes-v0.2.0
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>push<span class="w"> </span>github<span class="w"> </span>nodes-v0.2.0
 </span></code></pre></div>
-<p>General invocation:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span>SOURCE<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+<p>Library versions come from the tag. Archives named like <code>OmooNodes.v0.2.0.b45.zip</code> extract to <code>O/</code>. The b52 remote library is served at <code>https://assets.omoolab.xyz/o/</code>.</p>
+<h2 id="documentation">Documentation</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>tools.docs<span class="w"> </span><span class="nb">test</span><span class="w">    </span><span class="c1"># Strict build in a temporary directory</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>tools.docs<span class="w"> </span>dev<span class="w">     </span><span class="c1"># Local preview</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>tools.docs<span class="w"> </span>build<span class="w">  </span><span class="c1"># Build major.minor.x and commit to local gh-pages</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>tools.docs<span class="w"> </span>deploy<span class="w"> </span><span class="c1"># Push to the github remote</span>
 </span></code></pre></div>
-<ul>
-<li><code>-b</code> runs Blender in background mode.</li>
-<li><code>--python-exit-code 1</code> returns a non-zero status when Python fails.</li>
-<li><code>-P build_assets.py</code> executes the build script.</li>
-<li><code>--</code> separates Blender arguments from build-script arguments.</li>
-<li><code>SOURCE</code> is one Asset Library source directory.</li>
-<li><code>-o/--out</code> selects the output parent; the result keeps the <code>SOURCE</code> directory
-  name.</li>
-</ul>
-<p>Composition, cleanup, and validation happen in staging directories. The target is
-replaced only after every step succeeds. Blender backups, old remote listings, and
-temporary files are excluded.</p>
-<h2 id="build-local-asset-libraries">Build Local Asset Libraries</h2>
-<p>Local builds preserve linked libraries and their original relative paths by default.
-Build <code>O_Essentials</code> first, then <code>O_Extra</code>, keeping both under the same output parent:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span>subspaces/O_Essentials<span class="w"> </span>-o<span class="w"> </span>contents
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span>subspaces/O_Extra<span class="w"> </span>-o<span class="w"> </span>contents
-</span></code></pre></div>
-<p>The results are <code>contents/O_Essentials</code> and <code>contents/O_Extra</code>. Use
-<code>--self-contained</code> to build a local library without external linked-library
-dependencies:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span>subspaces/O_Extra<span class="w"> </span>--self-contained<span class="w"> </span>-o<span class="w"> </span>contents
-</span></code></pre></div>
-<h2 id="build-remote-asset-libraries">Build Remote Asset Libraries</h2>
-<p>Remote mode localizes linked datablocks, removes external references, generates the
-listing, metadata, and thumbnails, and validates asset files and SHA-256 hashes:</p>
-<p>Localization happens while source-relative paths are still valid. Dependency
-datablocks keep their node contents without inheriting Asset marks from the source
-library.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span>subspaces/O_Essentials<span class="w"> </span>--remote<span class="w"> </span>-o<span class="w"> </span>dist
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span>subspaces/O_Extra<span class="w"> </span>--remote<span class="w"> </span>-o<span class="w"> </span>dist
-</span></code></pre></div>
-<p>Remote builds validate asset counts, file counts, thumbnails, and SHA-256 hashes.
-<code>--remote</code> already produces a result without external references, so it cannot be
-combined with <code>--self-contained</code>.</p>
-<p>Deployment mapping:</p>
-<table>
-<thead>
-<tr>
-<th>Build Directory</th>
-<th>Public URL</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>dist/O_Essentials</code></td>
-<td><code>https://assets.omoolab.xyz/b52/O_Essentials</code></td>
-</tr>
-<tr>
-<td><code>dist/O_Extra</code></td>
-<td><code>https://assets.omoolab.xyz/b52/O_Extra</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="node-documentation-and-the-codex-skill">Node Documentation and the Codex Skill</h2>
-<p>Node metadata follows one directional synchronization flow:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Published .blend files
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  → .agents/skills/use-omoo-nodes/references/node-catalog.json
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  → docs/nodes/o-essentials.md
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  → docs/nodes/o-extra.md
-</span></code></pre></div>
-<p><code>node-catalog.json</code> is the machine reference used by the skill. It stores exact node
-names, tree types, socket identifiers, defaults, dependencies, and concise usage
-descriptions. <code>docs/nodes/</code> contains the user-facing references generated from the same
-catalog. Do not maintain duplicate node Markdown inside the skill.</p>
-<p>Maintain node functions, practical use cases, and plain-language parameter explanations
-in <code>scripts/generate_node_reference.py</code>. Node functions are also written to each
-catalog <code>description</code>, while the docs receive the complete user-facing guide. After
-updating assets, inspect the published libraries with the target Blender version, then
-regenerate the catalog descriptions and documentation:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">BLENDER</span><span class="o">=</span><span class="s2">&quot;C:/path/to/blender.exe&quot;</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span>-P<span class="w"> </span>scripts/inspect_omoo_nodes.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span>dist/O_Essentials<span class="w"> </span>dist/O_Extra<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span>--output<span class="w"> </span>.agents/skills/use-omoo-nodes/references/node-catalog.json
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/generate_node_reference.py<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">  </span>.agents/skills/use-omoo-nodes/references/node-catalog.json<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">  </span>dist<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">  </span>docs/nodes
-</span></code></pre></div>
-<p>The generator embeds <code>BEHAVIOR_NOTES</code> into each catalog <code>description</code> and rebuilds
-both node reference pages. Generation fails when a new node has no usage description,
-preventing silent drift between the skill and docs.</p>
-<p>Finish by running the Blender integration check, skill validator, tests, and docs
-check:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span>-P<span class="w"> </span>scripts/validate_omoo_nodes_in_blender.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span>dist<span class="w"> </span>dist/validation/use-omoo-nodes-validation.blend
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/test_use_omoo_nodes_skill.py
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span><span class="nb">test</span>
-</span></code></pre></div>
-<p>Keep asset spelling exactly as published, including names such as <code>O Solidfy</code> and
-<code>Rest Positon</code>.</p>
+<p>Node documentation lives in <code>docs/nodes/</code>; the machine reference is <code>.agents/skills/use-omoo-nodes/references/node-catalog.json</code>.</p>
+<p>Source definitions import <code>omoonodes</code>; see <code>src/omoonodes/README.md</code> for the small Python API. Unchanged content is not rewritten. Shared edits must build in every inheriting target before sources are replaced. Existing <code>.b52.py</code> implementations remain target-specific; <code>DISABLED = True</code> disables an asset for that target. Structural checks do not establish effect equivalence.</p>
 
 
 
@@ -1149,7 +959,7 @@ check:</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../nodes/o-extra/" class="md-footer__link md-footer__link--prev" aria-label="Previous: O Extra">
+          <a href="../nodes/omoo-nodes/" class="md-footer__link md-footer__link--prev" aria-label="Previous: O">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1159,7 +969,7 @@ check:</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                O Extra
+                O
               </div>
             </div>
           </a>

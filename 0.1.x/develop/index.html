@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Extra geometry nodes for Blender">
+        <meta name="description" content="Native node assets for Blender">
       
       
         <meta name="author" content="OmooLab">
@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://docs.omoolab.xyz/omoonodes/0.1.x/develop/">
       
       
-        <link rel="prev" href="../nodes/o-extra/">
+        <link rel="prev" href="../nodes/omoo-nodes/">
       
       
       
@@ -31,7 +31,7 @@
     
     
       
-        <title>开发 - OmooNodes Docs</title>
+        <title>开发 - Omoo Nodes Docs</title>
       
     
     
@@ -104,7 +104,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="OmooNodes Docs" class="md-header__button md-logo" aria-label="OmooNodes Docs" data-md-component="logo">
+    <a href=".." title="Omoo Nodes Docs" class="md-header__button md-logo" aria-label="Omoo Nodes Docs" data-md-component="logo">
       
   <img src="../assets/logo.png" alt="logo">
 
@@ -117,7 +117,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            OmooNodes Docs
+            Omoo Nodes Docs
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -272,7 +272,7 @@
   
     
   
-  OmooNodes
+  Omoo Nodes
 
         </a>
       </li>
@@ -288,7 +288,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../nodes/o-essentials/" class="md-tabs__link">
+        <a href="../nodes/omoo-nodes/" class="md-tabs__link">
           
   
   
@@ -354,12 +354,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="OmooNodes Docs" class="md-nav__button md-logo" aria-label="OmooNodes Docs" data-md-component="logo">
+    <a href=".." title="Omoo Nodes Docs" class="md-nav__button md-logo" aria-label="Omoo Nodes Docs" data-md-component="logo">
       
   <img src="../assets/logo.png" alt="logo">
 
     </a>
-    OmooNodes Docs
+    Omoo Nodes Docs
   </label>
   
     <div class="md-nav__source">
@@ -415,7 +415,7 @@
   <span class="md-ellipsis">
     
   
-    OmooNodes
+    Omoo Nodes
   
 
     
@@ -437,7 +437,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    OmooNodes
+    Omoo Nodes
   
 
           </label>
@@ -488,8 +488,6 @@
   
     
     
-      
-        
       
         
       
@@ -545,42 +543,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../nodes/o-essentials/" class="md-nav__link">
+      <a href="../nodes/omoo-nodes/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    O Essentials
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../nodes/o-extra/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    O Extra
+    O
   
 
     
@@ -732,7 +702,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        环境
+        环境与配置
       
     </span>
   </a>
@@ -743,27 +713,32 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        目录结构
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="目录结构">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        版本合并规则
+        节点开发
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        发布 Python 包
+      
+    </span>
+  </a>
   
 </li>
       
@@ -771,7 +746,7 @@
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        执行构筑脚本
+        发布节点资产库
       
     </span>
   </a>
@@ -782,29 +757,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        构筑本地资产库
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        构筑远程资产库
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#codex-skill" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        节点文档与 Codex Skill
+        文档
       
     </span>
   </a>
@@ -857,7 +810,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        环境
+        环境与配置
       
     </span>
   </a>
@@ -868,27 +821,32 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        目录结构
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="目录结构">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        版本合并规则
+        节点开发
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        测试
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        发布 Python 包
+      
+    </span>
+  </a>
   
 </li>
       
@@ -896,7 +854,7 @@
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        执行构筑脚本
+        发布节点资产库
       
     </span>
   </a>
@@ -907,29 +865,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        构筑本地资产库
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        构筑远程资产库
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#codex-skill" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        节点文档与 Codex Skill
+        文档
       
     </span>
   </a>
@@ -957,129 +893,221 @@
 
 
 <h1 id="_1">开发</h1>
-<p>本页记录 OmooNodes 资产库的构筑与文档开发流程。</p>
-<h2 id="_2">环境</h2>
-<p>项目使用 <code>uv</code> 管理 Python 环境。</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>sync
+<h2 id="_2">环境与配置</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="w"> </span>--dev
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests
 </span></code></pre></div>
-<p>测试、构建、预览和部署文档：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span><span class="nb">test</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span>build
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span>dev
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span>deploy
+<p>本仓库同时维护节点资产库和 <code>omoonodes</code> Python 包。<code>src/omoonodes/</code> 提供 <code>omoonodes</code> 命令，读取调用项目的 <code>pyproject.toml</code>：</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">[tool.omoonodes]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">targets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;b45&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;b52&quot;</span><span class="p">]</span>
 </span></code></pre></div>
-<p><code>test</code> 在临时目录中严格构建，检查文档错误与警告；<code>dev</code> 提供实时预览。
-<code>build</code> 根据 <code>pyproject.toml</code> 的版本生成 <code>major.minor.x</code> 系列（当前为 <code>0.1.x</code>），
-更新 <code>latest</code> 并提交到本地 <code>gh-pages</code>。<code>deploy</code> 构建同一版本并推送到 <code>github</code>
-远端的 <code>gh-pages</code>；GitHub Pages 使用该分支的根目录作为发布源。</p>
-<h2 id="_3">目录结构</h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>subspaces   Blender 资产源文件
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>dist        Asset Library 导出文件夹
+<p>默认 b45 使用 Python 3.11 / bpy 4.5.14，b52 使用 Python 3.13 / bpy 5.2.2。
+uv 在 <code>.cache/nodes/</code> 准备各目标环境；构建、导出、保存和校验均使用对应 bpy。
+<code>tool.omoonodes.versions</code> 可覆盖已声明目标的精确 bpy 版本。输入库及依赖的保存主次版本须与目标一致。</p>
+<p>各指令以 <code>...</code> 显示进度、<code>✔</code> 标记完成，最后列出输出目录。Blender 的 Info、Warning、读取路径和正常退出时的内存泄漏统计隐藏；其他 Error 或异常退出会停止后续流程。</p>
+<h2 id="_3">节点开发</h2>
+<p><code>nodes/&lt;资产库&gt;/</code> 保存 Python、资源、catalog 和记录文件归属与依赖的 <code>collection.json</code>。
+通用实现使用 <code>.py</code>，b52 专用实现使用完整的 <code>.b52.py</code>；专用文件内 <code>DISABLED = True</code> 表示停用。同版本的依赖库放在同一父目录。
+源码沿用 nodebpy 的节点类、Socket 运算和 <code>&gt;&gt;</code> 连线写法，导入包名为 <code>omoonodes</code>；最小示例见工具包的 <code>src/omoonodes/README.md</code>。
+跨文件节点通过 <code>from nodes.&lt;库&gt;.&lt;源目录&gt;... import 节点类</code> 引用。CLI 加载当前目标的源码，并按 <code>collection.json</code> 建立相对链接。</p>
+<p><code>nodes/O/</code> 对应资产库 <code>O</code>。库内有 <code>O_Base_Compositor.blend</code>、<code>O_Base_Geometry.blend</code>、<code>O_Base_Shader.blend</code> 和 <code>O_Extra.blend</code>。公共节点链接到其所属文件，发布时先保存被引用的文件。Blender 的添加菜单直接显示 <code>O Deform</code> 等分类。
+<code>dev</code>、<code>build</code> 自动布局，统一使用无 Frame 的节点布局；源码不记录节点位置和布局开关。
+布局先排列计算节点，再按消费者的位置拆分 Group Input：同列相邻且整体紧凑的消费者共用输入，跨列或相距较远的消费者分别读取。几何、材质、合成树使用同一规则。无障碍的独立连线保持直连，共享长连线和避障连线使用 reroute。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 首次导入 Asset 节点及依赖，输出目录须不存在</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv<span class="w"> </span>run<span class="w"> </span>omoonodes<span class="w"> </span>dump<span class="w"> </span>path/to/O_Library.blend<span class="w"> </span>-o<span class="w"> </span>nodes/O_Library
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># 从源码生成并覆盖开发库</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>uv<span class="w"> </span>run<span class="w"> </span>omoonodes<span class="w"> </span>dev<span class="w"> </span>nodes/O<span class="w"> </span>-o<span class="w"> </span>workspaces
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># 从开发库回写修改后的 Python 和资源</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>uv<span class="w"> </span>run<span class="w"> </span>omoonodes<span class="w"> </span>dev<span class="w"> </span>nodes/O<span class="w"> </span>-s<span class="w"> </span>workspaces
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># 构建本地库</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>uv<span class="w"> </span>run<span class="w"> </span>omoonodes<span class="w"> </span>build<span class="w"> </span>nodes/O<span class="w"> </span>--target<span class="w"> </span>b45<span class="w"> </span>-o<span class="w"> </span>contents
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1"># 远程库：嵌入依赖并生成原生 listing、metadata、缩略图和 SHA-256</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>uv<span class="w"> </span>run<span class="w"> </span>omoonodes<span class="w"> </span>build<span class="w"> </span>nodes/O<span class="w"> </span>--target<span class="w"> </span>b52<span class="w"> </span>--remote<span class="w"> </span>-o<span class="w"> </span>dist
 </span></code></pre></div>
-<p><code>subspaces</code> 中每个 Asset Library 只保留一个目录。无版本后缀的 <code>.blend</code> 是基础层；
-<code>.b&lt;major&gt;&lt;minor&gt;.blend</code> 是从对应版本起启用的 overlay。同名 Node Group 向下覆盖，
-新名称则追加。执行构建的 Blender 自动决定启用哪些 overlay，输出路径不包含版本层。</p>
-<p>例如：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>subspaces/O_Essentials/
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├─ O_Essentials_GeometryNodes.blend
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├─ O_Essentials_GeometryNodes.b52.blend
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├─ O_Essentials_ShaderNodes.blend
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>└─ blender_assets.cats.txt
+<p>人用 Blender 编辑开发库，AI 直接修改源码，由操作者决定覆盖方向。同步跳过未修改内容，已有专用实现回写专用文件；共享修改通过所有继承目标的原生构建验证后覆盖基础文件，失败时保留源码。b52 删除共享节点时写入停用文件。
+更新公共库时，输出目录中已有的引用库须一并重建；CLI 根据依赖关系检查并提示选择共同的源码目录。先同步需要保留的人工修改，再执行 <code>dev</code> 或 <code>build</code>。导出、同步和发布会检查 Menu 的选项是否有效。
+结构验证不代替效果检查；修改功能后检查接口、依赖和实际输出。
+<code>dev</code> 默认最低目标，<code>build</code> 默认全部目标；<code>-s</code> 自动选择唯一工作区目标，多版本时需指定 <code>--target</code>。
+省略来源时读取 <code>tool.omoonodes.source</code>，默认 <code>nodes</code>。默认输出分别为 <code>workspaces/&lt;目标&gt;/&lt;资产库&gt;/</code> 和 <code>dist/&lt;目标&gt;/&lt;资产库&gt;/</code>。
+构建在临时目录完成，目标 Blender 保存、重载检查后替换输出；CI 再压缩发布。</p>
+<h2 id="_4">测试</h2>
+<p><code>tests/cli/</code> 验证工具包，<code>tests/nodes/&lt;资产库&gt;/&lt;树类型&gt;/test_o_&lt;节点名&gt;.py</code> 验证单个节点的输入与输出。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/cli
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/nodes
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/nodes<span class="w"> </span>--node-target<span class="w"> </span>b45<span class="w"> </span>-k<span class="w"> </span>o_mix_color
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/nodes/O/geometry/test_o_blend.py
 </span></code></pre></div>
-<p>Blender 4.5 只构筑基础层；Blender 5.2 会按顺序组合基础层和 <code>.b52.blend</code>。overlay 可以
-Link 基础文件中的公共 Node Group，构筑脚本会将这些引用映射回产物中的本地数据，并让
-overlay 中的同名 Node Group 覆盖基础实现。</p>
-<h3 id="_4">版本合并规则</h3>
-<ul>
-<li>无后缀文件是 Blender 4.5 基础层，不应创建低于 <code>b45</code> 的 overlay。</li>
-<li>目标版本由执行脚本的 Blender 决定；overlay 的启用版本由 <code>.b52.blend</code> 等文件名决定，
-  不使用文件内部记录的保存版本。</li>
-<li>构筑时先载入基础层，再按版本从低到高应用所有不高于目标版本的 overlay。</li>
-<li>overlay 中的新 Node Group 会被加入；同名 Node Group 会覆盖较低版本的实现。</li>
-</ul>
-<p>例如 Blender 5.3 的合并顺序为 <code>base → b52 → b53</code>，最终由 <code>b53</code> 的同名节点胜出。</p>
-<h2 id="_5">执行构筑脚本</h2>
-<p>脚本必须由目标 Blender 执行。以下示例使用 Git Bash，并将 executable 保存到变量中：</p>
-<p><code>build_assets.py</code> 是单文件工具，只依赖 Blender 内置的 <code>bpy</code> 与 Python 标准库。构筑
-环境不需要另外安装 Python、<code>uv</code> 或项目依赖；分发构筑工具时只需携带该脚本。</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">BLENDER</span><span class="o">=</span><span class="s2">&quot;C:/path/to/blender.exe&quot;</span>
+<p>每个节点一个普通 pytest 文件，直接写输入、调用和断言；需要多组输入时使用 <code>pytest.mark.parametrize</code>。新增测试文件即可被发现。当前覆盖 20 个节点，其中 Deform 类 10 个全部覆盖，目录检查防止漏测。</p>
+<p><code>conftest.py</code> 负责双目标启动：复用现有 bpy 环境和目标源码选择，在目标环境准备 pytest；每个节点独立进程执行，每项测试前清空 Blender 数据并直接创建被测节点及依赖。失败直接显示原生 pytest 输出；单节点执行超时为 120 秒，CI 保留日志和图像。</p>
+<p>共用的 <code>evaluation.py</code> 仅提供小型输入数据、实际求值和数值比较。几何与字段读取 depsgraph 输出，Shader 和 Compositor 读取 CPU 求值的线性 EXR。期望值来自独立计算或明确的节点约定，浮点比较声明容差。</p>
+<table>
+<thead>
+<tr>
+<th>节点</th>
+<th>已测行为</th>
+<th>待补范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O Mix Color</td>
+<td>RGBA 插值端点、中点和逐点 Factor</td>
+<td>越界 Factor</td>
+</tr>
+<tr>
+<td>O Resample Edge</td>
+<td>整除及非整除间距、端点、独立曲线选择</td>
+<td>闭合边、分叉和属性传递</td>
+</tr>
+<tr>
+<td>O Smooth</td>
+<td>中心凸起平滑、对称性、拓扑计数、零权重和局部选择</td>
+<td>多次迭代、Pin Sharp、Pin Boundary</td>
+</tr>
+<tr>
+<td>O Project</td>
+<td>最近点、双向射线命中、距离外未命中、半权重和局部选择</td>
+<td>Radius Offset、Source/Normal 方向和方向权重</td>
+</tr>
+<tr>
+<td>O Linear</td>
+<td>已知向量渐变、0.5 阈值两侧和旋转</td>
+<td>隐式坐标输入</td>
+</tr>
+<tr>
+<td>O Stroke</td>
+<td>Matte 描边、平方 Alpha、全透明、光照下的 Alpha、关闭描边和位移恢复</td>
+<td>Depth/Normal 边缘及光照调色的 RGB</td>
+</tr>
+<tr>
+<td>O Random Jitter</td>
+<td>零强度、固定帧重复性、时间步进、独立的速度与密度、W 偏移</td>
+<td>参数范围</td>
+</tr>
+<tr>
+<td>O Scene Time</td>
+<td>单帧和多帧步进、负帧、零帧及非整数帧率</td>
+<td>子帧</td>
+</tr>
+<tr>
+<td>O Blend</td>
+<td>按索引半权重混合、局部选择、零系数和拓扑保持</td>
+<td>不同点数的源几何</td>
+</tr>
+<tr>
+<td>O Curve Deform</td>
+<td>沿折线拟合、半权重、局部选择、零权重和拓扑保持</td>
+<td>截面朝向、Tilt、多曲线及闭合曲线</td>
+</tr>
+<tr>
+<td>O Displace</td>
+<td>法线及向量位移、Midlevel、局部选择、零强度和拓扑保持</td>
+<td>逐点位移场</td>
+</tr>
+<tr>
+<td>O Point Deform</td>
+<td>Rest Positon 位移传递、半权重、局部选择、零权重和拓扑保持</td>
+<td>非均匀源变形和平滑参数</td>
+</tr>
+<tr>
+<td>O Relax</td>
+<td>平面不均匀网格松弛、局部选择、零权重和拓扑保持</td>
+<td>自定义投射面、多岛及多次迭代</td>
+</tr>
+<tr>
+<td>O Sharpen</td>
+<td>曲率对称网格的非零位移、固定边界、零权重和拓扑保持</td>
+<td>曲率菜单、局部选择及多次迭代</td>
+</tr>
+<tr>
+<td>O Transform</td>
+<td>缩放、旋转、平移组合、局部选择、空选择和拓扑保持</td>
+<td>Matrix 与软选择</td>
+</tr>
+<tr>
+<td>O Grid（几何）</td>
+<td>默认朝向、显式尺寸、长宽比细分、居中厚度与 UV 输出</td>
+<td>零尺寸</td>
+</tr>
+<tr>
+<td>O Pick Instance</td>
+<td>非空点云转实例、空点云输出为空</td>
+<td>其他几何组件</td>
+</tr>
+<tr>
+<td>O Exploded View</td>
+<td>连通块向外移动、零距离与自定义分组</td>
+<td>不规则分组</td>
+</tr>
+<tr>
+<td>O Tube</td>
+<td>修改器读取半径、默认半径、零半径和缩放</td>
+<td>端点连接和壁厚</td>
+</tr>
+<tr>
+<td>O Texture to Layer</td>
+<td>颜色、透明度、粗糙度、默认法线、发光阈值与上限</td>
+<td>法线贴图和可选网格属性</td>
+</tr>
+</tbody>
+</table>
+<p>O Resample Edge 沿用 Blender 的 <a href="https://docs.blender.org/manual/en/4.0/modeling/geometry_nodes/curve/operations/resample_curve.html">Length 重采样语义</a>：Length 为近似间距，样本均匀分布。长 2、Length=0.75 的直线得到位置 0、1、2。</p>
+<h2 id="python">发布 Python 包</h2>
+<p><code>.github/workflows/test.yml</code> 在推送 main 或提交面向 main 的 PR 时运行测试、打包，并验证 wheel 和源码包的最小节点构建、导出和重新构建。</p>
+<p><code>.github/workflows/publish.yml</code> 在推送 <code>cli-v*</code> 标签时运行测试、构建源码包和 wheel，分别安装后在临时项目中验证最小节点的构建、导出和重新构建，再通过 PyPI Trusted Publishing 发布 <code>omoonodes</code>。包版本读取 <code>pyproject.toml</code>。</p>
+<p>首次发布前，在 GitHub 仓库创建 <code>pypi</code> environment，再到 <a href="https://pypi.org/manage/account/publishing/">PyPI Publishing</a> 添加 pending publisher：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PyPI Project Name</td>
+<td><code>omoonodes</code></td>
+</tr>
+<tr>
+<td>Owner</td>
+<td><code>OmooLab</code></td>
+</tr>
+<tr>
+<td>Repository name</td>
+<td><code>OmooNodes</code></td>
+</tr>
+<tr>
+<td>Workflow name</td>
+<td><code>publish.yml</code></td>
+</tr>
+<tr>
+<td>Environment name</td>
+<td><code>pypi</code></td>
+</tr>
+</tbody>
+</table>
+<p>首次成功上传会自动创建 PyPI 项目，无需配置 API token。提交版本和锁文件后，推送对应标签，例如：</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>tag<span class="w"> </span>cli-v0.1.0
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>push<span class="w"> </span>github<span class="w"> </span>cli-v0.1.0
 </span></code></pre></div>
-<p>通用调用形式：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span>SOURCE<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+<h2 id="_5">发布节点资产库</h2>
+<p>节点库使用带注释的 <code>nodes-v*</code> 标签触发 <code>.github/workflows/release.yml</code>。b45 本地库和 b52 远程库并行构建，通过后由同一个任务发布到 GitHub Release。标签注释用作发布说明。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>--cleanup<span class="o">=</span>verbatim<span class="w"> </span>-F<span class="w"> </span>path/to/release-notes.md<span class="w"> </span>nodes-v0.2.0
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git<span class="w"> </span>push<span class="w"> </span>github<span class="w"> </span>nodes-v0.2.0
 </span></code></pre></div>
-<ul>
-<li><code>-b</code>：使用后台模式，不打开 Blender 界面。</li>
-<li><code>--python-exit-code 1</code>：Python 构筑失败时返回非零退出码。</li>
-<li><code>-P build_assets.py</code>：执行构筑脚本。</li>
-<li><code>--</code>：分隔 Blender 参数与构筑脚本参数。</li>
-<li><code>SOURCE</code>：单个 Asset Library 源目录。</li>
-<li><code>-o/--out</code>：输出父目录；产物目录名沿用 <code>SOURCE</code> 的目录名。</li>
-</ul>
-<p>构筑会在临时目录中完成组合、清理与校验，全部成功后才替换目标目录。Blender 备份文件、
-旧 Remote listing 和临时文件不会进入产物。</p>
-<h2 id="_6">构筑本地资产库</h2>
-<p>默认本地构筑保留 linked library 和原始相对路径。应先构筑 <code>O_Essentials</code>，再构筑
-<code>O_Extra</code>，并让它们保持在同一输出父目录：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span>subspaces/O_Essentials<span class="w"> </span>-o<span class="w"> </span>contents
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span>subspaces/O_Extra<span class="w"> </span>-o<span class="w"> </span>contents
+<p>节点库版本由标签决定。压缩包采用 <code>OmooNodes.v0.2.0.b45.zip</code> 格式，解压后得到 <code>O/</code>。b52 远程库的在线地址为 <code>https://assets.omoolab.xyz/o/</code>。</p>
+<h2 id="_6">文档</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>tools.docs<span class="w"> </span><span class="nb">test</span><span class="w">    </span><span class="c1"># 临时目录严格构建</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>tools.docs<span class="w"> </span>dev<span class="w">     </span><span class="c1"># 本地预览</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>tools.docs<span class="w"> </span>build<span class="w">  </span><span class="c1"># 按 major.minor.x 构建并提交到本地 gh-pages</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>tools.docs<span class="w"> </span>deploy<span class="w"> </span><span class="c1"># 推送到 github 远端</span>
 </span></code></pre></div>
-<p>结果分别位于 <code>contents/O_Essentials</code> 和 <code>contents/O_Extra</code>。使用 <code>--self-contained</code>
-可以构筑没有外部 linked library 依赖的独立本地资产库：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span>subspaces/O_Extra<span class="w"> </span>--self-contained<span class="w"> </span>-o<span class="w"> </span>contents
-</span></code></pre></div>
-<h2 id="_7">构筑远程资产库</h2>
-<p>Remote 模式会将 linked datablock 本地化，清理外部引用，生成 listing、metadata 和缩略图，
-并校验资产文件与 SHA-256：</p>
-<p>本地化会在源文件的相对路径仍然有效时完成。依赖 datablock 会保留节点内容，但不会
-继承来源资产库的 Asset 标记。</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span>subspaces/O_Essentials<span class="w"> </span>--remote<span class="w"> </span>-o<span class="w"> </span>dist
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span>-P<span class="w"> </span>build_assets.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span>subspaces/O_Extra<span class="w"> </span>--remote<span class="w"> </span>-o<span class="w"> </span>dist
-</span></code></pre></div>
-<p>结果分别位于 <code>dist/O_Essentials</code> 和 <code>dist/O_Extra</code>。如需适配网络地址，可在构筑完成后
-手动调整发布目录名。</p>
-<p>Remote 构筑会验证资产数量、文件数量、缩略图和 SHA-256。<code>--remote</code> 已经生成无外部引用
-的产物，因此不能与 <code>--self-contained</code> 同时使用。</p>
-<h2 id="codex-skill">节点文档与 Codex Skill</h2>
-<p>节点资料采用一套单向同步流程：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>发布版 .blend
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  → .agents/skills/use-omoo-nodes/references/node-catalog.json
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  → docs/nodes/o-essentials.md
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  → docs/nodes/o-extra.md
-</span></code></pre></div>
-<p><code>node-catalog.json</code> 是 skill 使用的机器参考，保存精确节点名、类型、Socket identifier、
-默认值、依赖和简短用途。<code>docs/nodes/</code> 是从同一 catalog 生成的面向用户参考。不要在 skill
-中再维护重复的节点 Markdown。</p>
-<p>节点功能、妙用案例和参数释义集中维护在 <code>scripts/generate_node_reference.py</code>，其中节点功能
-同时写回 catalog 的 <code>description</code>，docs 则生成面向使用者的完整说明。更新资产后先用目标
-Blender 重新检查发布版，再生成 catalog 描述和 docs：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">BLENDER</span><span class="o">=</span><span class="s2">&quot;C:/path/to/blender.exe&quot;</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span>-P<span class="w"> </span>scripts/inspect_omoo_nodes.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span>dist/O_Essentials<span class="w"> </span>dist/O_Extra<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span>--output<span class="w"> </span>.agents/skills/use-omoo-nodes/references/node-catalog.json
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/generate_node_reference.py<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">  </span>.agents/skills/use-omoo-nodes/references/node-catalog.json<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">  </span>dist<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">  </span>docs/nodes
-</span></code></pre></div>
-<p>生成器会把 <code>BEHAVIOR_NOTES</code> 同步写入 catalog 的 <code>description</code>，并同时重建两份节点文档。
-新增节点但缺少用途说明时生成会失败，避免 skill 与 docs 静默漂移。</p>
-<p>最后运行 Blender 集成检查、skill validator、测试和文档检查：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="s2">&quot;</span><span class="nv">$BLENDER</span><span class="s2">&quot;</span><span class="w"> </span>-b<span class="w"> </span>--python-exit-code<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span>-P<span class="w"> </span>scripts/validate_omoo_nodes_in_blender.py<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span>dist<span class="w"> </span>dist/validation/use-omoo-nodes-validation.blend
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/test_use_omoo_nodes_skill.py
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>uv<span class="w"> </span>run<span class="w"> </span>docs<span class="w"> </span><span class="nb">test</span>
-</span></code></pre></div>
-<p>文档中的节点名必须保留资产原始拼写，例如 <code>O Solidfy</code> 与 <code>Rest Positon</code>。</p>
+<p>节点说明在 <code>docs/nodes/</code>，机器参考在 <code>.agents/skills/use-omoo-nodes/references/node-catalog.json</code>。</p>
 
 
 
@@ -1109,7 +1137,7 @@ Blender 重新检查发布版，再生成 catalog 描述和 docs：</p>
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="../nodes/o-extra/" class="md-footer__link md-footer__link--prev" aria-label="上一页: O Extra">
+          <a href="../nodes/omoo-nodes/" class="md-footer__link md-footer__link--prev" aria-label="上一页: O">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1119,7 +1147,7 @@ Blender 重新检查发布版，再生成 catalog 描述和 docs：</p>
                 上一页
               </span>
               <div class="md-ellipsis">
-                O Extra
+                O
               </div>
             </div>
           </a>
